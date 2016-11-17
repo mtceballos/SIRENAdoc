@@ -1,0 +1,598 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>SIRENA Tools CLI &mdash; SIRENA 2.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/_themes/themes_overrides.css" type="text/css" />
+  
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="SIRENA 2.0 documentation" href="index.html"/>
+        <link rel="next" title="SIRENA functions" href="SIRENAfunctions.html"/>
+        <link rel="prev" title="SIRENA description" href="SIRENA.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> SIRENA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="SIRENA.html">SIRENA description</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">SIRENA Tools CLI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#gennoisespec">gennoisespec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tesreconstruction">tesreconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tessim">tessim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tesconstpileup">tesconstpileup</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="SIRENAfunctions.html">SIRENA functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zreferences.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">SIRENA</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>SIRENA Tools CLI</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        
+          <a href="_sources/SIRENAcommandline.txt" rel="nofollow"> View page source</a>
+        
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="sirena-tools-cli">
+<span id="sirenatools"></span><h1>SIRENA Tools CLI<a class="headerlink" href="#sirena-tools-cli" title="Permalink to this headline">¶</a></h1>
+<p>Here we describe the command line options for the tools run for SIRENA reconstruction (<code class="docutils literal"><span class="pre">gennoisespec</span></code> and <code class="docutils literal"><span class="pre">tesreconstruction</span></code>).
+At the end, links to the documentation of other SIXTE tools required for the simulation of data files are provided (<code class="docutils literal"><span class="pre">tesconstpileup</span></code> and <code class="docutils literal"><span class="pre">tessim</span></code>).</p>
+<div class="section" id="gennoisespec">
+<span id="id1"></span><h2>gennoisespec<a class="headerlink" href="#gennoisespec" title="Permalink to this headline">¶</a></h2>
+<p>The goal of the <code class="docutils literal"><span class="pre">gennoisespec</span></code> tool is to calculate the current noise spectral density.
+The input data from which it would be calculated should be a FITS file with the data splitted into records (see <a class="reference internal" href="SIRENA.html#noise-records"><span class="std std-ref">Noise file triggered into records of 10000 samples.</span></a>) with or without photon events (pulses).</p>
+<p>The user must supply the following input parameters:</p>
+<span class="target" id="gennoisepars"></span><dl class="option">
+<dt id="cmdoption--inFile">
+<code class="descname">--inFile</code><code class="descclassname">=&lt;str&gt;</code><a class="headerlink" href="#cmdoption--inFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of the input FITS file (stream splitted into records)</p>
+<p>Default: <em>a.fits</em></p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption--outFile">
+<code class="descname">--outFile</code><code class="descclassname">=&lt;str&gt;</code><a class="headerlink" href="#cmdoption--outFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of the output FITS file with the current noise spectral density</p>
+<p>Default: <em>a_noisespec.fits</em></p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption--intervalMinSamples">
+<code class="descname">--intervalMinSamples</code><code class="descclassname">=&lt;samples&gt;</code><a class="headerlink" href="#cmdoption--intervalMinSamples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Minimum length (in samples ) of a pulse-free interval to use</p>
+<p>Default: 1024</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption--nplPF">
+<code class="descname">--nplPF</code><code class="descclassname">=&lt;real&gt;</code><a class="headerlink" href="#cmdoption--nplPF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of pulse lengths after the end of the pulse to start the pulse-free interval searching (only relevant if pulse detection in the stream has to be performed)</p>
+<p>Default: 0</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption--nintervals">
+<code class="descname">--nintervals</code><code class="descclassname">=&lt;int&gt;</code><a class="headerlink" href="#cmdoption--nintervals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of pulse-free intervals to use for the noise average</p>
+<p>Default: 1000</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption--scaleFactor">
+<code class="descname">--scaleFactor</code><code class="descclassname">=&lt;real&gt;</code><a class="headerlink" href="#cmdoption--scaleFactor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scale factor to apply to make possible a variable cut-off frequency of the low-pass filter. In fact, the cut-off frequency of the filter is <img class="math" src="_images/math/16ceb1b69116e97955e3928ae4a04c7cc9995bc6.png" alt="1/(\pi \cdot sF)"/> and therefore, the box-car length is <img class="math" src="_images/math/3dc1b253d80bc6333ede8496cc34108bb4a9430d.png" alt="\pi \cdot sF \cdot samprate"/> (see <a class="reference internal" href="SIRENA.html#lpf"><span class="std std-ref">Low-Pass filtering</span></a>).</p>
+<p>If the <a class="reference internal" href="#cmdoption-arg-scaleFactor"><code class="xref std std-option docutils literal"><span class="pre">scaleFactor</span></code></a> makes the box-car legnth <img class="math" src="_images/math/9605f25f3219e92ba554f5603bfb8fdada6ffe91.png" alt="\leq 1"/> is equivalent to not filter (cut-off frequency of the low-pass filter is too high). If the <a class="reference internal" href="#cmdoption-arg-scaleFactor"><code class="xref std std-option docutils literal"><span class="pre">scaleFactor</span></code></a> is too large, the low-pass filter band is too narrow, and not only noise is rejected during the filtering, but also the signal.</p>
+<p>Default: 0</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption--samplesUp">
+<code class="descname">--samplesUp</code><code class="descclassname">=&lt;samples&gt;</code><a class="headerlink" href="#cmdoption--samplesUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Consecutive samples that the signal must cross over the threshold to trigger a pulse detection (only relevant if pulse detection in the stream has to be performed)</p>
+<p>Default: 2</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption--nSgms">
+<code class="descname">--nSgms</code><code class="descclassname">=&lt;real&gt;</code><a class="headerlink" href="#cmdoption--nSgms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of quiescent-signal standard deviations to establish the threshold through the <em>kappa-clipping</em> algorithm (only relevant if pulse detection in the stream has to be performed)</p>
+<p>Default: 5</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption--pulse_length">
+<code class="descname">--pulse_length</code><code class="descclassname">=&lt;samples&gt;</code><a class="headerlink" href="#cmdoption--pulse_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pulse length in samples</p>
+<p>Default: 1024</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption--LrsT">
+<code class="descname">--LrsT</code><code class="descclassname">=&lt;secs&gt;</code><a class="headerlink" href="#cmdoption--LrsT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Running sum (RS) length for the RS-filtering for raw energy estimation, in seconds</p>
+<p>Default: 3.E-5</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption--LbT">
+<code class="descname">--LbT</code><code class="descclassname">=&lt;secs&gt;</code><a class="headerlink" href="#cmdoption--LbT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Baseline averaging length for the RS-filtering for raw energy estimation, in seconds</p>
+<p>Default: 1.E-3</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption--namelog">
+<code class="descname">--namelog</code><code class="descclassname">=&lt;str&gt;</code><a class="headerlink" href="#cmdoption--namelog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output log file name</p>
+<p>Default: <em>noise_log.txt</em></p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption--clobber">
+<code class="descname">--clobber</code><code class="descclassname">=&lt;yes|no&gt;</code><a class="headerlink" href="#cmdoption--clobber" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overwrite output files if they exist?</p>
+<p>Default: <em>no</em></p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption--verbosity">
+<code class="descname">--verbosity</code><code class="descclassname">=&lt;1|2|3&gt;</code><a class="headerlink" href="#cmdoption--verbosity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verbosity level of the output log file</p>
+<p>Default: 3</p>
+</dd></dl>
+
+<p>At the current status, <code class="docutils literal"><span class="pre">gennoisespec</span></code> parameter structure is not integrated into the SIXTE parameter handling, so the tool input parameters are read by the C++ standard <code class="docutils literal"><span class="pre">getopt_long</span></code> module.</p>
+<p>A typical command line run of this tool would be:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">gennoisespec</span> <span class="o">--</span><span class="n">inFile</span><span class="o">=</span><span class="n">noise</span><span class="o">.</span><span class="n">fits</span> <span class="o">--</span><span class="n">outFile</span><span class="o">=</span><span class="n">noiseSpec</span><span class="o">.</span><span class="n">fits</span> <span class="o">--</span><span class="n">intervalMinSamples</span><span class="o">=</span><span class="n">pulseLength</span> \
+        <span class="n">pulse_length</span><span class="o">=</span><span class="n">pulseLength</span> <span class="o">--</span><span class="n">nintervals</span><span class="o">=</span><span class="mi">1000</span>
+</pre></div>
+</div>
+<p id="outnoise">The output FITS file contains two HDUs, <strong>NOISE</strong> and <strong>NOISEALL</strong>.
+The <strong>NOISE</strong> HDU contains three columns:</p>
+<ul class="simple">
+<li><strong>FREQ</strong>: Noise positive frequencies in Hz</li>
+<li><strong>CSD</strong>: Current noise spectral density. Amount of current per unit of frequency (spectral density) in <img class="math" src="_images/math/7115e24b1734f709a9a7b685f8f91673e139daa6.png" alt="A/\sqrt(Hz)"/></li>
+<li><strong>SIGMACSD</strong>: CSD Standard error of the mean in <img class="math" src="_images/math/7115e24b1734f709a9a7b685f8f91673e139daa6.png" alt="A/\sqrt(Hz)"/></li>
+</ul>
+<p>The <strong>NOISE</strong> HDU contains two keywords:</p>
+<ul class="simple">
+<li><strong>BASELINE</strong>: Noise baseline</li>
+<li><strong>NOISESTD</strong>: Noise standard deviation</li>
+</ul>
+<p>The <strong>NOISEALL</strong> HDU contains <strong>FREQ</strong> and <strong>CSD</strong> columns for positive and negative frequencies.</p>
+</div>
+<div class="section" id="tesreconstruction">
+<span id="id2"></span><h2>tesreconstruction<a class="headerlink" href="#tesreconstruction" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">tesreconstruction</span></code> tool is a wrapper to perform the energy reconstruction of the photon events by means of two different implementations: <code class="docutils literal"><span class="pre">Rcmethod=PP</span></code> runs the preliminary branch developed by Philippe Peille and <code class="docutils literal"><span class="pre">Rcmethod=SIRENA</span></code> runs the SIRENA code in this documentation.</p>
+<p>SIRENA code takes a FITS input file of data, optionally performs the detection of the events, then grades them and finally reconstructs their energy following the algorithm selected by the user in the input command line of <code class="docutils literal"><span class="pre">tesreconstruction</span></code>.</p>
+<p>The <a class="reference internal" href="SIRENA.html#inputfiles"><span class="std std-ref">input data</span></a> should be a FITS file with the data splitted into <a class="reference internal" href="SIRENA.html#records"><span class="std std-ref">records</span></a>.</p>
+<p>To run SIRENA implementation, the user must supply the following input parameters (see <a class="reference internal" href="SIRENA.html#reconmethods"><span class="std std-ref">Event Energy Determination: methods</span></a> for a detailed description in the context of the reconstruction methods to which they apply):</p>
+<span class="target" id="tesreconpars"></span><dl class="option">
+<dt id="cmdoption-arg-Rcmethod">
+<code class="descname">Rcmethod</code><code class="descclassname">=&lt;SIRENA&gt;</code><a class="headerlink" href="#cmdoption-arg-Rcmethod" title="Permalink to this definition">¶</a></dt>
+<dd><p>SIRENA Reconstruction method</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-RecordFile">
+<code class="descname">RecordFile</code><code class="descclassname">=&lt;str&gt;</code><a class="headerlink" href="#cmdoption-arg-RecordFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input record FITS file</p>
+<p>Default: <em>record.fits</em></p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-TesEventFile">
+<code class="descname">TesEventFile</code><code class="descclassname">=&lt;str&gt;</code><a class="headerlink" href="#cmdoption-arg-TesEventFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output event list FITS file</p>
+<p>Default: <em>events.fits</em></p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-PulseLength">
+<code class="descname">PulseLength</code><code class="descclassname">=&lt;samples&gt;</code><a class="headerlink" href="#cmdoption-arg-PulseLength" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pulse length in samples</p>
+<p>Default: 1024</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-EventListSize">
+<code class="descname">EventListSize</code><code class="descclassname">=&lt;str&gt;</code><a class="headerlink" href="#cmdoption-arg-EventListSize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default size of the event list</p>
+<p>Default: 100</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-LibraryFile">
+<code class="descname">LibraryFile</code><code class="descclassname">=&lt;str&gt;</code><a class="headerlink" href="#cmdoption-arg-LibraryFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>FITS file with calibration library</p>
+<p>Default: <em>library.fits</em></p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-scaleFactor">
+<code class="descname">scaleFactor</code><code class="descclassname">=&lt;real&gt;</code><a class="headerlink" href="#cmdoption-arg-scaleFactor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scale factor to apply to the fall time of the pulses to make possible a varying cut-off frequency of the low-pass filter (see <a class="reference internal" href="SIRENA.html#lpf"><span class="std std-ref">Low-Pass filtering</span></a>).</p>
+<p>If this parameter is very small, this is equivalent to avoid filtering (cut-off frequency of the low-pass filter is too high). If the parameter is too large, the low-pass filter band is too narrow, and not only noise is rejected during the filtering, but also the signal.</p>
+<p>Default: 0.0</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-samplesUp">
+<code class="descname">samplesUp</code><code class="descclassname">=&lt;samples&gt;</code><a class="headerlink" href="#cmdoption-arg-samplesUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Consecutive samples that the signal must cross over the threshold to trigger a pulse detection (only used in calibration run)</p>
+<p>Default: 2</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-nSgms">
+<code class="descname">nSgms</code><code class="descclassname">=&lt;real&gt;</code><a class="headerlink" href="#cmdoption-arg-nSgms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of quiescent-signal standard deviations to establish the threshold through the kappa-clipping algorithm</p>
+<p>Default: 5</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-LrsT">
+<code class="descname">LrsT</code><code class="descclassname">=&lt;secs&gt;</code><a class="headerlink" href="#cmdoption-arg-LrsT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Running sum (RS) length for the RS raw energy estimation, in seconds</p>
+<p>Default: 30E-6</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-LbT">
+<code class="descname">LbT</code><code class="descclassname">=&lt;secs&gt;</code><a class="headerlink" href="#cmdoption-arg-LbT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Baseline averaging length for the RS raw energy estimation, in seconds</p>
+<p>Default: 1.E-3</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-monoenergy">
+<code class="descname">monoenergy</code><code class="descclassname">=&lt;eV&gt;</code><a class="headerlink" href="#cmdoption-arg-monoenergy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Monochromatic energy of the pulses in the input FITS file in eV (only for library creation)</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-mode">
+<code class="descname">mode</code><code class="descclassname">=&lt;0|1&gt;</code><a class="headerlink" href="#cmdoption-arg-mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calibration run for library creation (0) or energy reconstruction run (1)</p>
+<p>Default: 1</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-NoiseFile">
+<code class="descname">NoiseFile</code><code class="descclassname">=&lt;str&gt;</code><a class="headerlink" href="#cmdoption-arg-NoiseFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Noise FITS file with noise spectrum</p>
+<p>Default: <em>noise.fits</em></p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-FilterDomain">
+<code class="descname">FilterDomain</code><code class="descclassname">=&lt;T|F&gt;</code><a class="headerlink" href="#cmdoption-arg-FilterDomain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filtering Domain: Time(T) or Frequency(F). Not used in library creation mode (<a class="reference internal" href="#cmdoption-arg-mode"><code class="xref std std-option docutils literal"><span class="pre">mode</span></code></a> = 0)</p>
+<p>Default: <em>F</em></p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-FilterMethod">
+<code class="descname">FilterMethod</code><code class="descclassname">=&lt;F0 | B0&gt;</code><a class="headerlink" href="#cmdoption-arg-FilterMethod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filtering Method: <em>F0</em> (deleting the zero frequency bin) or <em>B0</em> (deleting the baseline). Not used in library creation mode (<a class="reference internal" href="#cmdoption-arg-mode"><code class="xref std std-option docutils literal"><span class="pre">mode</span></code></a> = 0)</p>
+<p>Default: <em>F0</em></p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-EnergyMethod">
+<code class="descname">EnergyMethod</code><code class="descclassname">=&lt;OPTFILT | WEIGHT | WEIGHTN | I2R | I2RALL | I2RNOL | IRFITTED | PCA&gt;</code><a class="headerlink" href="#cmdoption-arg-EnergyMethod" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="SIRENA.html#reconmethods"><span class="std std-ref">Event Energy Determination: methods</span></a> Energy calculation Method: OPTFILT (Optimal filtering), WEIGHT (Covariance matrices), WEIGHTN (Covariance matrices, first order), I2R, I2RALL, I2RNOL and I2RFITTED (Linear Transformations), or PCA (Principal Component Analysis). Not used in library creation mode (<a class="reference internal" href="#cmdoption-arg-mode"><code class="xref std std-option docutils literal"><span class="pre">mode</span></code></a> = 0)</p>
+<p>Default: <em>OPTFILT</em></p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-LagsOrNot">
+<code class="descname">LagsOrNot</code><code class="descclassname">=&lt;0|1&gt;</code><a class="headerlink" href="#cmdoption-arg-LagsOrNot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use LAGS == 1 or NOLAGS == 0 to indicate whether subsampling pulse arrival time is required. Currently only implemented for <a class="reference internal" href="#cmdoption-arg-EnergyMethod"><code class="xref std std-option docutils literal"><span class="pre">EnergyMethod</span></code></a> =OPTFILT.</p>
+<p>Default: 0</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-OFIter">
+<code class="descname">OFIter</code><code class="descclassname">=&lt;0|1&gt;</code><a class="headerlink" href="#cmdoption-arg-OFIter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterate == 1 or NOTIterate == 0 to look for the closest energy interval</p>
+<p>Default: 1</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-OFLib">
+<code class="descname">OFLib</code><code class="descclassname">=&lt;yes|no&gt;</code><a class="headerlink" href="#cmdoption-arg-OFLib" title="Permalink to this definition">¶</a></dt>
+<dd><p>Work with a library with optimal filters (OFLib=yes) or instead do Optimal Filter calculation on-the-fly (OFLib=no).</p>
+<p>Default: no</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-OFStrategy">
+<code class="descname">OFStrategy</code><code class="descclassname">=&lt;FREE | BASE2 | BYGRADE | FIXED&gt;</code><a class="headerlink" href="#cmdoption-arg-OFStrategy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optimal Filter length Strategy: FREE (no length restriction), BASE2 (length based on system 2 values) , BYGRADE (length according to event grading) or FIXED (fixed length). These last 3 options are only for checking and development purposes; a normal run with <em>on-the-fly</em> calculations will be done with <a class="reference internal" href="#cmdoption-arg-OFStrategy"><code class="xref std std-option docutils literal"><span class="pre">OFStrategy</span></code></a> = <em>FREE</em>.
+Only used if <a class="reference internal" href="#cmdoption-arg-OFLib"><code class="xref std std-option docutils literal"><span class="pre">OFLib</span></code></a> =no. Not used in library creation mode (<a class="reference internal" href="#cmdoption-arg-mode"><code class="xref std std-option docutils literal"><span class="pre">mode</span></code></a> = 0).</p>
+<p>Default: <em>FREE</em></p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-OFLength">
+<code class="descname">OFLength</code><code class="descclassname">=&lt;int&gt;</code><a class="headerlink" href="#cmdoption-arg-OFLength" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fixed Optimal Filter length (only if <a class="reference internal" href="#cmdoption-arg-OFStrategy"><code class="xref std std-option docutils literal"><span class="pre">OFStrategy</span></code></a> = <strong>FIXED</strong>,  <a class="reference internal" href="#cmdoption-arg-mode"><code class="xref std std-option docutils literal"><span class="pre">mode</span></code></a> = 1 and <a class="reference internal" href="#cmdoption-arg-OFLib"><code class="xref std std-option docutils literal"><span class="pre">OFLib</span></code></a> =no).</p>
+<p>Default: 512</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-intermediate">
+<code class="descname">intermediate</code><code class="descclassname">=&lt;0|1&gt;</code><a class="headerlink" href="#cmdoption-arg-intermediate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write intermediate files: Y(1), N(0)?</p>
+<p>Default: 0</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-detectFile">
+<code class="descname">detectFile</code><code class="descclassname">=&lt;str&gt;</code><a class="headerlink" href="#cmdoption-arg-detectFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Intermediate detections FITS file (if <a class="reference internal" href="#cmdoption-arg-intermediate"><code class="xref std std-option docutils literal"><span class="pre">intermediate</span></code></a> = 1)</p>
+<p>Default: <em>detections.fits</em></p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-filterFile">
+<code class="descname">filterFile</code><code class="descclassname">=&lt;str&gt;</code><a class="headerlink" href="#cmdoption-arg-filterFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Intermediate filters FITS file (if <a class="reference internal" href="#cmdoption-arg-intermediate"><code class="xref std std-option docutils literal"><span class="pre">intermediate</span></code></a> = 1)</p>
+<p>Default: <em>filters.fits</em></p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-tstartPulse1">
+<code class="descname">tstartPulse1</code><code class="descclassname">=&lt;samples&gt;</code><a class="headerlink" href="#cmdoption-arg-tstartPulse1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start Time (in samples) of the first pulse in the record (0 if detection should be performed by the system; greater than 0 if provided by the user)</p>
+<p>Default: 0</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-tstartPulse2">
+<code class="descname">tstartPulse2</code><code class="descclassname">=&lt;samples&gt;</code><a class="headerlink" href="#cmdoption-arg-tstartPulse2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start Time (in samples) of the second pulse in the record (0  if detection should be performed by the system; greater than 0 if provided by the user)</p>
+<p>Default: 0</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-tstartPulse3">
+<code class="descname">tstartPulse3</code><code class="descclassname">=&lt;samples&gt;</code><a class="headerlink" href="#cmdoption-arg-tstartPulse3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start Time (in samples) of the third pulse in the record (0  if detection should be performed by the system; greater than 0 if provided by the user)</p>
+<p>Default: 0</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-energyPCA1">
+<code class="descname">energyPCA1</code><code class="descclassname">=&lt;eV&gt;</code><a class="headerlink" href="#cmdoption-arg-energyPCA1" title="Permalink to this definition">¶</a></dt>
+<dd><p>First energy (only for PCA)</p>
+<p>Default: 500</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-energyPCA2">
+<code class="descname">energyPCA2</code><code class="descclassname">=&lt;eV&gt;</code><a class="headerlink" href="#cmdoption-arg-energyPCA2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Second energy (only for PCA)</p>
+<p>Default: 1000</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-XMLFile">
+<code class="descname">XMLFile</code><code class="descclassname">=&lt;str&gt;</code><a class="headerlink" href="#cmdoption-arg-XMLFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>XML input FITS file with instrument definition</p>
+<p>Default: <em>xifu_pipeline.xml</em></p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-clobber">
+<code class="descname">clobber</code><code class="descclassname">=&lt;yes|no&gt;</code><a class="headerlink" href="#cmdoption-arg-clobber" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overwrite output files if they exist?</p>
+<p>Default: <em>no</em></p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-arg-history">
+<code class="descname">history</code><code class="descclassname">=&lt;yes|no&gt;</code><a class="headerlink" href="#cmdoption-arg-history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write program parameters into output FITS file?</p>
+<p>Default: <em>yes</em></p>
+</dd></dl>
+
+<p>The output file will also be a FITS file storing one event per row with the following information in the HDU named <strong>EVENTS</strong>:</p>
+<ul class="simple">
+<li><strong>TIME</strong>: arrival time of the event</li>
+<li><strong>SIGNAL</strong>: energy of the event in keV</li>
+<li><strong>GRADE1</strong>: pulse duration (length of optimal filter applied, if that is the case)</li>
+<li><strong>GRADE2</strong>: distance to the start time of the preceding pulse (in samples)</li>
+<li><strong>PIX_ID</strong>: pixel number</li>
+<li><strong>PH_ID</strong>: photon number identification for cross matching with the imapct list (currently not in use)</li>
+</ul>
+</div>
+<div class="section" id="tessim">
+<span id="id3"></span><h2>tessim<a class="headerlink" href="#tessim" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">tessim</span></code> documentation is accesible in <a class="reference external" href="http://www.sternwarte.uni-erlangen.de/research/sixte/">http://www.sternwarte.uni-erlangen.de/research/sixte/</a> in the SIXTE Simulator Manual.</p>
+</div>
+<div class="section" id="tesconstpileup">
+<span id="id4"></span><h2>tesconstpileup<a class="headerlink" href="#tesconstpileup" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://www.sternwarte.uni-erlangen.de/research/sixte/">http://www.sternwarte.uni-erlangen.de/research/sixte/</a></p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="SIRENAfunctions.html" class="btn btn-neutral float-right" title="SIRENA functions" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="SIRENA.html" class="btn btn-neutral" title="SIRENA description" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Maite Ceballos &amp; Bea Cobo (IFCA).
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
