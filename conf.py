@@ -40,6 +40,14 @@ def setup(app):
 #          'numpydoc',
 #          'hidden_code_block'
 #]
+extensions = [
+          'sphinx.ext.autodoc',
+          'sphinx.ext.doctest',
+          'ipython_console_highlighting',
+          'sphinx.ext.inheritance_diagram',
+          'numpydoc',
+          'hidden_code_block'
+]
 #extensions = ['sphinx.ext.imgmath',
 #          'sphinx.ext.autodoc',
 #          'sphinx.ext.doctest',
