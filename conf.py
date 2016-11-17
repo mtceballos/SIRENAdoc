@@ -40,15 +40,15 @@ def setup(app):
 #          'numpydoc',
 #          'hidden_code_block'
 #]
-extensions = ['sphinx.ext.imgmath',
-          'sphinx.ext.autodoc',
-          'sphinx.ext.doctest',
-          'ipython_console_highlighting',
-          'sphinx.ext.inheritance_diagram',
-          'numpydoc',
-          'hidden_code_block',
-          'sphinxcontrib.bibtex'
-]
+#extensions = ['sphinx.ext.imgmath',
+#          'sphinx.ext.autodoc',
+#          'sphinx.ext.doctest',
+#          'ipython_console_highlighting',
+#          'sphinx.ext.inheritance_diagram',
+#          'numpydoc',
+#         'hidden_code_block',
+#         'sphinxcontrib.bibtex'
+#]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
