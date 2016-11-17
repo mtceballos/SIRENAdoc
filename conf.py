@@ -12,6 +12,12 @@
 # serve to show the default.
 
 import sys, os
+#import mock
+ 
+#MOCK_MODULES = ['matplotlib','matplotlib.sphinxext','matplotlib.sphinxext.mathmpl',
+#	       'matplotlib.sphinxext.only_directives','matplotlib.sphinxext.plot_directive',]
+#for mod_name in MOCK_MODULES:
+#	sys.modules[mod_name] = mock.Mock()
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -40,15 +46,25 @@ def setup(app):
 #          'numpydoc',
 #          'hidden_code_block'
 #]
-extensions = ['sphinx.ext.imgmath',
+extensions = ['matplotlib.sphinxext.mathmpl',
+          'matplotlib.sphinxext.only_directives',
+          'matplotlib.sphinxext.plot_directive',
           'sphinx.ext.autodoc',
           'sphinx.ext.doctest',
           'ipython_console_highlighting',
           'sphinx.ext.inheritance_diagram',
           'numpydoc',
-          'hidden_code_block',
-          'sphinxcontrib.bibtex'
+          'hidden_code_block'
 ]
+#extensions = ['sphinx.ext.imgmath',
+#          'sphinx.ext.autodoc',
+#          'sphinx.ext.doctest',
+#          'ipython_console_highlighting',
+#          'sphinx.ext.inheritance_diagram',
+#          'numpydoc',
+#         'hidden_code_block',
+#         'sphinxcontrib.bibtex'
+#]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -136,7 +152,7 @@ html_theme_path = ["_themes"]
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-#html_logo = './_static/SIRENA_black.png'
+html_logo = '_static/SIRENA_black.png'
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
