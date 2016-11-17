@@ -45,7 +45,9 @@ def setup(app):
 #          'numpydoc',
 #          'hidden_code_block'
 #]
-extensions = [
+extensions = ['matplotlib.sphinxext.mathmpl',
+          'matplotlib.sphinxext.only_directives',
+          'matplotlib.sphinxext.plot_directive',
           'sphinx.ext.autodoc',
           'sphinx.ext.doctest',
           'ipython_console_highlighting',
