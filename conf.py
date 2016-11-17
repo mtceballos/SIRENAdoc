@@ -54,7 +54,8 @@ extensions = ['matplotlib.sphinxext.mathmpl',
           'ipython_console_highlighting',
           'sphinx.ext.inheritance_diagram',
           'numpydoc',
-          'hidden_code_block'
+          'hidden_code_block',
+	  'sphinxcontrib.bibtex',
 ]
 #extensions = ['sphinx.ext.imgmath',
 #          'sphinx.ext.autodoc',
