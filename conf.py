@@ -14,7 +14,7 @@
 import sys, os
 import mock
  
-MOCK_MODULES = ['matplotlib']
+MOCK_MODULES = ['matplotlib','matplotlib.sphinxext']
 for mod_name in MOCK_MODULES:
 	sys.modules[mod_name] = mock.Mock()
 
