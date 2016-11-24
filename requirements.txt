@@ -1,5 +1,5 @@
 matplotlib
-sphinx.ext.imgmath
+imgmath
 sphinx.ext.doctest
 sphinxcontrib-bibtex
 numpydoc
