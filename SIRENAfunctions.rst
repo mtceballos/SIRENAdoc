@@ -1410,7 +1410,7 @@ Search functions by name at :ref:`genindex`.
     
     Located in file: *tasksSIRENA.cpp*
     
-    When :option:`EnergyMethod` = **WEIGHTN** this function selects the proper precalculated values (**PRCLx**) from the calibration library by comparing the maximum value of the pulse derivative (:cpp:member:`maxDER`) to the list of maximums in the library (:cpp:member:`maxDERs`) for the :option:`OFLib`=yes. It also selects the proper row from the column **PAB**.
+    When :option:`EnergyMethod` = **WEIGHTN** this function selects the proper precalculated values (**PRCLx**) from the calibration library by comparing the maximum value of the pulse derivative (:cpp:member:`maxDER`) to the list of maximums in the library (:cpp:member:`maxDERs`) for the :option:`OFLib` =yes. It also selects the proper row from the column **PAB**.
 
     It finds the two embracing :cpp:member:`maxDERs` in the calibration library
     
@@ -1952,7 +1952,7 @@ Search functions by name at :ref:`genindex`.
         
     .. cpp:member:: double SaturationValue
     
-        Saturation level of the ADC curves, :option:`SaturationValue`
+        Saturation level of the ADC curves
     
     .. cpp:member:: int tstartPulse1
     
