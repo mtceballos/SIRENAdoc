@@ -1,3 +1,4 @@
+ Sphinx>=1.4.3
 matplotlib
 imgmath
 sphinx.ext.doctest
