@@ -278,14 +278,14 @@ The first stage of SIRENA processing is a fine detection process performed over 
 
 If the noise is large, input data can be low-pass filtered for the initial stage of the event detection. For this purpose, the input parameter :option:`scaleFactor` (:math:`\mathit{sF}`) is used. The low-pass filtering is applied as a box-car function, a temporal average window. If the cut-off frequency of the filter is :math:`fc`, the box-car length is :math:`(1/fc) \times \mathit{samprate}`, where :math:`\mathit{samprate}` is the value of the sampling rate in Hz (inverse of the input file keyword ``DELTAT``).
 
-    .. math:: 
+.. math:: 
     
         f_{c1} &= \frac{1}{2\pi\cdot\mathit{sF_1}} \\
         f_{c2} &= \frac{1}{2\pi\cdot\mathit{sF_2}} 
     
-    for :math:`\mathit{sF_1} < \mathit{sF_2}`
+for :math:`\mathit{sF_1} < \mathit{sF_2}`
     
-    .. figure:: images/lowpassfilter.png
+.. figure:: images/lowpassfilter.png
         :align: center
         :scale: 50%
         
