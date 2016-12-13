@@ -1,5 +1,5 @@
-Sphinx>=1.4.3
+# Sphinx>=1.4.3
 matplotlib
 sphinxcontrib-bibtex
 numpydoc
-sphinx.ext.imgmath
+# sphinx.ext.imgmath
