@@ -57,7 +57,9 @@ def setup(app):
 #          'hidden_code_block',#
 #	  'sphinxcontrib.bibtex',
 #]
-extensions = ['sphinx.ext.autodoc',
+extensions = [
+	   'sphinx.ext.pngmath',
+	  'sphinx.ext.autodoc',
           'sphinx.ext.doctest',
           'ipython_console_highlighting',
           'sphinx.ext.inheritance_diagram',
