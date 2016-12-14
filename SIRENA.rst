@@ -243,7 +243,7 @@ The reconstructed energies for all the detected events are saved into an output 
    :align: center
    :scale: 60%
 
-   Output event file.
+   Output event file. 
 
 
 .. _recons:
