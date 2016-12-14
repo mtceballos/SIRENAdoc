@@ -177,6 +177,7 @@ The library FITS file has 4 HDUs called **LIBRARY**, **FIXFILTT**, **FIXFILTF** 
 
 * **ENERGY**: energies (in eV) in the library 
 * **PULSEHEIGHT**: pulse heights of the templates
+* **PLSMXLFF**: long templates according to :option:`maxLengthFixedFilter` (obtained averaging many signals) with baseline
 * **PULSE**: templates (obtained averaging many signals) with baseline
 * **PULSEB0**: baseline subtracted templates
 * **MF**: matched filters (energy normalized templates)
@@ -191,6 +192,7 @@ The library FITS file has 4 HDUs called **LIBRARY**, **FIXFILTT**, **FIXFILTF** 
 * **ZV**: vectors :math:`\mathit{X \cdot T}`
 * **rE**: scalars :math:`\mathit{1/(Z \cdot T)}`
 * **PAB**: vectors :math:`S_{\alpha}- E_{\alpha}(S_{\beta}-S_{\alpha})/(E_{\beta}-E_{\alpha})`, :math:`P(t)_{\alpha\beta}` in :ref:`first order approach <optimalFilter>` 
+* **PABMXLFF**: **PAB** according to :option:`maxLengthFixedFilter`
 * **DAB**: vectors :math:`(S_{\beta}-S_{\alpha})/(E_{\beta}-E_{\alpha})`, :math:`D(t)_{\alpha\beta}` in :ref:`first order approach <optimalFilter>`
 
 The **FIXFILTT** HDU contains pre-calculated optimal filters in the time domain for different lengths, calculated from the matched filters (*MF* or *MFB0* columns) in **OFTx** columns, or from the *DAB* column, in the **OABTx** columns. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the pulse length decreasing until 32.
