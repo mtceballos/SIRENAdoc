@@ -34,7 +34,7 @@ Search functions by name at :ref:`genindex`.
 
 .. _A: 
 
-.. cpp:function:: int addFirstRow(ReconstructInitSIRENA *reconstruct_init, fitsfile **inLibObject, double samprate, int runF0orB0val, gsl_vector *E, gsl_vector *PHEIGHT, gsl_matrix *PULSE, gsl_matrix *PULSEB0, gsl_matrix *MF, gsl_matrix *MFB0, gsl_matrix *COVAR, gsl_matrix *WEIGHT)
+.. cpp:function:: int addFirstRow(ReconstructInitSIRENA *reconstruct_init, fitsfile **inLibObject, double samprate, int runF0orB0val, gsl_vector *E, gsl_vector *PHEIGHT, gsl_matrix *PULSE, gsl_matrix *PULSEB0, gsl_matrix *MF, gsl_matrix *MFB0, gsl_matrix *COVAR, gsl_matrix *WEIGHT, gsl_matrix *PULSEMaxLengthFixedFilter)
     
     Located in file: *tasksSIRENA.cpp*
     
@@ -90,6 +90,10 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: gsl_matrix* WEIGHT
     
         Weight matrix associated to the first energy to be included in the library
+	
+    .. cpp:member:: gsl_matrix* PULSEMaxLengthFixedFilter
+
+        Pulse template whose length is :option:`maxLengthFixedFilter` associated to the first energy to be included in the library
         
         
 .. cpp:function:: int align(double samprate, gsl_vector **vector1, gsl_vector **vector2)
@@ -225,7 +229,7 @@ Search functions by name at :ref:`genindex`.
         Calculated energy in eV. 
         
 
-.. cpp:function:: int calculateIntParams(ReconstructInitSIRENA *reconstruct_init, int indexa, int indexb, double samprate, int runF0orB0val, gsl_matrix *modelsaux, gsl_matrix *covarianceaux, gsl_matrix *weightaux, gsl_vector *energycolumn, gsl_matrix **Wabaux, gsl_matrix **TVaux, gsl_vector **tEcolumn, gsl_matrix **XMaux, gsl_matrix **YVaux, gsl_matrix **ZVaux, gsl_vector **rEcolumn, gsl_matrix **Pabaux, gsl_matrix **Dabaux, gsl_matrix **PrecalWMaux, gsl_matrix **optimalfiltersabFREQaux, gsl_matrix **optimalfiltersabTIMEaux)
+.. cpp:function:: int calculateIntParams(ReconstructInitSIRENA *reconstruct_init, int indexa, int indexb, double samprate, int runF0orB0val, gsl_matrix *modelsaux, gsl_matrix *covarianceaux, gsl_matrix *weightaux, gsl_vector *energycolumn, gsl_matrix **Wabaux, gsl_matrix **TVaux, gsl_vector **tEcolumn, gsl_matrix **XMaux, gsl_matrix **YVaux, gsl_matrix **ZVaux, gsl_vector **rEcolumn, gsl_matrix **Pabaux, gsl_matrix **Dabaux, gsl_matrix **PrecalWMaux, gsl_matrix **optimalfiltersabFREQaux, gsl_matrix **optimalfiltersabTIMEaux, gsl_matrix *modelsMaxLengthFixedFilteraux, gsl_matrix **PabMaxLengthFixedFilteraux)
     
     Located in file: *tasksSIRENA.cpp*
 
@@ -321,9 +325,17 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: gsl_matrix **optimalfiltersabTIMEaux
     
         Input/output intermediate parameter
+	
+    .. cpp:member:: gsl_matrix* modelsMaxLengthFixedFilteraux
+        
+        Input/output intermediate parameter
+        
+    .. cpp:member:: gsl_matrix **PabMaxLengthFixedFilteraux
+    
+        Input/output intermediate parameter
     
 
-.. cpp:function:: int calculateTemplate(ReconstructInitSIRENA *reconstruct_init, PulsesCollection *pulsesAll, PulsesCollection *pulsesInRecord, double samprate, gsl_vector **pulseaverage, double *pulseaverageHeight, gsl_matrix **covariance, gsl_matrix **weight)    
+.. cpp:function:: int calculateTemplate(ReconstructInitSIRENA *reconstruct_init, PulsesCollection *pulsesAll, PulsesCollection *pulsesInRecord, double samprate, gsl_vector **pulseaverage, double *pulseaverageHeight, gsl_matrix **covariance, gsl_matrix **weight, gsl_vector **pulseaverageMaxLengthFixedFilter)    
     
     Located in file: *tasksSIRENA.cpp*
     
@@ -378,7 +390,11 @@ Search functions by name at :ref:`genindex`.
         
     .. cpp:member:: gsl_matrix** weight
 
-        GSL matrix with weight matrix (inverse of covariance matrix)  
+        GSL matrix with weight matrix (inverse of covariance matrix) 
+	
+    .. cpp:member:: gsl_vector** pulseaverageMaxLengthFixedFilter
+
+        GSL vector with the pulseaverage (template) whose length is :option:`maxLengthFixedFilter` of the non piled-up pulses
         
         
 .. cpp:function::  int calculus_optimalFilter(int TorF, int intermediate, int mode, gsl_vector *matchedfiltergsl, long mf_size, double samprate, int runF0orB0val, gsl_vector *freqgsl, gsl_vector *csdgsl, gsl_vector **optimal_filtergsl, gsl_vector **of_f, gsl_vector **of_FFT, gsl_vector_complex **of_FFT_complex)
@@ -2544,7 +2560,7 @@ Search functions by name at :ref:`genindex`.
 
 .. _R:
 
-.. cpp:function:: int readAddOrderParams(ReconstructInitSIRENA *reconstruct_init, fitsfile **inLibObject, double samprate, int eventcntLib, double estenergy, gsl_vector *pulsetemplate, gsl_matrix *covariance, gsl_matrix *weight)
+.. cpp:function:: int readAddOrderParams(ReconstructInitSIRENA *reconstruct_init, fitsfile **inLibObject, double samprate, int eventcntLib, double estenergy, gsl_vector *pulsetemplate, gsl_matrix *covariance, gsl_matrix *weight, gsl_vector *pulsetemplateMaxLengthFixedFilter)
     
     Located in file: *tasksSIRENA.cpp*
 
@@ -2592,6 +2608,10 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: gsl_matrix* weight
 
         GSL matrix with weight matrix of the energy which is going to be added to the library
+	
+    .. cpp:member:: gsl_vector* pulsetemplateMaxLengthFixedFilter
+
+        GSL vector with the :option:`maxLengthFixedFilter`-length template whose energy is going to be added to the library
         
         
 .. cpp:function:: int readFitsComplex(IOData obj, gsl_matrix **result)
@@ -3182,7 +3202,7 @@ Search functions by name at :ref:`genindex`.
         Input GSL vector with data
         
     
-.. cpp:function:: int writeLibrary(ReconstructInitSIRENA *reconstruct_init, double samprate, double estenergy, gsl_vector *pulsetemplate, gsl_matrix *covariance, gsl_matrix *weight, bool appendToLibrary, fitsfile **inLibObject)
+.. cpp:function:: int writeLibrary(ReconstructInitSIRENA *reconstruct_init, double samprate, double estenergy, gsl_vector *pulsetemplate, gsl_matrix *covariance, gsl_matrix *weight, bool appendToLibrary, fitsfile **inLibObject, gsl_vector *pulsetemplateMaxLengthFixedFilter)
     
     Located in file: *tasksSIRENA.cpp*
     
@@ -3224,6 +3244,10 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: fitsfile** inLibObject
 
         FITS object containing information of the library FITS file 
+	
+    .. cpp:member:: gsl_vector* pulsetemplateMaxLengthFixedFilter
+
+        GSL vector with the :option:`maxLengthFixedFilter`-length pulse template whose energy is going to be added to the library
     
     
 .. cpp:function:: void writeLog(FILE *fileRef, string type, int verbosity, string message)
