@@ -153,14 +153,14 @@ Once the calibration files (for all the 1..N calibration energies) have been cre
   > tesreconstruction Recordfile=calib.fits TesEventFile=evtcal.fits Rcmethod=SIRENA \
   PulseLength=pulseLength LibraryFile=library.fits mode=0 clobber=yes monoenergy=monoEeV_1 \
   EventListSize=1000 NoiseFile=noiseSpec.fits scaleFactor=sF samplesUp=sU nSgms=nS \
-  maxLengthFixedFilter=maxlengthfixedfilter
+  largeFilter=maxlengthfixedfilter
                 
   [.....]
   
   > tesreconstruction Recordfile=calib.fits TesEventFile=evtcal.fits Rcmethod=SIRENA \
   PulseLength=pulseLength LibraryFile=library.fits mode=0 clobber=yes monoenergy=monoEeV_N \
   EventListSize=1000 NoiseFile=noiseSpec.fits scaleFactor=sF samplesUp=sU nSgms=nS \
-  maxLengthFixedFilter=maxlengthfixedfilter
+  largeFilter=maxlengthfixedfilter
 
 The relevant parameters of ``tesreconstruction``  for the library creation process are:
 
@@ -179,7 +179,7 @@ The library FITS file has 4 HDUs called **LIBRARY**, **FIXFILTT**, **FIXFILTF** 
 
 * **ENERGY**: energies (in eV) in the library 
 * **PULSEHEIGHT**: pulse heights of the templates
-* **PLSMXLFF**: long templates according to :option:`maxLengthFixedFilter` (obtained averaging many signals) with baseline
+* **PLSMXLFF**: long templates according to :option:`largeFilter` (obtained averaging many signals) with baseline
 * **PULSE**: templates (obtained averaging many signals) with baseline
 * **PULSEB0**: baseline subtracted templates
 * **MF**: matched filters (energy normalized templates)
@@ -194,12 +194,12 @@ The library FITS file has 4 HDUs called **LIBRARY**, **FIXFILTT**, **FIXFILTF** 
 * **ZV**: vectors :math:`\mathit{X \cdot T}`
 * **rE**: scalars :math:`\mathit{1/(Z \cdot T)}`
 * **PAB**: vectors :math:`S_{\alpha}- E_{\alpha}(S_{\beta}-S_{\alpha})/(E_{\beta}-E_{\alpha})`, :math:`P(t)_{\alpha\beta}` in :ref:`first order approach <optimalFilter>` 
-* **PABMXLFF**: **PAB** according to :option:`maxLengthFixedFilter`
+* **PABMXLFF**: **PAB** according to :option:`largeFilter`
 * **DAB**: vectors :math:`(S_{\beta}-S_{\alpha})/(E_{\beta}-E_{\alpha})`, :math:`D(t)_{\alpha\beta}` in :ref:`first order approach <optimalFilter>`
 
-The **FIXFILTT** HDU contains pre-calculated optimal filters in the time domain for different lengths, calculated from the matched filters (*MF* or *MFB0* columns) in **Tx** columns, or from the *DAB* column, in the **ABTx** columns. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the pulse length decreasing until 32. Moreover, **Txmax** and **ABTxmax** columns being *xmax* = :option:`maxLengthFixedFilter` are added.
+The **FIXFILTT** HDU contains pre-calculated optimal filters in the time domain for different lengths, calculated from the matched filters (*MF* or *MFB0* columns) in **Tx** columns, or from the *DAB* column, in the **ABTx** columns. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the pulse length decreasing until 32. Moreover, **Txmax** and **ABTxmax** columns being *xmax* = :option:`largeFilter` are added.
 
-The **FIXFILTF** HDU contains pre-calculated optimal filters in frequency domain for different lengths calculated from the matched filters (*MF* or *MFB0* columns), in columns **Fx**, or from the *DAB* column, in **ABFx** columns. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the pulse length decreasing until 32. Moreover, **Fxmax** and **ABFxmax** columns being *xmax* = :option:`maxLengthFixedFilter` are added.
+The **FIXFILTF** HDU contains pre-calculated optimal filters in frequency domain for different lengths calculated from the matched filters (*MF* or *MFB0* columns), in columns **Fx**, or from the *DAB* column, in **ABFx** columns. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the pulse length decreasing until 32. Moreover, **Fxmax** and **ABFxmax** columns being *xmax* = :option:`largeFilter` are added.
 
 The **PRECALWN** HDU contains :ref:`pre-calculated values <WEIGHTN>` :math:`(R'WR)^{-1}R'W` for different lengths, **PRCLx**. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the pulse length decreasing until 32.
 
@@ -370,7 +370,7 @@ The SIRENA input parameter that controls the reconstruction method applied is :o
 
      	**As the X-IFU detector is a non-linear one, the energy estimation after any filtering method has been applied, has to be transformed to an unbiased estimation by the application of a gain scale obtained by the application of the same method to pulse templates at different energies (not done inside SIRENA)**.
      	
-	In SIRENA, optimal filters can be calculated *on-the-fly* or read as pre-calculated values from the calibration library. This option is selected with the input parameter :option:`OFLib`. If :option:`OFLib` =1, fixed-length pre-calculated optimal filters (**Tx** or **Fx**) will be read from the library (the length selected **x** will be the base-2 system value closest -lower than or equal- to that of the event being reconstructed or :option:`maxLengthFixedFilter`). If :option:`OFLib` =0, optimal filters will be calculated specifically for the pulse length of the event under study. This length calculation is determined by the parameter :option:`OFStrategy`. This way :option:`OFStrategy` = *FREE* will optimize the length of the filter to the maximum length available (let's call this value *fltmaxlength*), given by the position of the following pulse, or the pulse length if this is shorter. If :option:`OFStrategy` = *BASE2* the filter length will be the base-2 system value closest-lower than or equal-to *fltmaxlength*. :option:`OFStrategy` = *BYGRADE* will choose the filter length to use, according to the :ref:`grade <grade>` of the pulse (currently read from the :option:`XMLFile`) and :option:`OFStrategy` = *FIXED* will take a fixed length (given by the parameter :option:`OFLength`) for all the pulses. These last 3 options are only for checking and development purposes; a normal run with *on-the-fly* calculations with be done with :option:`OFStrategy` = *FREE*. Note that if :option:`OFLib` =0, a noise file must be provided through parameter :option:`NoiseFile` (not in the case of :option:`OFLib` =1), since in this case the optimal filter must be computed for each pulse at the required length.
+	In SIRENA, optimal filters can be calculated *on-the-fly* or read as pre-calculated values from the calibration library. This option is selected with the input parameter :option:`OFLib`. If :option:`OFLib` =1, fixed-length pre-calculated optimal filters (**Tx** or **Fx**) will be read from the library (the length selected **x** will be the base-2 system value closest -lower than or equal- to that of the event being reconstructed or :option:`largeFilter`). If :option:`OFLib` =0, optimal filters will be calculated specifically for the pulse length of the event under study. This length calculation is determined by the parameter :option:`OFStrategy`. This way :option:`OFStrategy` = *FREE* will optimize the length of the filter to the maximum length available (let's call this value *fltmaxlength*), given by the position of the following pulse, or the pulse length if this is shorter. If :option:`OFStrategy` = *BASE2* the filter length will be the base-2 system value closest-lower than or equal-to *fltmaxlength*. :option:`OFStrategy` = *BYGRADE* will choose the filter length to use, according to the :ref:`grade <grade>` of the pulse (currently read from the :option:`XMLFile`) and :option:`OFStrategy` = *FIXED* will take a fixed length (given by the parameter :option:`OFLength`) for all the pulses. These last 3 options are only for checking and development purposes; a normal run with *on-the-fly* calculations with be done with :option:`OFStrategy` = *FREE*. Note that if :option:`OFLib` =0, a noise file must be provided through parameter :option:`NoiseFile` (not in the case of :option:`OFLib` =1), since in this case the optimal filter must be computed for each pulse at the required length.
 
         .. 
             OFLib=0 (On-the-fly): Matched Filter MF(t) with the closest (>=) length to the pulse length, is read from the library ==> cut to the required length ==> NORMFACTOR is calculated from trimmed MF and the decimated noise ==> short OF is calculated ==> energy :  NOISE file required
