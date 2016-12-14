@@ -228,6 +228,12 @@ To run SIRENA implementation, the user must supply the following input parameter
 .. option::  monoenergy=<eV>
 
 	Monochromatic energy of the pulses in the input FITS file in eV (only for library creation)
+	
+.. option::  largeFilter=<samples>
+
+	Length of the longest fixed filter (only for library creation)
+	
+	Default: 8000
 
 .. option:: mode=<0|1>
 
