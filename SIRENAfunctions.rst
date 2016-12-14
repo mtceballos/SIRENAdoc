@@ -93,7 +93,7 @@ Search functions by name at :ref:`genindex`.
 	
     .. cpp:member:: gsl_matrix* PULSEMaxLengthFixedFilter
 
-        Pulse template whose length is :option:`maxLengthFixedFilter` associated to the first energy to be included in the library
+        Pulse template whose length is :option:`largeFilter` associated to the first energy to be included in the library
         
         
 .. cpp:function:: int align(double samprate, gsl_vector **vector1, gsl_vector **vector2)
@@ -394,7 +394,7 @@ Search functions by name at :ref:`genindex`.
 	
     .. cpp:member:: gsl_vector** pulseaverageMaxLengthFixedFilter
 
-        GSL vector with the pulseaverage (template) whose length is :option:`maxLengthFixedFilter` of the non piled-up pulses
+        GSL vector with the pulseaverage (template) whose length is :option:`largeFilter` of the non piled-up pulses
         
         
 .. cpp:function::  int calculus_optimalFilter(int TorF, int intermediate, int mode, gsl_vector *matchedfiltergsl, long mf_size, double samprate, int runF0orB0val, gsl_vector *freqgsl, gsl_vector *csdgsl, gsl_vector **optimal_filtergsl, gsl_vector **of_f, gsl_vector **of_FFT, gsl_vector_complex **of_FFT_complex)
@@ -2611,7 +2611,7 @@ Search functions by name at :ref:`genindex`.
 	
     .. cpp:member:: gsl_vector* pulsetemplateMaxLengthFixedFilter
 
-        GSL vector with the :option:`maxLengthFixedFilter`-length template whose energy is going to be added to the library
+        GSL vector with the :option:`largeFilter`-length template whose energy is going to be added to the library
         
         
 .. cpp:function:: int readFitsComplex(IOData obj, gsl_matrix **result)
@@ -3247,7 +3247,7 @@ Search functions by name at :ref:`genindex`.
 	
     .. cpp:member:: gsl_vector* pulsetemplateMaxLengthFixedFilter
 
-        GSL vector with the :option:`maxLengthFixedFilter`-length pulse template whose energy is going to be added to the library
+        GSL vector with the :option:`largeFilter`-length pulse template whose energy is going to be added to the library
     
     
 .. cpp:function:: void writeLog(FILE *fileRef, string type, int verbosity, string message)
