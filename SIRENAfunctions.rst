@@ -551,7 +551,7 @@ Search functions by name at :ref:`genindex`.
         Input current (ADC) vector & output resistance (*I2R* or *I2RALL* or *I2RNOL* or *I2RFITTED*) vector
     
 
-.. cpp:function:: int createDetectFile(ReconstructInitSIRENA* reconstruct_init, double samprate, fitsfile **dtcObject)
+.. cpp:function:: int createDetectFile(ReconstructInitSIRENA* reconstruct_init, double samprate, fitsfile **dtcObject, int inputPulselength)
     
     Located in file: *tasksSIRENA.cpp*
     
@@ -579,6 +579,10 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: fitsfile dtcObject
         
         Object which contains information of the intermediate FITS file (used also by :cpp:func:`writeTestInfo` and :cpp:func:`writePulses`).
+	
+    .. cpp:member:: int inputPulseLength
+        
+        :option:`PulseLength` input parameter
                        
 
 .. cpp:function:: int createHisto (gsl_vector *invector, int nbins, gsl_vector **xhistogsl, gsl_vector **yhistogsl)
@@ -624,7 +628,7 @@ Search functions by name at :ref:`genindex`.
         GSL vector with output histogram y-axis
             
                             
-.. cpp:function:: int createLibrary(ReconstructInitSIRENA* reconstruct_init, bool *appendToLibrary, fitsfile **inLibObject)
+.. cpp:function:: int createLibrary(ReconstructInitSIRENA* reconstruct_init, bool *appendToLibrary, fitsfile **inLibObject, int inputPulseLength)
     
     Located in file: *tasksSIRENA.cpp*
 
@@ -651,6 +655,10 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: fitsfile** inLibObject
 
         Object which contains information of the library FITS file (used also by :cpp:func:`writeLibrary`)
+	
+    .. cpp:member:: int inputPulseLength
+        
+        :option:`PulseLength` input parameter
         
 .. _D:
 
