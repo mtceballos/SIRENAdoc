@@ -544,9 +544,10 @@ The SIRENA input parameter that controls the reconstruction method applied is :o
 	
 
 	.. math::
-		E = [X^T \cdot W \cdot X]^{-1} [X^T \cdot W \cdot Y]
-
-	
+		A = [X^T \cdot W \cdot X]^{-1} [X^T \cdot W \cdot Y]
+		E = e_1^T[X^T \cdot W \cdot X]^{-1} [X^T \cdot W \cdot Y]
+		
+where :math:`e_1 \equiv [1, 0, 0, ...]^T`is the unit vector to select only the term that correspionds to the energy (amplitude) of the pulse.
 	
                 
 
