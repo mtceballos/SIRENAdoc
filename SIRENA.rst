@@ -97,7 +97,7 @@ On one hand, the tool calculates the FFT of the pulse-free intervals (over the u
    
    Noise spectrum (see noise file :ref:`description <outNoise>`)
 
-On the other hand, the tool calculates the covariance matrix of the noise, :math:`R`, whose elements are expectation values (:math:`E[·]`) of two-point products for a pulse-free data sequence :math:`{di}` (over the unfiltered data) (:cite:`Wilms2016`)
+On the other hand, the tool calculates the covariance matrix of the noise, :math:`R`, whose elements are expectation values (:math:`E[·]`) of two-point products for a pulse-free data sequence :math:`{di}` (over the unfiltered data) (:cite:`Fowler2015)
 
 .. math::
 
@@ -208,11 +208,11 @@ The library FITS file has 4 HDUs called **LIBRARY**, **FIXFILTT**, **FIXFILTF** 
 * **PABMXLFF**: **PAB** according to :option:`largeFilter`
 * **DAB**: vectors :math:`(S_{\beta}-S_{\alpha})/(E_{\beta}-E_{\alpha})`, :math:`D(t)_{\alpha\beta}` in :ref:`first order approach <optimalFilter>`
 
-The **FIXFILTT** HDU contains pre-calculated optimal filters in the time domain for different lengths, calculated from the matched filters (*MF* or *MFB0* columns) in **Tx** columns, or from the *DAB* column, in the **ABTx** columns. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the pulse length decreasing until 32. Moreover, **Txmax** and **ABTxmax** columns being *xmax* = :option:`largeFilter` are added.
+The **FIXFILTT** HDU contains pre-calculated optimal filters in the time domain for different lengths, calculated from the matched filters (*MF* or *MFB0* columns) in **Tx** columns, or from the *DAB* column, in the **ABTx** columns. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the pulse length decreasing until 2. Moreover, **Txmax** and **ABTxmax** columns being *xmax* = :option:`largeFilter` are added.
 
-The **FIXFILTF** HDU contains pre-calculated optimal filters in frequency domain for different lengths calculated from the matched filters (*MF* or *MFB0* columns), in columns **Fx**, or from the *DAB* column, in **ABFx** columns. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the pulse length decreasing until 32. Moreover, **Fxmax** and **ABFxmax** columns being *xmax* = :option:`largeFilter` are added.
+The **FIXFILTF** HDU contains pre-calculated optimal filters in frequency domain for different lengths calculated from the matched filters (*MF* or *MFB0* columns), in columns **Fx**, or from the *DAB* column, in **ABFx** columns. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the pulse length decreasing until 2. Moreover, **Fxmax** and **ABFxmax** columns being *xmax* = :option:`largeFilter` are added.
 
-The **PRECALWN** HDU contains :ref:`pre-calculated values <WEIGHTN>` :math:`(R'WR)^{-1}R'W` for different lengths, **PRCLx**. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the pulse length decreasing until 32.
+The **PRECALWN** HDU contains :ref:`pre-calculated values <WEIGHTN>` :math:`(R'WR)^{-1}R'W` for different lengths, **PRCLx**. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the pulse length decreasing until 2.
 
 .. _inputFiles:
 
