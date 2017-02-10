@@ -23,14 +23,14 @@ Files
 Auxiliary Files
 ===============
 
-All the :ref:`reconstruction methods <reconMethods>` used by SIRENA software rely on the existence of a *library* created from a set of data calibration files. In addition, some methods require also a file with the *noise spectrum*. Let's describe these auxiliary files in detail.
+All the :ref:`reconstruction methods <reconMethods>` used by SIRENA software rely on the existence of a *library* created from a set of data calibration files. In addition, some methods require also a file with the *noise data*. Let's describe these auxiliary files in detail.
 
 .. _noise:
 
 :pageblue:`Noise file`
 ------------------------
 
-The detector **noise spectrum file** is currently obtained from a long stream of pulse-free (noise) simulated data. This stream is ingested in the tool :ref:`gennoisespec`, which generates the spectrum of this simulated noise.
+The detector **noise file** is currently obtained from a long stream of pulse-free (noise) simulated data. This stream is ingested in the tool :ref:`gennoisespec`, which generates the spectrum of this simulated noise.
 
 **1) Calibration Stream Simulation**
 
@@ -76,21 +76,19 @@ The sequence of commands that must be run is as follows:
    Noise file triggered into records of 10000 samples.
    
    
-**2) Noise spectrum generation**
+**2) Noise spectrum and weight matrixes generation**
 
 In :ref:`gennoisespec`, the data is analysed record by record: if there are events present, this tool :ref:`finds <detect>` and rejects them, keeping only the pulse-free intervals of a size given by the input parameter :option:`--intervalMinSamples`. If no events are present, the record is divided into pulse-free intervals sized also by this parameter.
 
-Once the pulse-free intervals have been defined, the baseline of each pulse-free interval is subtracted. Then the tool calculates their FFT (over the unfiltered data) and averages them. Only a specific number of intervals (input parameter :option:`--nintervals`) will be used.
+Once the pulse-free intervals have been defined, a long noise interval is built by putting together these pulse-free intervals in order to calculate the noise baseline. Then, the baseline is subtracted from each pulse-free interval.
 
-:ref:`gennoisespec` also adds the ``BASELINE`` and ``NOISESTD`` keywords to the HDU *NOISE* in the *noise spectrum* file. They store the mean and the standard deviation of the noise (by averaging the corresponding values in each pulse-free interval).
-   
+On one hand, the tool calculates the FFT of the pulse-free intervals (over the unfiltered data) and averages them. Only a specific number of intervals (input parameter :option:`--nintervals`) will be used. The noise spectrum density is stored in the HDUs *NOISE* and *NOISEALL* in the *noise data* file.
+
 ::
     
     > gennoisespec --inFile=noise.fits --outFile=noiseSpec.fits --intervalMinSamples=pulseLength \
     --nintervals=1000 --pulse_length=pulseLength 
-    
-If the noise spectrum is to be created from a data stream containing pulses, care should be taken with the parameters :option:`--scaleFactor`, :option:`--samplesUp` and :option:`--nSgms` responsible of the detection process.
-            
+                
 .. _noiseSpec:
 
 .. figure:: images/NoiseSpec.png
@@ -98,6 +96,19 @@ If the noise spectrum is to be created from a data stream containing pulses, car
    :scale: 50%
    
    Noise spectrum (see noise file :ref:`description <outNoise>`)
+
+On the other hand, the tool calculates the covariance matrix of the noise, :math:`R`, whose elements are expectation values (:math:`E[·]`) of two-point products for a pulse-free data sequence :math:`{di}` (over the unfiltered data) (:cite:`Wilms2016`)
+
+.. math::
+
+	R_{ij}=E[d_i d_j]-E[d_i]E[d_j]
+	
+The weight matrix is the inverse of the covariance matrix, :math:`R^{-1}`. The weight matrixes, **Wx**, for fifferent lenghts are stored in the HDU *WEIGHTMS* in the *noise data* file. The lengths x will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the :option:`--intervalMinSamples` decreasing until 2.
+
+:ref:`gennoisespec` also adds the ``BASELINE`` and ``NOISESTD`` keywords to the HDU *NOISE* in the *noise data* file. They store the mean and the standard deviation of the noise (by working with the long noise interval).
+
+If the noise spectrum or the weight matrixes are to be created from a data stream containing pulses, care should be taken with the parameters :option:`--scaleFactor`, :option:`--samplesUp` and :option:`--nSgms` responsible of the detection process.
+
       
 .. _library:
 
