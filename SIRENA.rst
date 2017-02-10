@@ -103,7 +103,7 @@ On the other hand, the tool calculates the covariance matrix of the noise, :math
 
 	R_{ij}=E[d_i d_j]-E[d_i]E[d_j]
 	
-The weight matrix is the inverse of the covariance matrix, :math:`R^{-1}`. The weight matrixes, **Wx**, for fifferent lenghts are stored in the HDU *WEIGHTMS* in the *noise data* file. The lengths x will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the :option:`--intervalMinSamples` decreasing until 2.
+The weight matrix is the inverse of the covariance matrix, :math:`R^{-1}`. The weight matrixes, **Wx**, for different lenghts are stored in the HDU *WEIGHTMS* in the *noise data* file. The lengths x will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the :option:`--intervalMinSamples` decreasing until 2.
 
 .. _noiseSpec:
 
