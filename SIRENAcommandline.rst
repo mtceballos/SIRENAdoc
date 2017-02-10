@@ -124,7 +124,7 @@ A typical command line run of this tool would be:
 
 .. _outNoise:
 
-The output FITS file contains three HDUs, **NOISE**, **NOISEALL** and ***WEIGHTMS*.
+The output FITS file contains three HDUs, **NOISE**, **NOISEALL** and **WEIGHTMS**.
 The **NOISE** HDU contains three columns:
 
 * **FREQ**: Noise positive frequencies in Hz
