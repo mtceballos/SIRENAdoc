@@ -39,7 +39,7 @@ The user must supply the following input parameters:
 
 .. option:: --intervalMinSamples=<samples>
 
-	Minimum length (in samples ) of a pulse-free interval to use 
+	Base-2 minimum length (in samples ) of a pulse-free interval to use 
 
 	Default: 1024
 
