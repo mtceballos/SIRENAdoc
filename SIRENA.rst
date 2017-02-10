@@ -97,13 +97,21 @@ On one hand, the tool calculates the FFT of the pulse-free intervals (over the u
    
    Noise spectrum (see noise file :ref:`description <outNoise>`)
 
-On the other hand, the tool calculates the covariance matrix of the noise, :math:`R`, whose elements are expectation values (:math:`E[·]`) of two-point products for a pulse-free data sequence :math:`{di}` (over the unfiltered data) (:cite:`Fowler2015)
+On the other hand, the tool calculates the covariance matrix of the noise, :math:`R`, whose elements are expectation values (:math:`E[·]`) of two-point products for a pulse-free data sequence :math:`{di}` (over the unfiltered data) (:cite:`Fowler2015`)
 
 .. math::
 
 	R_{ij}=E[d_i d_j]-E[d_i]E[d_j]
 	
 The weight matrix is the inverse of the covariance matrix, :math:`R^{-1}`. The weight matrixes, **Wx**, for fifferent lenghts are stored in the HDU *WEIGHTMS* in the *noise data* file. The lengths x will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the :option:`--intervalMinSamples` decreasing until 2.
+
+.. _noiseSpec:
+
+.. figure:: images/WeightMatrix.png
+   :align: center
+   :scale: 80%
+   
+   Noise weight matrix (see noise file :ref:`description <outNoise>`)
 
 :ref:`gennoisespec` also adds the ``BASELINE`` and ``NOISESTD`` keywords to the HDU *NOISE* in the *noise data* file. They store the mean and the standard deviation of the noise (by working with the long noise interval).
 
