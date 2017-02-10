@@ -18,7 +18,7 @@ At the end, links to the documentation of other SIXTE tools required for the sim
 gennoisespec
 =============
 
-The goal of the ``gennoisespec`` tool is to calculate the current noise spectral density.
+The goal of the ``gennoisespec`` tool is to calculate the current noise spectral density and the noise weight matrixes.
 The input data from which it would be calculated should be a FITS file with the data splitted into records (see :ref:`noise-records`) with or without photon events (pulses).
 
 The user must supply the following input parameters:
@@ -122,7 +122,7 @@ A typical command line run of this tool would be:
 
 .. _outNoise:
 
-The output FITS file contains two HDUs, **NOISE** and **NOISEALL**.
+The output FITS file contains three HDUs, **NOISE**, **NOISEALL** and ***WEIGHTMS*.
 The **NOISE** HDU contains three columns:
 
 * **FREQ**: Noise positive frequencies in Hz
@@ -139,6 +139,7 @@ The **NOISE** HDU contains two keywords:
 
 The **NOISEALL** HDU contains **FREQ** and **CSD** columns for positive and negative frequencies.
 
+The **WEIGHTMS** HDU contains **Wx** columns. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the :option:`--intervalMinSamples` decreasing until 2.
 
 
 .. _tesreconstruction:
