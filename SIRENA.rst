@@ -97,13 +97,13 @@ On one hand, the tool calculates the FFT of the pulse-free intervals (over the u
    
    Noise spectrum (see noise file :ref:`description <outNoise>`)
 
-On the other hand, the tool calculates the covariance matrix of the noise, :math:`R`, whose elements are expectation values (:math:`E[·]`) of two-point products for a pulse-free data sequence :math:`{di}` (over the unfiltered data) (:cite:`Fowler2015`)
+On the other hand, the tool calculates the covariance matrix of the noise, :math:`V`, whose elements are expectation values (:math:`E[·]`) of two-point products for a pulse-free data sequence :math:`{di}` (over the unfiltered data) (:cite:`Fowler2015`)
 
 .. math::
 
-	R_{ij}=E[d_i d_j]-E[d_i]E[d_j]
+	V_{ij}=E[d_i d_j]-E[d_i]E[d_j]
 	
-The weight matrix is the inverse of the covariance matrix, :math:`R^{-1}`. The weight matrixes, **Wx**, for different lenghts are stored in the HDU *WEIGHTMS* in the *noise data* file. The lengths x will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the :option:`--intervalMinSamples` decreasing until 2.
+The weight matrix is the inverse of the covariance matrix, :math:`V^{-1}`. The weight matrixes, **Wx**, for different lenghts are stored in the HDU *WEIGHTMS* in the *noise data* file. The lengths x will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the :option:`--intervalMinSamples` decreasing until 2.
 
 .. _noiseSpec:
 
@@ -185,6 +185,7 @@ The relevant parameters of ``tesreconstruction``  for the library creation proce
 
 * :option:`mode`: should be set to **0** if tool is used for library creation
 * :option:`PulseLength`:  length of the pulses to create the pulse templates. If the pulse length used to create the noise is larger that this value, noise will be decimated accordingly when used to pre-calculate the optimal filters or the covariance matrices. If it is shorter, an error will be raised.
+* :option:`largeFilter`:  length of the longest fixed filter 
 * :option:`monoenergy`: the monochromatic energy of the calibration pulses used to create the current row in the library
 * :option:`scaleFactor`, :option:`samplesUp` and :option:`nSgms`: parameters involved in the pulse detection process.
 
@@ -192,13 +193,13 @@ The relevant parameters of ``tesreconstruction``  for the library creation proce
 
 **3) Library structure**
 
-The library FITS file has 4 HDUs called **LIBRARY**, **FIXFILTT**, **FIXFILTF** and **PRECALWN**.
+The library FITS file has 5 HDUs called **LIBRARY**, **FIXFILTT**, **FIXFILTF**, **PRECALWN** and **PRCLOFWM**.
 
 **LIBRARY** contains the following columns:
 
 * **ENERGY**: energies (in eV) in the library 
 * **PULSEHEIGHT**: pulse heights of the templates
-* **PLSMXLFF**: long templates according to :option:`largeFilter` (obtained averaging many signals) with baseline
+* **PLSMXLFF**: long templates according to :option:`largeFilter` (obtained averaging many signals) with baseline. If :option:`largeFilter` is equal to :option:`PulseLength` it does not appear
 * **PULSE**: templates (obtained averaging many signals) with baseline
 * **PULSEB0**: baseline subtracted templates
 * **MF**: matched filters (energy normalized templates)
@@ -212,15 +213,18 @@ The library FITS file has 4 HDUs called **LIBRARY**, **FIXFILTT**, **FIXFILTF** 
 * **YV**: vectors :math:`(W_\alpha \cdot T)/t`
 * **ZV**: vectors :math:`\mathit{X \cdot T}`
 * **rE**: scalars :math:`\mathit{1/(Z \cdot T)}`
-* **PAB**: vectors :math:`S_{\alpha}- E_{\alpha}(S_{\beta}-S_{\alpha})/(E_{\beta}-E_{\alpha})`, :math:`P(t)_{\alpha\beta}` in :ref:`first order approach <optimalFilter>` 
-* **PABMXLFF**: **PAB** according to :option:`largeFilter`
-* **DAB**: vectors :math:`(S_{\beta}-S_{\alpha})/(E_{\beta}-E_{\alpha})`, :math:`D(t)_{\alpha\beta}` in :ref:`first order approach <optimalFilter>`
+* **PAB**: vectors :math:`S_{\alpha}- E_{\alpha}(S_{\beta}-S_{\alpha})/(E_{\beta}-E_{\alpha})`, :math:`P(t)_{\alpha\beta}` in :ref:`first order approach <optimalFilter_NSD>` 
+* **PABMXLFF**: **PAB** according to :option:`largeFilter`. If :option:`largeFilter` is equal to :option:`PulseLength` it does not appear
+* **DAB**: vectors :math:`(S_{\beta}-S_{\alpha})/(E_{\beta}-E_{\alpha})`, :math:`D(t)_{\alpha\beta}` in :ref:`first order approach <optimalFilter_NSD>`
 
 The **FIXFILTT** HDU contains pre-calculated optimal filters in the time domain for different lengths, calculated from the matched filters (*MF* or *MFB0* columns) in **Tx** columns, or from the *DAB* column, in the **ABTx** columns. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the pulse length decreasing until 2. Moreover, **Txmax** and **ABTxmax** columns being *xmax* = :option:`largeFilter` are added.
 
 The **FIXFILTF** HDU contains pre-calculated optimal filters in frequency domain for different lengths calculated from the matched filters (*MF* or *MFB0* columns), in columns **Fx**, or from the *DAB* column, in **ABFx** columns. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the pulse length decreasing until 2. Moreover, **Fxmax** and **ABFxmax** columns being *xmax* = :option:`largeFilter` are added.
 
-The **PRECALWN** HDU contains :ref:`pre-calculated values <WEIGHTN>` :math:`(R'WR)^{-1}R'W` for different lengths, **PRCLx**. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the pulse length decreasing until 2.
+The **PRECALWN** HDU contains :ref:`pre-calculated values by using the noise weight matrix from the subtraction of model from pulses <WEIGHTN>` :math:`(R'WR)^{-1}R'W` for different lengths, **PRCLx**. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the pulse length decreasing until 2.
+
+The **PRCLOFWM** HDU contains :ref:`pre-calculated values by using the noise weight matrix from noise intervals <WEIGHTM>` :math:`(X'WX)^{-1}X'W` for different lengths, **OFWx**. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the  decreasing :option:`largeFilter` until 2.
+
 
 .. _inputFiles:
 
@@ -345,11 +349,11 @@ Event Energy Determination: methods
 
 Once the input events have been detected and graded, their energy content can be determined. Currently all the events (independently of their grade) are processed with the same reconstruction method, but in the future, a different approach could be taken, for example simplifying the reconstruction for the lowest resolution events.
 
-The SIRENA input parameter that controls the reconstruction method applied is :option:`EnergyMethod` that should take values of *OPTFILT* for Optimal Filtering in Current space, *WEIGHT* for Covariance Matrices, *WEIGHTN* for first order approach of Covariance matrices method and *I2R*, *I2RALL*, *I2RNOL* or *I2RFITTED* for Optimal Filtering implementation in (quasi)Resistance space.
+The SIRENA input parameter that controls the reconstruction method applied is :option:`EnergyMethod` that should take values of *OPTFILT* for Optimal Filtering in Current space, *WEIGHT* for Covariance Matrices, *WEIGHTN* for first order approach of Covariance matrices method and *I2R*, *I2RALL*, *I2RNOL* or *I2RFITTED* for Optimal Filtering implementation in (quasi)Resistance space. If optimal filtering and :option:`OFNoise` is *WEIGHTM* tthe noise weightt matrix from noise intervals is employed instead the noise spectral density (:option:`OFNoise` is *NSD*).
 
-.. _optimalFilter:
+.. _optimalFilter_NSD:
 
-:pageblue:`Optimal Filtering`
+:pageblue:`Optimal Filtering by using the noise spectral density`
 ------------------------------
 
 	This is the baseline standard technique commonly used to process microcalorimeter data streams. It relies on two main assumptions. Firstly, the detector response is linear; that is, the pulse shapes are identical regardless of their energy and thus, the pulse amplitude is the scaling factor from one pulse to another :cite:`Boyce1999`, :cite:`Szym1993`. 
@@ -433,6 +437,22 @@ The SIRENA input parameter that controls the reconstruction method applied is :o
 	The optimal filtering technique (selected through the input parameter :option:`EnergyMethod`) can be applied in the frequency or in the time domain with the option :option:`FilterDomain`.
 	
 	The misalignement between the triggered pulse and the template applied for the optimal filter can affect the energy estimate. As the response will be maximum when the data and the template are coincident, an option has been implemented in SIRENA to calculate the energy at five different fixed lags between both, and estimate the final energy to better than the sample frequency (:cite:`Adams2009`). This possibility is driven by input :option:`LagsOrNot`.
+
+.._optimalFilter_WEIGHTM:
+
+:pageblue:`Optimal Filtering by using the noise weight matrix from noise intervals`
+------------------------------
+
+	By choosing the input parameter :option:`OFNoise`=**WEIGHTM** the optimal filtering method is going to use the noise weight matrix claculated from noise intervals (rather than the noise spectral density as in :ref:`first order approach <optimalFilter_NSD>`). Use of the noise power spectrum (FFT) is also possible, but it introduces an additional wrong assumption of periodicity. The signal-to-noise cost for filtering in the Fourier domain may be small in some cases but it is worth while checking the importance of this cost (:cite:`Fowler2015`).
+
+	Being :math:`W`the noise covariance matrix, the best estimate energy is (:ref:`see mathematical development <WEIGHTN>`):
+	
+	.. math::
+			
+		E = e_1^T[X^T \cdot W \cdot X]^{-1} [X^T \cdot W \cdot Y]
+		
+where :math:`e_1^T \equiv [1, 0]` is the unit vector to select only the term that corresponds to the energy (amplitude) of the pulse. :math:`M` is a model matrix whose first column is the pulse shape and the second column is a column of ones in order to can calculate the baseline. :math:`Y` is the measured data.
+
 
 .. _rSpace:
 
@@ -569,7 +589,7 @@ The SIRENA input parameter that controls the reconstruction method applied is :o
 		
 where :math:`e_1^T \equiv [1, 0]` is the unit vector to select only the term that corresponds to the energy (amplitude) of the pulse.
 	
-                
+               
 
 	Energy reconstruction with *Covariance Matrices 0(n)* is selected with input option :option:`EnergyMethod` = **WEIGHTN**. If parameter :option:`OFLib` =1, some components can be used from the precalculated values at the :ref:`libraryColumns <library>` (HDU **PRECALWN**).
 			
@@ -650,19 +670,25 @@ where :math:`e_1^T \equiv [1, 0]` is the unit vector to select only the term tha
 Use of library columns in the different reconstruction methods
 ==============================================================
 
-**1) Optimal filtering**
+**1) Optimal filtering and NSD**
 
-        .. figure:: images/OPTFILT.png
+        .. figure:: images/OPTFILTNSD.png
            :align: center
            :width: 90%
 
-**2) Covariance matrices**
+**2) Optimal filtering and WEIGHTM**
+
+        .. figure:: images/OPTFILTWEIGHTM.png
+           :align: center
+           :width: 90%
+
+**3) Covariance matrices**
 
         .. figure:: images/WEIGHT.png
            :align: center
            :width: 85%
      
-**3) Covariance matrices O(n)**
+**4) Covariance matrices O(n)**
 
         .. figure:: images/WEIGHTN.png
            :align: center
