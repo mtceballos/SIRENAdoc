@@ -267,6 +267,12 @@ To run SIRENA implementation, the user must supply the following input parameter
 	:ref:`reconMethods` Energy calculation Method: OPTFILT (Optimal filtering), WEIGHT (Covariance matrices), WEIGHTN (Covariance matrices, first order), I2R, I2RALL, I2RNOL and I2RFITTED (Linear Transformations), or PCA (Principal Component Analysis). Not used in library creation mode (:option:`mode` = 0)
 
 	Default: *OPTFILT*
+	
+.. option::  OFNoise=<NSD | WEIGHTM>
+
+	It has only sense if :option:`EnergyMethod` = OPTFILT and it means to use the noise spectrum density (NSD) or the noise weight matrix (WEIGHTM).
+
+	Default: *NSD*
 
 .. option::  LagsOrNot=<0|1> 
 
