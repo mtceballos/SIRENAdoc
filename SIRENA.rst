@@ -680,7 +680,7 @@ Use of library columns in the different reconstruction methods
 
         .. figure:: images/OPTFILTWEIGHTM.png
            :align: center
-           :width: 90%
+           :width: 40%
 
 **3) Covariance matrices**
 
