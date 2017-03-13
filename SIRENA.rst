@@ -438,14 +438,14 @@ The SIRENA input parameter that controls the reconstruction method applied is :o
 	
 	The misalignement between the triggered pulse and the template applied for the optimal filter can affect the energy estimate. As the response will be maximum when the data and the template are coincident, an option has been implemented in SIRENA to calculate the energy at five different fixed lags between both, and estimate the final energy to better than the sample frequency (:cite:`Adams2009`). This possibility is driven by input :option:`LagsOrNot`.
 
-.._optimalFilter_WEIGHTM:
+.. _optimalFilter_WEIGHTM:
 
 :pageblue:`Optimal Filtering by using the noise weight matrix from noise intervals`
 ------------------------------
 
-	By choosing the input parameter :option:`OFNoise`=**WEIGHTM** the optimal filtering method is going to use the noise weight matrix claculated from noise intervals (rather than the noise spectral density as in :ref:`first order approach <optimalFilter_NSD>`). Use of the noise power spectrum (FFT) is also possible, but it introduces an additional wrong assumption of periodicity. The signal-to-noise cost for filtering in the Fourier domain may be small in some cases but it is worth while checking the importance of this cost (:cite:`Fowler2015`).
+	By choosing the input parameter :option:`OFNoise` as **WEIGHTM** the optimal filtering method is going to use the noise weight matrix claculated from noise intervals (rather than the noise spectral density as in :ref:`first order approach <optimalFilter_NSD>`). Using the noise power spectrum (FFT) is also possible, but it introduces an additional wrong assumption of periodicity. The signal-to-noise cost for filtering in the Fourier domain may be small in some cases but it is worth while checking the importance of this cost (:cite:`Fowler2015`).
 
-	Being :math:`W`the noise covariance matrix, the best estimate energy is (:ref:`see mathematical development <WEIGHTN>`):
+	Being :math:`W` the noise covariance matrix, the best estimate energy is (:ref:`see mathematical development <WEIGHTN>`):
 	
 	.. math::
 			
