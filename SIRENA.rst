@@ -76,7 +76,7 @@ The sequence of commands that must be run is as follows:
    Noise file triggered into records of 10000 samples.
    
    
-**2) Noise spectrum and weight matrixes generation**
+**2) Noise spectrum and weight matrices generation**
 
 In :ref:`gennoisespec`, the data is analysed record by record: if there are events present, this tool :ref:`finds <detect>` and rejects them, keeping only the pulse-free intervals of a size given by the input parameter :option:`--intervalMinSamples`. If no events are present, the record is divided into pulse-free intervals sized also by this parameter.
 
