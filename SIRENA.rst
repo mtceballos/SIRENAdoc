@@ -193,26 +193,26 @@ The relevant parameters of ``tesreconstruction``  for the library creation proce
 
 **3) Library structure**
 
-The library FITS file has 5 HDUs called **LIBRARY**, **FIXFILTT**, **FIXFILTF**, **PRECALWN** and **PRCLOFWM**.
+The library FITS file has 3 HDUs called **LIBRARY**, **FIXFILTT**, **FIXFILTF** which are always present, and other 2 HDUs  **PRECALWN** and **PRCLOFWM** which are optional depending on the input parameters :option:`--hduPRECALWN` and :option:`--hduPRCLOFWM`.
 
 **LIBRARY** contains the following columns:
 
 * **ENERGY**: energies (in eV) in the library 
-* **PULSEHEIGHT**: pulse heights of the templates
+* **PHEIGHT**: pulse heights of the templates
 * **PLSMXLFF**: long templates according to :option:`largeFilter` (obtained averaging many signals) with baseline. If :option:`largeFilter` is equal to :option:`PulseLength` it does not appear
 * **PULSE**: templates (obtained averaging many signals) with baseline
 * **PULSEB0**: baseline subtracted templates
 * **MF**: matched filters (energy normalized templates)
 * **MFB0**: baseline subtracted matched filters
-* **COVARM**: :ref:`covariance matrices<covMatrices>` ( :option:`PulseLength` x :option:`PulseLength` in shape )  stored in the FITS column as vectors of size :option:`PulseLength` * :option:`PulseLength`
-* **WEIGHTM**: :ref:`weight matrices<covMatrices>` ( :option:`PulseLength` x :option:`PulseLength` in shape) stored in the FITS column as vectors of size :option:`PulseLength` * :option:`PulseLength`
-* **WAB**: matrices :math:`(W_\alpha + W_\beta)/2` stored as vectors ( :option:`PulseLength` * :option:`PulseLength` ), being :math:`\mathit{W}` weight matrixes and :math:`\alpha` and :math:`\beta` two consecutive energies in the library
-* **TV**: vectors :math:`S_{\beta}-S_{\alpha}` being :math:`S_i` the template at :math:`\mathit{i}` energy
-* **tE**: scalars :math:`T \cdot W_{\alpha} \cdot T`
-* **XM**: matrices :math:`(W_\beta + W_\alpha)/t` stored as vectors ( :option:`PulseLength` * :option:`PulseLength` )
-* **YV**: vectors :math:`(W_\alpha \cdot T)/t`
-* **ZV**: vectors :math:`\mathit{X \cdot T}`
-* **rE**: scalars :math:`\mathit{1/(Z \cdot T)}`
+* **COVARM**: :ref:`covariance matrices<covMatrices>` ( :option:`PulseLength` x :option:`PulseLength` in shape ) stored in the FITS column as vectors of size :option:`PulseLength` * :option:`PulseLength`. It appears if :option:`--hduPRECALWN`=yes
+* **WEIGHTM**: :ref:`weight matrices<covMatrices>` ( :option:`PulseLength` x :option:`PulseLength` in shape) stored in the FITS column as vectors of size :option:`PulseLength` * :option:`PulseLength`. It appears if :option:`--hduPRECALWN`=yes
+* **WAB**: matrices :math:`(W_\alpha + W_\beta)/2` stored as vectors ( :option:`PulseLength` * :option:`PulseLength` ), being :math:`\mathit{W}` weight matrixes and :math:`\alpha` and :math:`\beta` two consecutive energies in the library. It appears if :option:`--hduPRECALWN`=yes
+* **TV**: vectors :math:`S_{\beta}-S_{\alpha}` being :math:`S_i` the template at :math:`\mathit{i}` energy. It appears if :option:`--hduPRECALWN`=yes
+* **tE**: scalars :math:`T \cdot W_{\alpha} \cdot T`. It appears if :option:`--hduPRECALWN`=yes
+* **XM**: matrices :math:`(W_\beta + W_\alpha)/t` stored as vectors ( :option:`PulseLength` * :option:`PulseLength` ). It appears if :option:`--hduPRECALWN`=yes
+* **YV**: vectors :math:`(W_\alpha \cdot T)/t`. It appears if :option:`--hduPRECALWN`=yes
+* **ZV**: vectors :math:`\mathit{X \cdot T}`. It appears if :option:`--hduPRECALWN`=yes
+* **rE**: scalars :math:`\mathit{1/(Z \cdot T)}`. It appears if :option:`--hduPRECALWN`=yes
 * **PAB**: vectors :math:`S_{\alpha}- E_{\alpha}(S_{\beta}-S_{\alpha})/(E_{\beta}-E_{\alpha})`, :math:`P(t)_{\alpha\beta}` in :ref:`first order approach <optimalFilter_NSD>` 
 * **PABMXLFF**: **PAB** according to :option:`largeFilter`. If :option:`largeFilter` is equal to :option:`PulseLength` it does not appear
 * **DAB**: vectors :math:`(S_{\beta}-S_{\alpha})/(E_{\beta}-E_{\alpha})`, :math:`D(t)_{\alpha\beta}` in :ref:`first order approach <optimalFilter_NSD>`
