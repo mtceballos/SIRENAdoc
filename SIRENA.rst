@@ -172,14 +172,14 @@ Once the calibration files (for all the 1..N calibration energies) have been cre
   > tesreconstruction Recordfile=calib.fits TesEventFile=evtcal.fits Rcmethod=SIRENA \
   PulseLength=pulseLength LibraryFile=library.fits mode=0 clobber=yes monoenergy=monoEeV_1 \
   EventListSize=1000 NoiseFile=noiseSpec.fits scaleFactor=sF samplesUp=sU nSgms=nS \
-  largeFilter=maxlengthfixedfilter
+  largeFilter=maxlengthfixedfilter hduPRECALWN=yes/no hduPRCLOFWM=yes/no
                 
   [.....]
   
   > tesreconstruction Recordfile=calib.fits TesEventFile=evtcal.fits Rcmethod=SIRENA \
   PulseLength=pulseLength LibraryFile=library.fits mode=0 clobber=yes monoenergy=monoEeV_N \
   EventListSize=1000 NoiseFile=noiseSpec.fits scaleFactor=sF samplesUp=sU nSgms=nS \
-  largeFilter=maxlengthfixedfilter
+  largeFilter=maxlengthfixedfilter hduPRECALWN=yes/no hduPRCLOFWM=yes/no
 
 The relevant parameters of ``tesreconstruction``  for the library creation process are:
 
