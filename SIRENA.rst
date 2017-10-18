@@ -304,7 +304,7 @@ The first stage of SIRENA processing is a fine detection process performed over 
 
 .. figure:: images/mediankappaclipping.png
    :align:  center
-   :scale: 50%
+   :scale: 80%
    
    Median kappa-clipping block diagram.
 
