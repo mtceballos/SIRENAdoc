@@ -291,9 +291,22 @@ The energy reconstruction of the energies of the input pulses is performed with 
 Event Detection
 ================
 
-The first stage of SIRENA processing is a fine detection process performed over every *RECORD* in the input file, to look for missing (or secondary) pulses that can be on top of the primary (initially triggered) ones. The algorithm used for this purpose is the *Adjusted derivative* (see :cite:`Boyce1999`) and it follows these steps:
+The first stage of SIRENA processing is a fine detection process performed over every *RECORD* in the input file, to look for missing (or secondary) pulses that can be on top of the primary (initially triggered) ones. The main algorithm used for this purpose is the *Adjusted derivative* (**AD**) (see :cite:`Boyce1999`) but another alternative (**A1**) has been implemented in the code with the aim of reducing the complexity and the computer power of the AD scheme (:option:`--detectionMode` ).
+
+.. _detection_AD:
+
+:pageblue:`Adjusted Derivative`
+------------------------------
+
+	It follows these steps:
 
 1.- The record is differentiated and a *median kappa-clipping* process is applied to the data, so that the data values larger than the median plus *kappa* times the quiescent-signal standard deviation, are replaced by the median value in an iterative process until no more data points are left. Then the threshold is established at the clipped-data mean value plus :option:`nSgms` times the standard deviation.
+
+.. figure:: images/mediankappaclipping.png
+   :align:  center
+   :scale: 50%
+   
+   Median kappa-clipping block diagram.
 
 2.- A pulse is detected whenever the signal of :option:`samplesUp` samples is above this threshold .
 
@@ -328,6 +341,13 @@ If the parameter :option:`scaleFactor` is too large, the low-pass filter band is
    :scale: 80%
 
    First derivative of initial signal and initial threshold (left) and derivative of signal after subtraction of primary pulses (right).
+   
+   .. _detection_A1:
+
+:pageblue:`Alternative1`
+------------------------------
+
+	Xxxxxxxxx
 
 For testing and debugging purposes, SIRENA code can be run in **perfect detection** mode, leaving out the detection stage, provided the (pairs or triplets of) simulated pulses are at the same position in all the RECORDS. In this case the start sample of the first/second/third pulse in the record is taken from the input parameter(s) :option:`tstartPulse1`, :option:`tstartPulse2`, :option:`tstartPulse3` (parameters :option:`scaleFactor`, :option:`samplesUp` or :option:`nSgms` would then not be required). Currently no subsample pulse rising has been implemented in the simulations nor in the reconstruction code (future development).
 
