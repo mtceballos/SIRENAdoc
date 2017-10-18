@@ -252,7 +252,7 @@ The reconstructed energies for all the detected events are saved into an output 
 
 * **SIGNAL**: energy of the event in keV
 
-* **GRADE1**: length of the filter used, i.e., the distance to the following pulse (in samples) or the pulse length if the next event if further than this value or if there are no more events in the same record.
+* **GRADE1**: length of the filter used, i.e., the distance to the following pulse (in samples) or the pulse length if the next event is further than this value or if there are no more events in the same record.
 
 * **GRADE2**: distance to the end of the preceding pulse (in samples). If pulse is the first event in the record, this is fixed to the :option:`PulseLength` value.
 
