@@ -310,9 +310,9 @@ It follows these steps:
 
 2.- A pulse is detected whenever the derivarive signal is above this threshold.
 
-3.- After the detection, the first sample of the derivative that crosses the threshold is taken as the Start Time of the detected pulse.
+3.- After the detection, the first sample of the signal derivative which passes te threshold level marks the (initial) start time of the detected pulse. Based on this same value, a template is selected from the library. The convolution of the pre-detected pulse and the template (both od them will be 1000 samples long) is then calculated at differents positions (lags) around the initial staring time of the pulse, until the maximum value of the convolution is reached. This maximum points out the most accurate estimation at this stage, of the initial Start Time of the detected pulse, which is relevant for the following step.
 
-4.- Once a primary pulse is detected in the record, the system starts a secondary detection to look for missing pulses that could be hidden by the primary one. For this purpose, a model template is chosen from the auxiliary library (selection based on the first sample of the derivative) and subtracted at the position of the detected pulse. This is an iterative process, until no more pulses are found.
+4.- Once a primary pulse is detected in the record, the system starts a secondary detection to look for missing pulses that could be hidden by the primary one. For this purpose, a model template is chosen from the auxiliary library  and subtracted at the position of the detected pulse. The first sample of the detected pulse derivative (possibly different from the initial one after the realocation done by the convolution in the previous step) is used to select again the appropriate template from the library. The template to be subtracted will be 1000 samples long. This is an iterative process, until no more pulses are found.
 
 .. _lpf:
 
