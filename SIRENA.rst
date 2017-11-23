@@ -65,7 +65,7 @@ The sequence of commands that must be run is as follows:
   
     > tessim PixID=pixelNumber PixImpList=noise.piximpact Streamfile=noise.fits tstart=0. \
     tstop=simulationTime triggertype=noise triggersize=10000 prebuffer=1000 \
-    PixType=newpixels[SPA] acbias=yes
+    PixType='file:newpixels[SPA]' acbias=yes
 
 .. _noise-records:
       
