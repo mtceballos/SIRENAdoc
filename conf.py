@@ -1,3 +1,7 @@
+from docutils.parsers.rst.directives.admonitions import BaseAdmonition
+from sphinx.util import compat
+compat.make_admonition = BaseAdmonition
+
 # -*- coding: utf-8 -*-
 #
 # SIRENA documentation build configuration file, created by
@@ -38,7 +42,7 @@ def setup(app):
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 
 extensions = [
-	   'sphinx.ext.pngmath',
+	   'sphinx.ext.imgmath',
 	  'sphinx.ext.autodoc',
           'sphinx.ext.doctest',
           'ipython_console_highlighting',

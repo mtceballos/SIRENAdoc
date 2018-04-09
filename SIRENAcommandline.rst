@@ -94,6 +94,13 @@ The user must supply the following input parameters:
 	Baseline averaging length for the RS-filtering for raw energy estimation, in seconds 
 
 	Default: 1.E-3
+	
+.. option:: --weightMS=<yes|no> 
+
+	Calculate and write the weight matrixes if *yes*
+
+	Default: *no*
+	
 
 .. option:: --namelog=<str>
 
@@ -141,7 +148,7 @@ The **NOISE** HDU contains two keywords:
 
 The **NOISEALL** HDU contains **FREQ** and **CSD** columns for positive and negative frequencies.
 
-The **WEIGHTMS** HDU contains **Wx** columns. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the :option:`--intervalMinSamples` decreasing until 2.
+If :option:`--weightMS` = *yes*, the **WEIGHTMS** HDU contains **Wx** columns. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the :option:`--intervalMinSamples` decreasing until 2.
 
 
 .. _tesreconstruction:
@@ -206,43 +213,65 @@ To run SIRENA implementation, the user must supply the following input parameter
 
 .. option::  samplesUp=<samples> 
 
-	Consecutive samples that the signal must cross over the threshold to trigger a pulse detection (only used in calibration run)
+	Number of consecutive samples up for threshold trespassing (only used in calibration run and in production run with A1 detection mode)
 
-	Default: 2
+	Default: 3
+	
+.. option::  samplesDown=<samples> 
+
+	Number of consecutive samples below the threshold to look for other pulse (only used in production run with A1 detection mode)
+
+	Default: 3
 
 .. option::  nSgms=<real> 
 
-	Number of quiescent-signal standard deviations to establish the threshold through the kappa-clipping algorithm
+	Number of quiescent-signal standard deviations to establish the threshold through the kappa-clipping algorithm 
 
 	Default: 5
 
 .. option::  LrsT=<secs>
 
-	Running sum (RS) length for the RS raw energy estimation, in seconds 
+	Running sum (RS) length for the RS raw energy estimation, in seconds (only used in calibration run)
 	
 	Default: 30E-6
 
 .. option::  LbT=<secs>
 
-	Baseline averaging length for the RS raw energy estimation, in seconds 
+	Baseline averaging length for the RS raw energy estimation, in seconds (only used in calibration run)
 
 	Default: 1.E-3
 
 .. option::  monoenergy=<eV>
 
-	Monochromatic energy of the pulses in the input FITS file in eV (only for library creation)
+	Monochromatic energy of the pulses in the input FITS file in eV (only used in calibration run)
+	
+.. option::  hduPRECALWN=<yes|no>
+
+	Add or not the PRECALWN HDU in the library file (only used in calibration run)
+
+	Default: *no*	
+
+.. option::  hduPRCLOFWM=<yes|no>
+
+	Add or not the PRECLOFWM HDU in the library file (only used in calibration run)
+
+	Default: *no*	
 	
 .. option::  largeFilter=<samples>
 
-	Length of the longest fixed filter (only for library creation)
+	Length of the longest fixed filter (only used in calibration run)
 	
-	Default: 8000
-
 .. option:: mode=<0|1>
 
 	Calibration run for library creation (0) or energy reconstruction run (1)
 
 	Default: 1
+	
+.. option:: detectionMode=<AD | A1>
+
+	Adjusted Derivative (AD) or Alternative 1 (A1). Not used in library creation mode (:option:`mode` = 0)
+
+	Default: AD
 
 .. option::  NoiseFile=<str>
 
@@ -250,7 +279,7 @@ To run SIRENA implementation, the user must supply the following input parameter
 
 	Default: *noise.fits*
 
-.. option::  FilterDomain=<T|F> 
+.. option::  FilterDomain=<T | F> 
 
 	Filtering Domain: Time(T) or Frequency(F). Not used in library creation mode (:option:`mode` = 0)
 
@@ -267,6 +296,12 @@ To run SIRENA implementation, the user must supply the following input parameter
 	:ref:`reconMethods` Energy calculation Method: OPTFILT (Optimal filtering), WEIGHT (Covariance matrices), WEIGHTN (Covariance matrices, first order), I2R, I2RALL, I2RNOL and I2RFITTED (Linear Transformations), or PCA (Principal Component Analysis). Not used in library creation mode (:option:`mode` = 0)
 
 	Default: *OPTFILT*
+	
+.. option::  filtEeV=<eV>
+
+	Energy of the filters of the library to be used to calculate energy (only for OPTFILT, I2R, I2RALL, I2RNOL and I2RFITTED).
+
+	Default: 1000
 	
 .. option::  OFNoise=<NSD | WEIGHTM>
 
@@ -378,6 +413,8 @@ The output file will also be a FITS file storing one event per row with the foll
 
 * **SIGNAL**: energy of the event in keV
 
+* **AVG4SD**: average of the first 4 samples of the derivative of the pulse
+
 * **GRADE1**: pulse duration (length of optimal filter applied, if that is the case)
 
 * **GRADE2**: distance to the start time of the preceding pulse (in samples)
@@ -385,6 +422,8 @@ The output file will also be a FITS file storing one event per row with the foll
 * **PIX_ID**: pixel number
 
 * **PH_ID**: photon number identification for cross matching with the imapct list (currently not in use)
+
+* **GRADING**: Pulse grade (HighRes=1, MidRes=2, LimRes=3, LowRes=4, Rejected=-1, Pileup=-2)
 
 
 .. _tessim:

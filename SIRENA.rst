@@ -97,7 +97,7 @@ On one hand, the tool calculates the FFT of the pulse-free intervals (over the u
    
    Noise spectrum (see noise file :ref:`description <outNoise>`)
 
-On the other hand, the tool calculates the covariance matrix of the noise, :math:`V`, whose elements are expectation values (:math:`E[·]`) of two-point products for a pulse-free data sequence :math:`{di}` (over the unfiltered data) (:cite:`Fowler2015`)
+On the other hand, if :option:`--weightMS` = *yes* the tool calculates the covariance matrix of the noise, :math:`V`, whose elements are expectation values (:math:`E[·]`) of two-point products for a pulse-free data sequence :math:`{di}` (over the unfiltered data) (:cite:`Fowler2015`)
 
 .. math::
 
@@ -188,12 +188,13 @@ The relevant parameters of ``tesreconstruction``  for the library creation proce
 * :option:`largeFilter`:  length of the longest fixed filter 
 * :option:`monoenergy`: the monochromatic energy of the calibration pulses used to create the current row in the library
 * :option:`scaleFactor`, :option:`samplesUp` and :option:`nSgms`: parameters involved in the pulse detection process.
+* :option:`hduPRECALWN` and :option:`hduPRCLOFWM`: parameters to create or not the corresponding HDUs.
 
 .. _libraryColumns:
 
 **3) Library structure**
 
-The library FITS file has 3 HDUs called **LIBRARY**, **FIXFILTT**, **FIXFILTF** which are always present, and other 2 HDUs  **PRECALWN** and **PRCLOFWM** which are optional depending on the input parameters :option:`--hduPRECALWN` and :option:`--hduPRCLOFWM`.
+The library FITS file has 3 HDUs called **LIBRARY**, **FIXFILTT**, **FIXFILTF** which are always present, and other 2 HDUs  **PRECALWN** and **PRCLOFWM** which are optional depending on the input parameters :option:`hduPRECALWN` and :option:`hduPRCLOFWM`.
 
 **LIBRARY** contains the following columns:
 
@@ -204,15 +205,15 @@ The library FITS file has 3 HDUs called **LIBRARY**, **FIXFILTT**, **FIXFILTF** 
 * **PULSEB0**: baseline subtracted templates
 * **MF**: matched filters (energy normalized templates)
 * **MFB0**: baseline subtracted matched filters
-* **COVARM**: :ref:`covariance matrices<covMatrices>` ( :option:`PulseLength` x :option:`PulseLength` in shape ) stored in the FITS column as vectors of size :option:`PulseLength` * :option:`PulseLength`. It appears if :option:`--hduPRECALWN` =yes
-* **WEIGHTM**: :ref:`weight matrices<covMatrices>` ( :option:`PulseLength` x :option:`PulseLength` in shape) stored in the FITS column as vectors of size :option:`PulseLength` * :option:`PulseLength`. It appears if :option:`--hduPRECALWN` =yes
-* **WAB**: matrices :math:`(W_\alpha + W_\beta)/2` stored as vectors ( :option:`PulseLength` * :option:`PulseLength` ), being :math:`\mathit{W}` weight matrixes and :math:`\alpha` and :math:`\beta` two consecutive energies in the library. It appears if :option:`--hduPRECALWN` =yes
-* **TV**: vectors :math:`S_{\beta}-S_{\alpha}` being :math:`S_i` the template at :math:`\mathit{i}` energy. It appears if :option:`--hduPRECALWN` =yes
-* **tE**: scalars :math:`T \cdot W_{\alpha} \cdot T`. It appears if :option:`--hduPRECALWN` =yes
-* **XM**: matrices :math:`(W_\beta + W_\alpha)/t` stored as vectors ( :option:`PulseLength` * :option:`PulseLength` ). It appears if :option:`--hduPRECALWN` =yes
-* **YV**: vectors :math:`(W_\alpha \cdot T)/t`. It appears if :option:`--hduPRECALWN` =yes
-* **ZV**: vectors :math:`\mathit{X \cdot T}`. It appears if :option:`--hduPRECALWN` =yes
-* **rE**: scalars :math:`\mathit{1/(Z \cdot T)}`. It appears if :option:`--hduPRECALWN` =yes
+* **COVARM**: :ref:`covariance matrices<covMatrices>` ( :option:`PulseLength` x :option:`PulseLength` in shape ) stored in the FITS column as vectors of size :option:`PulseLength` * :option:`PulseLength`. It appears if :option:`hduPRECALWN` =yes
+* **WEIGHTM**: :ref:`weight matrices<covMatrices>` ( :option:`PulseLength` x :option:`PulseLength` in shape) stored in the FITS column as vectors of size :option:`PulseLength` * :option:`PulseLength`. It appears if :option:`hduPRECALWN` =yes
+* **WAB**: matrices :math:`(W_\alpha + W_\beta)/2` stored as vectors ( :option:`PulseLength` * :option:`PulseLength` ), being :math:`\mathit{W}` weight matrixes and :math:`\alpha` and :math:`\beta` two consecutive energies in the library. It appears if :option:`hduPRECALWN` =yes
+* **TV**: vectors :math:`S_{\beta}-S_{\alpha}` being :math:`S_i` the template at :math:`\mathit{i}` energy. It appears if :option:`hduPRECALWN` =yes
+* **tE**: scalars :math:`T \cdot W_{\alpha} \cdot T`. It appears if :option:`hduPRECALWN` =yes
+* **XM**: matrices :math:`(W_\beta + W_\alpha)/t` stored as vectors ( :option:`PulseLength` * :option:`PulseLength` ). It appears if :option:`hduPRECALWN` =yes
+* **YV**: vectors :math:`(W_\alpha \cdot T)/t`. It appears if :option:`hduPRECALWN` =yes
+* **ZV**: vectors :math:`\mathit{X \cdot T}`. It appears if :option:`hduPRECALWN` =yes
+* **rE**: scalars :math:`\mathit{1/(Z \cdot T)}`. It appears if :option:`hduPRECALWN` =yes
 * **PAB**: vectors :math:`S_{\alpha}- E_{\alpha}(S_{\beta}-S_{\alpha})/(E_{\beta}-E_{\alpha})`, :math:`P(t)_{\alpha\beta}` in :ref:`first order approach <optimalFilter_NSD>` 
 * **PABMXLFF**: **PAB** according to :option:`largeFilter`. If :option:`largeFilter` is equal to :option:`PulseLength` it does not appear
 * **DAB**: vectors :math:`(S_{\beta}-S_{\alpha})/(E_{\beta}-E_{\alpha})`, :math:`D(t)_{\alpha\beta}` in :ref:`first order approach <optimalFilter_NSD>`
@@ -250,7 +251,9 @@ The reconstructed energies for all the detected events are saved into an output 
 
 * **TIME**: arrival time of the event (in s).
 
-* **SIGNAL**: energy of the event in keV
+* **SIGNAL**: energy of the event in keV.
+
+* **AVG4SD**: average of the first 4 samples of the derivative of the pulse.
 
 * **GRADE1**: length of the filter used, i.e., the distance to the following pulse (in samples) or the pulse length if the next event is further than this value or if there are no more events in the same record.
 
@@ -259,6 +262,8 @@ The reconstructed energies for all the detected events are saved into an output 
 * **PIX_ID**: pixel number
 
 * **PH_ID**: photon number identification for cross matching with the impact list (currently not in use).
+
+* **GRADING**: Pulse grade (HighRes=1, MidRes=2, LimRes=3, LowRes=4, Rejected=-1, Pileup=-2).
 
 .. _evtFile:
 
@@ -291,12 +296,12 @@ The energy reconstruction of the energies of the input pulses is performed with 
 Event Detection
 ================
 
-The first stage of SIRENA processing is a fine detection process performed over every *RECORD* in the input file, to look for missing (or secondary) pulses that can be on top of the primary (initially triggered) ones. The main algorithm used for this purpose is the *Adjusted derivative* (**AD**) (see :cite:`Boyce1999`) but another alternative (**A1**) has been implemented in the code with the aim of reducing the complexity and the computer power of the AD scheme (:option:`--detectionMode` ).
+The first stage of SIRENA processing is a fine detection process performed over every *RECORD* in the input file, to look for missing (or secondary) pulses that can be on top of the primary (initially triggered) ones. Two algorithms can be used for this purpose, the *Adjusted derivative* (**AD**) (see :cite:`Boyce1999`) and what has been called *Alternative 1* (**A1**) (which has been implemented in the code with the aim of reducing the complexity and the computer power of the AD scheme) (:option:`detectionMode` ).
 
 .. _detection_AD:
 
 :pageblue:`Adjusted Derivative`
-------------------------------
+-------------------------------
 
 It follows these steps:
 
@@ -310,9 +315,24 @@ It follows these steps:
 
 2.- A pulse is detected whenever the derivarive signal is above this threshold.
 
-3.- After the detection, the first sample of the signal derivative which passes te threshold level marks the (initial) start time of the detected pulse. Based on this same value, a template is selected from the library. The convolution of the pre-detected pulse and the template (both od them will be 1000 samples long) is then calculated at differents positions (lags) around the initial staring time of the pulse, until the maximum value of the convolution is reached. This maximum points out the most accurate estimation at this stage, of the initial Start Time of the detected pulse, which is relevant for the following step.
+.. figure:: images/ADskecth_blue.png
+   :align:  center
+   :scale: 60%
+   
+   Block diagram explaining the AD detection process (after the threshold establishment).
 
-4.- Once a primary pulse is detected in the record, the system starts a secondary detection to look for missing pulses that could be hidden by the primary one. For this purpose, a model template is chosen from the auxiliary library  and subtracted at the position of the detected pulse. The first sample of the detected pulse derivative (possibly different from the initial one after the realocation done by the convolution in the previous step) is used to select again the appropriate template from the library. The template to be subtracted will be 1000 samples long. This is an iterative process, until no more pulses are found.
+3.- Based on the first sample of the signal derivative which passes the threshold level, a template is selected from the library. The 25-samples-long dot product of the pre-detected pulse and the template is then calculated at different positions (lags) around the initial starting time of the pulse to better determine its correct starting point. Usually a dot product in 3 different **lags** [#f1]_ around the sample of the initial detection is adequate to find a maximum and the following steps will depend on whether a maximum of the dot product has been found or not:
+
+- If a maximum of the dot product has not been found, the starting time of the pulse is fixed to the time when the derivative gets over the threshold (in this case, the *tstart* matches a digitized sample without taking the possible jitter into account).
+- If a maximum of the dot product has been found, a new starting time f the pulse is going to be established (by using the 3-dot-product results around the maximum to analytically define a parabola and locate its maximum). Then, an iterative process begins in order to select the best template from the library, resulting each time in a new starting time with a different jitter. As due to the jitter, the pulses are placed out of a digitized sample clock, the first sample of the derivative of the pulse itself is not exactly the value of the first sample getting over the threshold and it would need to be corrected depending on the time shift with respect to the digitized samples (*samp1DER correction*). 
+
+.. [#f1] Nevertheless, when the residual signals are large, the maximum of the dot product moves towards the secondary pulse, missing the primary detection. This is why currently the maximum number of the dot product lags is limited to 5.
+
+4.- Every time a sample is over the threshold, a check is performed for the slope of the straight line defined by this sample, its preceding one and its following one. If the slope is lower than the minimum slope of the templates in the calibration library, the pulse is discarded (it is likely a residual signal) and start a new search. If the slope is higher than the minimum slope of the templates in the calibration library, the pulse is labeled as detected.
+
+5.- Once a primary pulse is detected in the record, the system starts a secondary detection to look for missing pulses that could be hidden by the primary one. For this purpose, a model template is chosen from the auxiliary library  and subtracted at the position of the detected pulse. The first sample of the detected pulse derivative (possibly different from the initial one after the realocation done by the dot product in the previous step) is used to select again the appropriate template from the library. After the *samp1DER correction* and also due to the jitter, the 100-samples-long template needs to be aligned with the pulse before subtraction (*template correction*). Then the search for samples above the threshold starts again.
+
+This is an iterative process, until no more pulses are found.
 
 .. _lpf:
 
@@ -342,18 +362,18 @@ If the parameter :option:`scaleFactor` is too large, the low-pass filter band is
 
    First derivative of initial signal and initial threshold (left) and derivative of signal after subtraction of primary pulses (right).
    
-   .. _detection_A1:
+.. _detection_A1:
 
 :pageblue:`Alternative1`
 ------------------------------
 
 1.- This alternative detection method also compares the derivative signal to a threshold (established in the same way as in the step 1 of the previous algorithm). 
 
-2.- If the signal of :option:`samplesUp` samples is above this threshold a pulse is detected. 
+2.- If :option:`samplesUp` samples of the derivative are above this threshold a pulse is detected. 
 
 3.- After the detection, the first sample of the derivative that crosses the threshold is taken as the Start Time of the detected pulse. 
 
-4.- If the signal of :option:`samplesDown` samples is below the threshold, the process of looking for a new pulse starts again.
+4.- If :option:`samplesDown` samples of the derivative are below the threshold, the process of looking for a new pulse starts again.
 
 In contrast to apply either of the last two detection algorithms, for testing and debugging purposes SIRENA code can be run in **perfect detection** mode, leaving out the detection stage, provided the (pairs or triplets of) simulated pulses are at the same position in all the RECORDS. In this case the start sample of the first/second/third pulse in the record is taken from the input parameter(s) :option:`tstartPulse1`, :option:`tstartPulse2`, :option:`tstartPulse3` (parameters :option:`scaleFactor`, :option:`samplesUp` or :option:`nSgms` would then not be required). Currently no subsample pulse rising has been implemented in the simulations nor in the reconstruction code (future development).
 
@@ -365,7 +385,7 @@ Event Grading
 
 The *Event Grading* stage qualifies the pulses according to the proximity of other events in the same record. 
 
-Once the events in a given record have been detected and their start times established, **grades** are assigned to every event taking into account the proximity of the following and previous pulses. This way, pulses are classified as *High*, *Medium* or *Low* resolution. Currently the grading is performed following the information in the input :option:`XMLFile`.
+Once the events in a given record have been detected and their start times established, **grades** are assigned to every event taking into account the proximity of the following and previous pulses. This way, pulses are classified as *High*, *Medium*, *Limited* or *Low* resolution and as *Rejected* and *Pileup* pulses. Currently the grading is performed following the information in the input :option:`XMLFile`.
 
 
 .. _reconMethods:
@@ -380,7 +400,7 @@ The SIRENA input parameter that controls the reconstruction method applied is :o
 .. _optimalFilter_NSD:
 
 :pageblue:`Optimal Filtering by using the noise spectral density`
-------------------------------
+-----------------------------------------------------------------
 
 	This is the baseline standard technique commonly used to process microcalorimeter data streams. It relies on two main assumptions. Firstly, the detector response is linear; that is, the pulse shapes are identical regardless of their energy and thus, the pulse amplitude is the scaling factor from one pulse to another :cite:`Boyce1999`, :cite:`Szym1993`. 
 
@@ -454,7 +474,7 @@ The SIRENA input parameter that controls the reconstruction method applied is :o
 	
 	Again, :option:`OFLib` will control whether the required (*interpolated*) optimal filter (built from :math:`D(t)_{\alpha\beta}`) is read from the library (at any of the several fixed lengths stored, **ABFx** or **ABTx**) or whether an adequate filter is calculated *on-the-fly* (:option:`OFLib` = *0*).
 	
-        .. figure:: images/OPTloop.png
+        .. figure:: images/OPTloop_new.png
             :align: center
             :scale: 80%
 		
@@ -462,12 +482,12 @@ The SIRENA input parameter that controls the reconstruction method applied is :o
             
 	The optimal filtering technique (selected through the input parameter :option:`EnergyMethod`) can be applied in the frequency or in the time domain with the option :option:`FilterDomain`.
 	
-	The misalignement between the triggered pulse and the template applied for the optimal filter can affect the energy estimate. As the response will be maximum when the data and the template are coincident, an option has been implemented in SIRENA to calculate the energy at five different fixed lags between both, and estimate the final energy to better than the sample frequency (:cite:`Adams2009`). This possibility is driven by input :option:`LagsOrNot`.
+	The misalignement between the triggered pulse and the template applied for the optimal filter can affect the energy estimate. As the response will be maximum when the data and the template are coincident, an option has been implemented in SIRENA to calculate the energy at three different fixed lags between both, and estimate the final energy to better than the sample frequency (:cite:`Adams2009`). This possibility is driven by input :option:`LagsOrNot`.
 
 .. _optimalFilter_WEIGHTM:
 
 :pageblue:`Optimal Filtering by using the noise weight matrix from noise intervals`
-------------------------------
+------------------------------------------------------------------------------------
 
 	By choosing the input parameter :option:`OFNoise` as **WEIGHTM** the optimal filtering method is going to use the noise weight matrix calculated from noise intervals (rather than the noise spectral density as in :ref:`first order approach <optimalFilter_NSD>`). Using the noise power spectrum (FFT) is also possible, but it introduces an additional wrong assumption of periodicity. The signal-to-noise cost for filtering in the Fourier domain may be small in some cases but it is worth while checking the importance of this cost (:cite:`Fowler2015`).
 

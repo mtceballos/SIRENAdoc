@@ -145,7 +145,7 @@ Search functions by name at :ref:`genindex`.
 
 .. _C:
 
-.. cpp:function:: int calculateEnergy(gsl_vector *vector, int pulseGrade, gsl_vector *filter, gsl_vector_complex *filterFFT, int runEMethod, int indexEalpha, int indexEbeta, ReconstructInitSIRENA *reconstruct_init, int domain, double samprate, gsl_vector *Pab, gsl_matrix *PRCLWN, gsl_matrix *PRCLOFWM, double *calculatedEnergy)
+.. cpp:function:: int calculateEnergy(gsl_vector *vector, int pulseGrade, gsl_vector *filter, gsl_vector_complex *filterFFT,int runEMethod, int indexEalpha, int indexEbeta, ReconstructInitSIRENA *reconstruct_init, int domain, double samprate, gsl_vector *Pab, gsl_matrix *PRCLWN, gsl_matrix *PRCLOFWM, double *calculatedEnergy, int numlags, double *tstartNewDev)
     
     Located in file: *tasksSIRENA.cpp*
     
@@ -155,7 +155,7 @@ Search functions by name at :ref:`genindex`.
 
     Once the filter template has been created (:cpp:member:`filter` or :cpp:member:`filterFFT`), pulse height analysis is performed by aligning the template with a pulse and multiplying each point in the template by the corresponding point in the pulse. The sum of these products is the energy.
 
-    In the practice, the alignment of the pulse relative to the trigger is not completely accurate, so a number of *n* lags could be used in order to find the peak value of the energy. The *n* peak values are fitted to a parabola to find the most accurate energy (:option:`LagsOrNot`).
+    In the practice, the alignment of the pulse relative to the trigger is not completely accurate, so a number of *n* lags could be used in order to find the peak value of the energy. The *n* peak values are fitted to a parabola to find the most accurate energy (:option:`LagsOrNot`) and a corrected starting time.
     
     a) **OPTFILT** and **WEIGHTM** (= **I2R** or **I2RALL**, **I2RNOL** or **I2RFITTED**) (see :ref:`optimalFilter_WEIGHTM`)
 
@@ -170,7 +170,7 @@ Search functions by name at :ref:`genindex`.
         
     .. cpp:member:: int pulseGrade 
     
-        Grade of the input pulse (to decide whether a full or only a rough estimation of energy is required). If :cpp:member:`pulseGrade` =-1 (rejected) the provided calculated energy is -1
+        Grade of the input pulse (to decide whether a full or only a rough estimation of energy is required). 
         
     .. cpp:member:: gsl_vector* filter
     
@@ -207,10 +207,6 @@ Search functions by name at :ref:`genindex`.
         - :option:`FilterDomain` = **T** :math:`\Rightarrow` :cpp:member:`domain` = 0
         - :option:`FilterDomain` = **F** :math:`\Rightarrow` :cpp:member:`domain` = 1
 
-    .. cpp:member:: double nrmfctr 
-    
-        Normalization factor to make the estimation of *E* in units of energy
-        
     .. cpp:member:: double samprate
     
         Sampling rate in Hz
@@ -222,16 +218,24 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: gsl_vector* PRCLWN 
     
         **PRCLx** column in the library
-	
-     .. cpp:member:: gsl_vector* PRCLOFWM 
+
+    .. cpp:member:: gsl_vector* PRCLOFWM 
     
         **OFWx** column in the library
         
     .. cpp:member:: double* calculatedEnergy
     
-        Calculated energy in eV. 
+        Calculated energy in eV.
         
-
+    .. cpp:member:: int numlags
+    
+        Number of lags (if option:`EnergyMethod` = **OPTFILT** or **I2R** or **I2RALL** or **I2RNOL** or **I2RFITTED** and :option:`OFNoise` = **NSD**)
+        
+    .. cpp:member:: double tstartNewDev
+    
+        Addional deviation of the starting time (if :option:`LagsOrNot` = 1)     
+        
+        
 .. cpp:function:: int calculateIntParams(ReconstructInitSIRENA *reconstruct_init, int indexa, int indexb, double samprate, int runF0orB0val, gsl_matrix *modelsaux, gsl_matrix *covarianceaux, gsl_matrix *weightaux, gsl_vector *energycolumn, gsl_matrix **Wabaux, gsl_matrix **TVaux, gsl_vector **tEcolumn, gsl_matrix **XMaux, gsl_matrix **YVaux, gsl_matrix **ZVaux, gsl_vector **rEcolumn, gsl_matrix **Pabaux, gsl_matrix **Dabaux, gsl_matrix **PrecalWMaux, gsl_matrix **optimalfiltersabFREQaux, gsl_matrix **optimalfiltersabTIMEaux, gsl_matrix *modelsMaxLengthFixedFilteraux, gsl_matrix **PabMaxLengthFixedFilteraux)
     
     Located in file: *tasksSIRENA.cpp*
@@ -328,7 +332,7 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: gsl_matrix **optimalfiltersabTIMEaux
     
         Input/output intermediate parameter
-	
+
     .. cpp:member:: gsl_matrix* modelsMaxLengthFixedFilteraux
         
         Input/output intermediate parameter
@@ -338,7 +342,7 @@ Search functions by name at :ref:`genindex`.
         Input/output intermediate parameter
     
 
-.. cpp:function:: int calculateTemplate(ReconstructInitSIRENA *reconstruct_init, PulsesCollection *pulsesAll, PulsesCollection *pulsesInRecord, double samprate, gsl_vector **pulseaverage, double *pulseaverageHeight, gsl_matrix **covariance, gsl_matrix **weight, gsl_vector **pulseaverageMaxLengthFixedFilter)    
+.. cpp:function:: int calculateTemplate(ReconstructInitSIRENA *reconstruct_init, PulsesCollection *pulsesAll, PulsesCollection *pulsesInRecord, double samprate, gsl_vector **pulseaverage, double *pulseaverageHeight, gsl_matrix **covariance, gsl_matrix **weight, int inputPulseLength, gsl_vector **pulseaverageMaxLengthFixedFilter)    
     
     Located in file: *tasksSIRENA.cpp*
     
@@ -355,7 +359,7 @@ Search functions by name at :ref:`genindex`.
     
         * Check if the pulse is piled-up or not
         
-        * Non piled-up pulses :math:`\Rightarrow` Align and average them (currently :cpp:func:`align` is not used because the starting times of the pulses are provided as input parameter)
+        * Non piled-up pulses :math:`\Rightarrow` Average them 
     
     5) Calculate covariance and weight matrices
     
@@ -394,6 +398,10 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: gsl_matrix** weight
 
         GSL matrix with weight matrix (inverse of covariance matrix) 
+        
+    .. cpp:member: int inputPulseLength
+
+        :option:`PulseLength` input parameter
 	
     .. cpp:member:: gsl_vector** pulseaverageMaxLengthFixedFilter
 
@@ -572,8 +580,7 @@ Search functions by name at :ref:`genindex`.
         
     .. cpp:member:: ReconstructInitSIRENA** reconstruct_init
         
-        Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values). In particular, this function uses some of its
-        values to call the intermediate file (:option:`detectFile`), to write input parameters info in the Primary extension of the intermediate file and also :option:`clobber`
+        Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values). In particular, this function uses some of its values to call the intermediate file (:option:`detectFile`), to write input parameters info in the Primary extension of the intermediate file and also :option:`clobber`
                 
     .. cpp:member:: double samprate
         
@@ -588,7 +595,7 @@ Search functions by name at :ref:`genindex`.
         :option:`PulseLength` input parameter
                        
 
-.. cpp:function:: int createHisto (gsl_vector *invector, int nbins, gsl_vector **xhistogsl, gsl_vector **yhistogsl)
+.. cpp:function:: int createHisto(gsl_vector *invector, int nbins, gsl_vector **xhistogsl, gsl_vector **yhistogsl)
         
     Located in file: *tasksSIRENA.cpp*
     
@@ -690,7 +697,7 @@ Search functions by name at :ref:`genindex`.
     
     Located in file: *tasksSIRENA.cpp*
     
-    This funcion provides the principal eigenvectors and eigenvalues of the input matrix (at the moment, the first two eigenvalues and eigenvectors).
+    This funcion provides the principal eigenvectors and eigenvalues of the input matrix (at the moment, the first two eigenvalues and eigenvectors). The eigenvalues and eigenvectors are sorted in descending order and only the principal components are provided.
 
     - Calculate the eigenvectors and the eigenvalues
     - Sort the eigenvectors and the eigenvalues in descending order
@@ -802,9 +809,9 @@ Search functions by name at :ref:`genindex`.
     Located in file: *tasksSIRENA.cpp*
 
     This function calculates the (low-pass filter and) derivative of the models (*pulse_templates*) in the library (only necessary if first record), 
-    and it stores the *pulse_templates_filder* and the *maxDERs* (see below) in the :cpp:member:`reconstruct_init` structure.
+    and it stores the *pulse_templates_filder* and the *maxDERs* and *samp1DERs* (see below) in the :cpp:member:`reconstruct_init` structure.
 
-    The maximum of the (low-pass filtered and) differentiated pulse has to be compared to the *maxDERs* to select the appropriate model.
+    The maximum of the (low-pass filtered and) differentiated pulse has to be compared to the *maxDERs* to select the appropriate model. Or, the 1st sample out of the differentiated pulse has to be compared to the *samp1DERs* to select the appropriate model.
 
     1) Check if it is the first record
     
@@ -813,6 +820,8 @@ Search functions by name at :ref:`genindex`.
     3) Store the (low-pass filtered) derivatives in *pulse_templates_filder*
     
     4) Calculate the maximum of the (low-pass filtered and) differentiated models (*maxDERs*)
+    
+    5) Locate the 1st sample of the (low-pass filtered and) differentiated models (*samp1DERs*)
 
     **Members/Variables**
 
@@ -903,12 +912,12 @@ Search functions by name at :ref:`genindex`.
     Steps:
     
     - Declare variables
-    - First step to look for single pulses (call :cpp:func:`medianKappaClipping`)
-    
-      - Call :cpp:func:`findTstartCAL`
+    - Establish the threshold (call :cpp:func:`medianKappaClipping`)
+    - Find pulses (call :cpp:func:`findTstartCAL`)
     - If at least a pulse is found
     
       - Get :cpp:member:`pulseheight` of each found pulse (in order to be used to build the pulse templates library)
+      
     - Free allocated GSL vectors
 
     **Members/Variables**
@@ -983,21 +992,47 @@ Search functions by name at :ref:`genindex`.
         Used in :cpp:func:`medianKappaClipping`
         
   
-.. cpp:function:: int FindSecondaries(int maxPulsesPerRecord, gsl_vector *adjustedDerivative, double adaptativethreshold, ReconstructInitSIRENA *reconstruct_init, int tstartFirstEvent, int *numberPulses, gsl_vector **tstartgsl, gsl_vector **flagTruncated, gsl_vector **maxDERgsl)
+.. cpp:function:: int FindSecondaries(int maxPulsesPerRecord, gsl_vector *adjustedDerivative, double adaptativethreshold, ReconstructInitSIRENA *reconstruct_init, int tstartFirstEvent, int *numberPulses, gsl_vector **tstartgsl, gsl_vector **flagTruncated, gsl_vector **maxDERgsl, gsl_vector **lagsgsl)
 
     Located in file: *pulseprocess.cpp*
 
-    This function runs after :cpp:func:`InitialTriggering` to find all the events (except the first one) in the first derivative of the (low-pass filtered) record.
+    This function runs after :cpp:func:`InitialTriggering` to find all the events (except the first one) in the first derivative of the (low-pass filtered) record by using the Adjusted Derivative detection method.
 
     Steps: 
     
     - Declare variables
-    - It is possible to find the tstarts... 
+    - Establishing the criteria of the slope of the derivative depending on the sampling rate
+    - It is necessary to find the tstarts... 
     
-      It looks for an event and if a pulse is found (foundPulse=true), it looks for another event
+      It looks for an event and if a pulse is found, it looks for another event
     
         - It looks for an event since the beginning (or the previous event) to the end of the record. 
           The first condition to detect an event is that the :cpp:member:`adjustedDerivative` was over the :cpp:member:`threshold`
+          
+            - Select the model of the found pulse from the libary by using the 1st sample of the derivative (*samp1DER*)
+            - Dot product between the detected pulse and the pulse template in 3 different lags
+            
+                - If maximum of the dot product found :math:`\Rightarrow` Stop calculating dot products in more lags
+                - If maximum of the dot product not found :math:`\Rightarrow` Calculate dot products in more lags (number of lags is limited to 5)
+            
+            - If maximum of the dot product not found :math:`\Rightarrow` tstart is the first sample crossing above the threshold (without jitter)
+              
+                - Average of the first 4 samples of the derivative
+                - Find model in order to subtract
+              
+            - If maximum of the dot product found :math:`\Rightarrow` Parabola analytically defined :math:`\Rightarrow` Locate the maximum :math:`\Rightarrow` New tstart (with jitter)
+            
+                - Iterative process in order to extract the best template from the library:
+                    - *samp1DER* correction
+                    - Find the model from the libary by using the corrected *samp1DER*
+                    - Dot product in 3 lags
+                    - Locate the maximum of the parabola
+                - *samp1DER* correction
+                - Find model in order to subtract
+                - Template correction
+                - Average of the first 4 samples of the derivative
+                
+            - The second condition to detect an event is meeting the criteria of the slope of the derivative
 
         - Subtract the model from the adjusted derivative
 
@@ -1007,6 +1042,7 @@ Search functions by name at :ref:`genindex`.
     - ... Or to use the tstart provided as input parameters
     
         - Obtain the *maxDERs* of the events whose tstarts have been provided (by using the maximum of the derivative to find the model)
+        
     - Free allocated GSL vectors
 
     **Members/Variables**
@@ -1022,6 +1058,10 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: double adaptativethreshold
         
         Threshold
+        
+    .. cpp:member:: double samprate 
+
+        Sampling rate
     
     .. cpp:member:: ReconstructInitSIRENA* reconstruct_init
         
@@ -1046,11 +1086,85 @@ Search functions by name at :ref:`genindex`.
         
     .. cpp:member:: gsl_vector** maxDERgsl
         
-        Maximum of the first derivative of the (low-pass filtered) record inside each found event 
+        Maximum of the derivative of the event 
         
     .. cpp:member:: gsl_vector** samp1DERgsl
         
-        First sample of the first derivative of the (low-pass filtered) record inside each found event
+        Average of the first 4 samples of the derivative of the event
+        
+    .. cpp:member:: gsl_vector** lagsgsl
+        
+        Number of necessary lags to establish the tstart (currently limited to 5)
+        
+        
+.. cpp:function:: int FindSecondariesA1(int maxPulsesPerRecord, gsl_vector *adjustedDerivative, double adaptativethreshold, ReconstructInitSIRENA *reconstruct_init, int tstartFirstEvent, int *numberPulses, gsl_vector **tstartgsl, gsl_vector **flagTruncated, gsl_vector **maxDERgsl, gsl_vector **lagsgsl)
+
+    Located in file: *pulseprocess.cpp*
+
+    This function runs after :cpp:func:`InitialTriggering` to find all the events (except the first one) in the first derivative of the (low-pass filtered) record by using the Alternative 1 method.
+
+    Steps: 
+    
+    - Declare variables
+    - It is necessary to find the tstarts... 
+    
+      It looks for an event and if a pulse is found, it looks for another event
+    
+        - It looks for an event since the beginning (or the previous event) to the end of the record. 
+          The condition to detect an event is that the :cpp:member:`adjustedDerivative` was over the :cpp:member:`threshold` at least :option:`nSamplesUp` consecutive samples
+    
+    - ... Or to use the tstart provided as input parameters
+    
+        - Obtain the *maxDERs* of the events whose tstarts have been provided
+        
+    - Free allocated GSL vectors
+
+    **Members/Variables**
+    
+    .. cpp:member:: int maxPulsesPerRecord
+    
+        Expected maximum number of events per record in order to not allocate the GSL variables with the size of the input vector (:option:`EventListSize`)
+        
+    .. cpp:member:: gsl_vector* adjustedDerivative
+    
+        First derivative of the (low-pass filtered) record
+
+    .. cpp:member:: double adaptativethreshold
+        
+        Threshold
+        
+    .. cpp:member:: double samprate 
+
+        Sampling rate
+    
+    .. cpp:member:: ReconstructInitSIRENA* reconstruct_init
+        
+        Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values). In particular, this function uses some parameters
+        (:option:`PulseLength`, :option:`tstartPulse1`, :option:`tstartPulse2`, :option:`tstartPulse3`, :option:`EnergyMethod`) and the templates
+    
+    .. cpp:member:: int tstartFirstEvent
+        
+        Tstart of the first event of the record (in samples) found by :cpp:func:`InitialTriggering`
+    
+    .. cpp:member:: int* numberPulses
+        
+        Number of found events
+    
+    .. cpp:member:: gsl_vector** tstartgsl
+        
+        Starting time of the found events (in samples)
+    
+    .. cpp:member:: gsl_vector** flagTruncated
+        
+        Flag indicating if the event is truncated (inside this function only initial truncated pulses are classified)
+        
+    .. cpp:member:: gsl_vector** maxDERgsl
+        
+        Maximum of the derivative of the event 
+        
+    .. cpp:member:: gsl_vector** samp1DERgsl
+        
+        Average of the first 4 samples of the derivative of the event
         
         
 .. cpp:function:: int findTstartCAL(int maxPulsesPerRecord, gsl_vector *der, double adaptativethreshold, int nSamplesUp, ReconstructInitSIRENA *reconstruct_init, int *numberPulses, gsl_vector **tstartgsl, gsl_vector **flagTruncated, gsl_vector **maxDERgsl)
@@ -1139,8 +1253,8 @@ Search functions by name at :ref:`genindex`.
     
         - If :cpp:member:`maxDER` is lower than the lowest :cpp:member:`maxDERs` in the library :math:`\Rightarrow` :cpp:member:`indexEalpha` = :cpp:member:`indexEbeta` = 0
     
-        - If :cpp:member:`maxDER` is higher than the highest :cpp:member:`maxDERs` in the library :math:`\Rightarrow` :cpp:member:`indexEalpha` = :cpp:member:`indexEbeta` = Number of templates-1 
- 
+        - If :cpp:member:`maxDER` is higher than the highest :cpp:member:`maxDERs` in the library :math:`\Rightarrow` :cpp:member:`indexEalpha` = :cpp:member:`indexEbeta` = Number of templates-1
+        
     **Members/Variables**
 
     .. cpp:member:: double maxDER
@@ -1353,7 +1467,7 @@ Search functions by name at :ref:`genindex`.
     
     Located in file: *tasksSIRENA.cpp*
     
-    This function selects the proper optimal filter from the calibration library (column **OF**) by comparing the maximum value of the pulse derivative (:cpp:member:`maxDER`) to the list of maximums in the library  (:cpp:member:`maxDERs`).
+    This function selects the proper optimal filter from the calibration library (columns **Tx**, **ABTx**, **Fx** or **ABFx**) by comparing the maximum value of the pulse derivative (:cpp:member:`maxDER`) to the list of maximums in the library  (:cpp:member:`maxDERs`).
 
     It finds the two embracing :cpp:member:`maxDERs` in the calibration library and interpolates (:cpp:func:`interpolate_model`) 
     
@@ -1393,7 +1507,7 @@ Search functions by name at :ref:`genindex`.
     
     Located in file: *tasksSIRENA.cpp*
     
-    This function selects the proper optimal filter from the calibration library (column **OFAB**) by comparing the maximum value of the pulse derivative (:cpp:member:`maxDER`) to the list of maximums in the library  (:cpp:member:`maxDERs`). It also selects the proper row from the column **PAB**.
+    This function selects the proper optimal filter from the calibration library (columns **Tx**, **ABTx**, **Fx** or **ABFx**) by comparing the maximum value of the pulse derivative (:cpp:member:`maxDER`) to the list of maximums in the library  (:cpp:member:`maxDERs`). It also selects the proper row from the column **PAB**.
 
     It finds the two embracing :cpp:member:`maxDERs` in the calibration library
     
@@ -1653,7 +1767,7 @@ Search functions by name at :ref:`genindex`.
         In general, sum of the *Lb* digitized data samples (:option:`LbT` input parameters in samples) of a pulse-free interval immediately before the current pulse
     
     
-.. cpp:function:: LibraryCollection* getLibraryCollection(const char* const filename,int mode, char *energy_method, char *ofnoise, char *filter_method, char oflib, char **ofinterp, int* const status)
+.. cpp:function:: LibraryCollection* getLibraryCollection(const char* const filename, int mode, int hduPRECALWN, int hduPRCLOFWM, int largeFilter, char* filter_domain, int pulse_length, char *energy_method, char *ofnoise, char *filter_method, char oflib, char **ofinterp, double filtEev, int lagsornot, int* const status)
     
     Located in file: *integraSIRENA.cpp*
     
@@ -1683,8 +1797,32 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: char* energy_method
     
         Energy calculation Method: **OPTFILT**, **WEIGHT**, **WEIGHTN**, **I2R**, **I2RALL**, **I2RNOL** or **I2RFITTED**, :option:`EnergyMethod`
-	
-   .. cpp:member:: char* Ofnoise
+       
+    .. cpp:member:: int hduPRECALWN
+    
+        Add or not the PRECALWN HDU in the library file (1/0) (only for library creation, :option:`mode` = 0), :option:`hduPRECALWN`
+        
+    .. cpp:member:: int hduPRCLOFWM
+    
+        Add or not the hduPRCLOFWM HDU in the library file (1/0) (only for library creation, :option:`mode` = 0), :option:`hduPRCLOFWM`
+        
+    .. cpp:member:: int largeFilter
+    
+        Length of the longest fixed filters (only for library creation, :option:`mode` = 0), :option:`largeFilter`
+
+    .. cpp:member:: char* filter_domain
+    
+        Filtering Domain: Time (**T**) or Frequency (**F**), :option:`FilterDomain`
+        
+    .. cpp:member:: int pulse_length
+    
+        Pulse length, :option:`PulseLength`
+        
+    .. cpp:member:: char* energy_method
+    
+        Energy calculation Method: **OPTFILT**, **WEIGHT**, **WEIGHTN**, **I2R**, **I2RALL**, **I2RNOL**, **I2RFITTED** or **PCA**, :option:`EnergyMethod`
+
+    .. cpp:member:: char* ofnoise
     
         For optimal filtering : **NSD** or **WEIGHTM**, :option:`OFNoise`
         
@@ -1701,12 +1839,16 @@ Search functions by name at :ref:`genindex`.
         Optimal Filter by using the Matched Filter or the DAB as matched filter (*MF*/*DAB*)
         It has been fixed in ':ref:`tesreconstruction` as *DAB* (but it would be possible to work with *MF*)
         
+    .. cpp:member:: double filtEev  
+    
+        Energy of the filters of the library to be used to calculate energy (only for OPTFILT, I2R, I2RALL, I2RNOL and I2RFITTED), :option:`filtEev`
+        
     .. cpp:member:: int* const status
     
         Input/output status
     
     
-.. cpp:function:: NoiseSpec* getNoiseSpec(const char* const filename,int mode, char *energy_method, char *filter_method, int* const status)
+.. cpp:function:: NoiseSpec* getNoiseSpec(const char* const filename, int mode, int hduPRCLOFWM, char *energy_method, char *ofnoise, char *filter_method, int* const status)
     
     Located  in file: *integraSIRENA.cpp*
     
@@ -1731,9 +1873,17 @@ Search functions by name at :ref:`genindex`.
     
         Calibration run (0) or energy reconstruction run (1), :option:`mode`
         
+    .. cpp:member:: int hduPRCLOFWM
+    
+        Add or not the hduPRCLOFWM HDU in the library file (1/0) (only for library creation, :option:`mode` = 0), :option:`hduPRCLOFWM`
+        
     .. cpp:member:: char* energy_method
     
         Energy calculation Method: **OPTFILT**, **WEIGHT**, **WEIGHTN**, **I2R**, **I2RALL**, **I2RNOL**, **I2RFITTED** or **PCA**, :option:`EnergyMethod`
+        
+    .. cpp:member:: char* ofnoise
+    
+         For optimal filtering:  **NSD** or **WEIGHTM**, :option:`OFNoise`
         
     .. cpp:member:: char* filter_method
     
@@ -1896,7 +2046,7 @@ Search functions by name at :ref:`genindex`.
 
 .. _I:
 
-.. cpp:function:: extern_C_void initializeReconstructionSIRENA(ReconstructInitSIRENA* reconstruct_init, char* const record_file, fitsfile *fptr, char* const library_file, char* const event_file, int pulse_length, double scaleFactor, double samplesUp, double nSgms, int mode, double LrsT, double LbT, char* const noise_file, char* filter_domain, char* filter_method, char* energy_method, char *ofnoise, int lagsornot, int ofiter, char oflib, char* ofinterp, char* oflength_strategy, int oflength, double monoenergy, int interm, char* const detectFile, char* const filterFile, char clobber, int maxPulsesPerRecord, double SaturationValue, int tstartPulse1, int tstartPulse2, int tstartPulse3, double energyPCA1, double energyPCA2, char * const XMLFile, int* const status)
+.. cpp:function:: extern_C_void initializeReconstructionSIRENA(ReconstructInitSIRENA* reconstruct_init, char* const record_file, fitsfile *fptr, char* const library_file, char* const event_file, int pulse_length, double scaleFactor, double samplesUp, double samplesDown, double nSgms, int detectSP, int mode, char *detectionMode, double LrsT, double LbT, char* const noise_file, char* filter_domain, char* filter_method, char* energy_method, double filtEev, char *ofnoise, int lagsornot, int ofiter, char oflib, char *ofinterp, char* oflength_strategy, int oflength, double monoenergy, char hduPRECALWN, char hduPRCLOFWM, int largeFilter, int interm, char* const detectFile, char* const filterFile, char clobber, int maxPulsesPerRecord, double SaturationValue, int tstartPulse1, int tstartPulse2, int tstartPulse3, double energyPCA1, double energyPCA2, char * const XMLFile, int* const status)
     
     Located in file: *integraSIRENA.cpp*
     
@@ -1940,13 +2090,25 @@ Search functions by name at :ref:`genindex`.
     
         Number of samples for threshold trespassing, :option:`samplesUp`
         
+    .. cpp:member:: double samplesDown
+    
+        Number of samples below the threshold to look for other pulse, :option:`samplesDown`
+        
     .. cpp:member:: double nSgms
     
         Number of standard deviations in the kappa-clipping process for threshold estimation, :option:`nSgms`
+        
+    .. cpp:member:: int detectSP
     
+        Detect secondary pulses (1) or not (0), :option:`detectSP`
+        
     .. cpp:member:: int mode
     
         Calibration run (0) or energy reconstruction run (1), :option:`mode`
+        
+    .. cpp:member:: char* detectionMode
+    
+        Adjusted Derivative (AD) or Alternative 1 (A1), :option:`detectionMode`
     
     .. cpp:member:: double LrsT
     
@@ -1970,8 +2132,12 @@ Search functions by name at :ref:`genindex`.
     
     .. cpp:member:: char* energy_method
     
-         Energy calculation Method: **OPTFILT**, **WEIGHT**, **WEIGHTN**, **I2R**, **I2RALL**, **I2RNOL** or **I2RFITTED**, :option:`EnergyMethod`
-	 
+         Energy calculation Method: **OPTFILT**, **WEIGHT**, **WEIGHTN**, **I2R**, **I2RALL**, **I2RNOL**, **I2RFITTED** or **PCA**, :option:`EnergyMethod`
+         
+    .. cpp:member:: double filtEev  
+    
+         Energy of the filters of the library to be used to calculate energy (only for OPTFILT, I2R, I2RALL, I2RNOL and I2RFITTED), :option:`filtEev`
+
     .. cpp:member:: char* ofnoise
     
          For optimal filtering:  **NSD** or **WEIGHTM**, :option:`OFNoise`
@@ -2003,7 +2169,19 @@ Search functions by name at :ref:`genindex`.
     
     .. cpp:member:: double monoenergy
     
-        Monochromatic energy of input file in eV (only for library creation), :option:`monoenergy`
+        Monochromatic energy of input file in eV (only for library creation, :option:`mode` = 0), :option:`monoenergy`
+        
+    .. cpp:member:: int hduPRECALWN
+    
+        Add or not the PRECALWN HDU in the library file (1/0) (only for library creation, :option:`mode` = 0), :option:`hduPRECALWN`
+        
+    .. cpp:member:: int hduPRCLOFWM
+    
+        Add or not the hduPRCLOFWM HDU in the library file (1/0) (only for library creation, :option:`mode` = 0), :option:`hduPRCLOFWM`
+        
+    .. cpp:member:: int largeFilter
+    
+        Length of the longest fixed filters (only for library creation, :option:`mode` = 0), :option:`largeFilter`
     
     .. cpp:member:: int interm
     
@@ -2068,7 +2246,7 @@ Search functions by name at :ref:`genindex`.
     
     - Declare variables
     - Stablish the :cpp:member:`threshold`
-    - It is possible to find the tstart of the first pulse... 
+    - It is necessary to find the tstart of the first pulse... 
     
       Obtain tstart of the first pulse in the derivative if :math:`derivative_i>threshold`
       
@@ -2149,8 +2327,7 @@ Search functions by name at :ref:`genindex`.
     
     Located in file: *tasksSIRENA.cpp*
     
-    This function interpolates an input vector (:cpp:member:`x_in`, :cpp:member:`y_in`), creating an output vector (:cpp:member:`x_out`, :cpp:member:`y_out`) with the size 
-    and frequency step given. *POS* comes from the fact that the input spectrum only has positive frequencies (in order to not handle the f=0 bin).
+    This function interpolates an input vector (:cpp:member:`x_in`, :cpp:member:`y_in`), creating an output vector (:cpp:member:`x_out`, :cpp:member:`y_out`) with the size and frequency step given. *POS* comes from the fact that the input spectrum only has positive frequencies (in order to not handle the f=0 bin).
 
     - Declare and initialize variables
     - GSL method applied for interpolatation
@@ -2406,6 +2583,46 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: int* const status
         
         Input/output status
+
+        
+.. cpp:function:: int noDetect(gsl_vector *der, ReconstructInitSIRENA *reconstruct_init, int *numberPulses, gsl_vector **tstartgsl, gsl_vector **flagTruncated, gsl_vector **maxDERgsl, gsl_vector **samp1DERgsl)
+    
+    Located in file: *pulseprocess.cpp*
+    
+    This function runs if the starting time of the pulses are agiven as input parameters (tstartPulse1 != 0). 
+    It looks for the maximum of the derivative of the pulse and the average of the first 4 samples of the derivative of the pulse.
+       
+    **Members/Variables**
+    
+    .. cpp:member:: gsl_vector *der
+    
+        First derivative of the (low-pass filtered) record
+
+    .. cpp:member:: ReconstructInitSIRENA* reconstruct_init
+        
+        Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values). In particular, this function uses some parameters
+        (:option:`tstartPulse1`, :option:`tstartPulse2`, :option:`tstartPulse3`) and the templates
+    
+    .. cpp:member:: int* numberPulses
+        
+        Number of events
+    
+    .. cpp:member:: gsl_vector** tstartgsl
+        
+        Starting time of the events (in samples)
+    
+    .. cpp:member:: gsl_vector** flagTruncated
+        
+        Flag indicating if the event is truncated (inside this function only initial truncated pulses are classified)
+        
+    .. cpp:member:: gsl_vector** maxDERgsl
+        
+        Maximum of the derivative of the event 
+        
+    .. cpp:member:: gsl_vector** samp1DERgsl
+        
+        Average of the first 4 samples of the derivative of the event
+    
     
 .. _O:
 
@@ -2582,11 +2799,11 @@ Search functions by name at :ref:`genindex`.
         Input/output structure where the info about found pulses is stored
         
         
-.. cpp:function:: int pulseGrading(ReconstructInitSIRENA *reconstruct_init, int grade1, int grade2_1, int OFlength_strategy, int *pulseGrade, long *OFlength)
+.. cpp:function:: int pulseGrading(ReconstructInitSIRENA *reconstruct_init, int grade1, int grade2, int OFlength_strategy, int *pulseGrade, long *OFlength)
     
     Located in file: *tasksSIRENA.cpp*
     
-    This function provides the pulse grade (Pileup=-2, Rejected=-1, HighRes=1, MidRes=2, LowRes=3) and the optimal filter length by taking into account the info read from the XML file and the :option:`OFStrategy` (**FREE**, **BASE2**, **BYGRADE** or **FIXED**).
+    This function provides the pulse grade (Pileup=-2, Rejected=-1, HighRes=1, MidRes=2, LimRes=3, LowRes=4) and the optimal filter length by taking into account the info read from the XML file and the :option:`OFStrategy` (**FREE**, **BASE2**, **BYGRADE** or **FIXED**).
 
     **Members/Variables**
     
@@ -2598,7 +2815,7 @@ Search functions by name at :ref:`genindex`.
      
         Pulse duration (length of optimal filter applied)
      
-    .. cpp:member:: int grade2_1
+    .. cpp:member:: int grade2
     
         Difference between the start time of the pulse and the start time of the previous pulse
         
@@ -2612,7 +2829,7 @@ Search functions by name at :ref:`genindex`.
     
     .. cpp:member:: long* OFlength
     
-        Optimal filter length (= :option:`OFLength` only if :option:`OFStrategy` = **FIXED**) (output)
+        Optimal filter length (= :option:`OFLength` only if :option:`OFStrategy` = **FIXED** and :option:`OFLength` <= grade1) (output)
         
         
 .. _Q:
@@ -2713,7 +2930,7 @@ Search functions by name at :ref:`genindex`.
     
     This function is the main wrapper function to detect, grade and calculate energy of pulses in input records.
     
-    - Inititalize structure *PulsesCollection*
+    - Inititalize *PulsesCollection* structure
     - Check consistency of some input parameters
     - Detect pulses in input record (:cpp:func:`runDetect`). Save information of detected pulses
     
@@ -2836,14 +3053,14 @@ Search functions by name at :ref:`genindex`.
                 - Write test info in intermediate output FITS file if *reconstruct_init->intermediate* = 1 (:cpp:func:`writeTestInfo`)                            
                 - Write pulses info in intermediate output FITS file if *reconstruct_init->intermediate* = 1 (:cpp:func:`writePulses`)
                 
-           **From this point forward, I2R, I2RALL, I2RNOL and I2RFITTED are completely equivalent to OPTFILT**     
+        **From this point forward, I2R, I2RALL, I2RNOL and I2RFITTED are completely equivalent to OPTFILT**     
            
         7) If last record in :option:`mode` = 0 run:                                         
 
                 * :cpp:func:`calculateTemplate` (and :cpp:func:`weightMatrix`)
                 * :cpp:func:`writeLibrary`
                 
-        8) If last record and PCA
+        8) If last record and PCA:
         
                 - In order to not have restrictions when providing (\*reconstruct_init)->energyPCAx
                 - Covariance data
@@ -2895,7 +3112,7 @@ Search functions by name at :ref:`genindex`.
     - Check Quality
     - For each pulse:
 
-        - Establish the pulse grade (HighRes=0, MidRes=1, LowRes=-1) and the optimal filter length
+        - Establish the pulse grade (HighRes=1, MidRes=2, LimRes=3, LowRes=4, Rejected=-1, Pileup=-2) and the optimal filter length
         - Pulse: Load the proper piece of the record in *pulse*
         - If :option:`OFIter` = 1, in the first iteration ( *numiteration* = 0) the values of *maxDER* and *maxDERs* are used in 
           :cpp:func:`find_matchedfilter`, :cpp:func:`find_matchedfilterDAB`, :cpp:func:`find_optimalfilter`, :cpp:func:`find_optimalfilterDAB` or :cpp:func:`find_Esboundary` getting the values of the *energies* which straddle the *maxDER* (*Ealpha* and *Ebeta*). It will have more iterations if the calculated *energy* is out of *[Ealpha, Ebeta]*. If *energy* is in *[Ealpha, Ebeta]* the iterative process stops.
@@ -2904,9 +3121,9 @@ Search functions by name at :ref:`genindex`.
                 
                     - Filter (find the matched filter and load it in *filter*) 
                     
-		      - If *MF* :math:`\Rightarrow` :cpp:func:`find_matchedfilter`  
-		      - If *DAB* :math:`\Rightarrow` :cpp:func:`find_matchedfilterDAB`
-		      
+                      - If *MF* :math:`\Rightarrow` :cpp:func:`find_matchedfilter`  
+                      - If *DAB* :math:`\Rightarrow` :cpp:func:`find_matchedfilterDAB`
+                    
                     - Calculate the optimal filter
                     
                 - If :option:`EnergyMethod` = **OPTFILT** (or **I2R**, **I2RALL**, **I2RNOL**, **I2RFITTED**) and :option:`OFLib` = 1 and :option:`OFNoise` = **NSD**:
@@ -2915,8 +3132,8 @@ Search functions by name at :ref:`genindex`.
                     - Filter (find the optimal filter and load it in *filter*)
                       
                       - If *MF* :math:`\Rightarrow` :cpp:func:`find_optimalfilter`  
-		      - If *DAB* :math:`\Rightarrow` :cpp:func:`find_optimalfilterDAB`
-		      
+                      - If *DAB* :math:`\Rightarrow` :cpp:func:`find_optimalfilterDAB`
+                    
                     - If :option:`FilterDomain` = **F** :math:`\Rightarrow` Bin0 = 0 and conjugate
                     
                 - If :option:`EnergyMethod` = **WEIGHT** or **WEIGHTN**:
@@ -2927,11 +3144,14 @@ Search functions by name at :ref:`genindex`.
                        - Choose the base-2 system value closest (lower than or equal) to the pulse length
                        - :cpp:func:`find_prclwn` to find the appropriate values of the PRECALWN HDU (**PRCLx** columns)
                 
-		- If :option:`EnergyMethod` = **OPTFILT** (or **I2R**, **I2RALL**, **I2RNOL**, **I2RFITTED**) and :option:`OFLib` = 1 and :option:`OFNoise` = **WEIGHTM**:
-		     - Choose the base-2 system value closest (lower than or equal) to the pulse length
-		     - :cpp:func:`find_prclofwm` to find the appropriate values of the PRCLOFWM HDU (**OFWx** columns)
-		     
+                - If :option:`EnergyMethod` = **OPTFILT** (or **I2R**, **I2RALL**, **I2RNOL**, **I2RFITTED**) and :option:`OFLib` = 1 and :option:`OFNoise` = **WEIGHTM**:
+                
+                    - Choose the base-2 system value closest (lower than or equal) to the pulse length
+                    - :cpp:func:`find_prclofwm` to find the appropriate values of the PRCLOFWM HDU (**OFWx** columns)
+                    
                 - Calculate the energy of each pulse
+                - If using lags, it is necessary to modify the tstart of the pulse and the length of the filter used
+        - In order to subtract the pulse model, it has to be located in the tstart with jitter and know its values in the digitized samples
         - Subtract the pulse model from the record
         - Write info of the pulse in the output intemediate file if :option:`intermediate` = 1
     - Free allocated GSL vectors
@@ -3167,7 +3387,7 @@ Search functions by name at :ref:`genindex`.
         GSL matrix with weight matrix
     
     
-.. cpp:function:: int writeFilterHDU(ReconstructInitSIRENA **reconstruct_init, int pulse_index, double normalizationFactor, double energy, gsl_vector *optimalfilter, gsl_vector *optimalfilter_f, gsl_vector *optimalfilter_FFT, fitsfile **dtcObject)
+.. cpp:function:: int writeFilterHDU(ReconstructInitSIRENA **reconstruct_init, int pulse_index, double energy, gsl_vector *optimalfilter, gsl_vector *optimalfilter_f, gsl_vector *optimalfilter_FFT, fitsfile **dtcObject)
     
     Located in file: *tasksSIRENA.cpp*
     
@@ -3182,8 +3402,6 @@ Search functions by name at :ref:`genindex`.
       - **OPTIMALF** column
       
       - **OFLENGTH** column
-      
-      - **NFCTR** column
       
       - **FREQ** column
       
@@ -3205,10 +3423,6 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: int pulse_index
     
         Index of the pulse whose info is going to be written (to know if it is the first pulse)
-        
-    .. cpp:member:: double normalizationFactor
-    
-        Normalization factor in the expression of the optimal filtering (see :ref:`optimalFilter`)
         
     .. cpp:member:: double energy
     
@@ -3318,7 +3532,7 @@ Search functions by name at :ref:`genindex`.
     Located  in file: *inoututils.cpp*
     
     This function includes the processing of the each level of message in the log file and the output screen:
- 
+     
       - Verbosity = 0 :math:`\Rightarrow` The log file and the output screen include Errors
       - Verbosity = 1 :math:`\Rightarrow` The log file and the output screen include Errors and Warnings
       - Verbosity = 2 :math:`\Rightarrow` The log file and the output screen include Errors, Warnings and Alerts
