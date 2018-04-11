@@ -1097,11 +1097,11 @@ Search functions by name at :ref:`genindex`.
         Number of necessary lags to establish the tstart (currently limited to 5)
         
         
-.. cpp:function:: int FindSecondariesA1(int maxPulsesPerRecord, gsl_vector *adjustedDerivative, double adaptativethreshold, ReconstructInitSIRENA *reconstruct_init, int tstartFirstEvent, int *numberPulses, gsl_vector **tstartgsl, gsl_vector **flagTruncated, gsl_vector **maxDERgsl, gsl_vector **lagsgsl)
+.. cpp:function:: int FindSecondariesSTC(int maxPulsesPerRecord, gsl_vector *adjustedDerivative, double adaptativethreshold, ReconstructInitSIRENA *reconstruct_init, int tstartFirstEvent, int *numberPulses, gsl_vector **tstartgsl, gsl_vector **flagTruncated, gsl_vector **maxDERgsl, gsl_vector **lagsgsl)
 
     Located in file: *pulseprocess.cpp*
 
-    This function runs after :cpp:func:`InitialTriggering` to find all the events (except the first one) in the first derivative of the (low-pass filtered) record by using the Alternative 1 method.
+    This function runs after :cpp:func:`InitialTriggering` to find all the events (except the first one) in the first derivative of the (low-pass filtered) record by using the Single Threshold Crossing method.
 
     Steps: 
     
@@ -2108,7 +2108,7 @@ Search functions by name at :ref:`genindex`.
         
     .. cpp:member:: char* detectionMode
     
-        Adjusted Derivative (AD) or Alternative 1 (A1), :option:`detectionMode`
+        Adjusted Derivative (AD) or Single Threshold Crossing (STC), :option:`detectionMode`
     
     .. cpp:member:: double LrsT
     

@@ -213,13 +213,13 @@ To run SIRENA implementation, the user must supply the following input parameter
 
 .. option::  samplesUp=<samples> 
 
-	Number of consecutive samples up for threshold trespassing (only used in calibration run and in production run with A1 detection mode)
+	Number of consecutive samples up for threshold trespassing (only used in calibration run and in production run with STC detection mode)
 
 	Default: 3
 	
 .. option::  samplesDown=<samples> 
 
-	Number of consecutive samples below the threshold to look for other pulse (only used in production run with A1 detection mode)
+	Number of consecutive samples below the threshold to look for other pulse (only used in production run with STC detection mode)
 
 	Default: 3
 
@@ -267,9 +267,9 @@ To run SIRENA implementation, the user must supply the following input parameter
 
 	Default: 1
 	
-.. option:: detectionMode=<AD | A1>
+.. option:: detectionMode=<AD | STC>
 
-	Adjusted Derivative (AD) or Alternative 1 (A1). Not used in library creation mode (:option:`mode` = 0)
+	Adjusted Derivative (AD) or Single Threshold Crossing (STC). Not used in library creation mode (:option:`mode` = 0)
 
 	Default: AD
 

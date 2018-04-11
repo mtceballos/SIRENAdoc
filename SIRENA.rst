@@ -296,7 +296,7 @@ The energy reconstruction of the energies of the input pulses is performed with 
 Event Detection
 ================
 
-The first stage of SIRENA processing is a fine detection process performed over every *RECORD* in the input file, to look for missing (or secondary) pulses that can be on top of the primary (initially triggered) ones. Two algorithms can be used for this purpose, the *Adjusted derivative* (**AD**) (see :cite:`Boyce1999`) and what has been called *Alternative 1* (**A1**) (which has been implemented in the code with the aim of reducing the complexity and the computer power of the AD scheme) (:option:`detectionMode` ).
+The first stage of SIRENA processing is a fine detection process performed over every *RECORD* in the input file, to look for missing (or secondary) pulses that can be on top of the primary (initially triggered) ones. Two algorithms can be used for this purpose, the *Adjusted derivative* (**AD**) (see :cite:`Boyce1999`) and what has been called *Single Threshold Crossing* (**STC**) (which has been implemented in the code with the aim of reducing the complexity and the computer power of the AD scheme) (:option:`detectionMode` ).
 
 .. _detection_AD:
 
@@ -362,10 +362,10 @@ If the parameter :option:`scaleFactor` is too large, the low-pass filter band is
 
    First derivative of initial signal and initial threshold (left) and derivative of signal after subtraction of primary pulses (right).
    
-.. _detection_A1:
+.. _detection_STC:
 
-:pageblue:`Alternative1`
-------------------------------
+:pageblue:`Single Threshold Crossing`
+-------------------------------------
 
 1.- This alternative detection method also compares the derivative signal to a threshold (established in the same way as in the step 1 of the previous algorithm). 
 
