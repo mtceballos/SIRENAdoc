@@ -222,9 +222,9 @@ The **FIXFILTT** HDU contains pre-calculated optimal filters in the time domain 
 
 The **FIXFILTF** HDU contains pre-calculated optimal filters in frequency domain for different lengths calculated from the matched filters (*MF* or *MFB0* columns), in columns **Fx**, or from the *DAB* column, in **ABFx** columns. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the pulse length decreasing until 2. Moreover, **Fxmax** and **ABFxmax** columns being *xmax* = :option:`largeFilter` are added.
 
-The **PRECALWN** HDU contains :ref:`pre-calculated values by using the noise weight matrix from the subtraction of model from pulses <WEIGHTN>` :math:`(R'WR)^{-1}R'W` for different lengths, **PRCLx**. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the pulse length decreasing until 2.
+The **PRECALWN** HDU contains :ref:`pre-calculated values by using the noise weight matrix from the subtraction of model from pulses <WEIGHTN>` :math:`(X'WX)^{-1}X'W` for different lengths, **PRCLx**. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the pulse length decreasing until 2.
 
-The **PRCLOFWM** HDU contains :ref:`pre-calculated values by using the noise weight matrix from noise intervals <WEIGHTM>` :math:`(X'WX)^{-1}X'W` for different lengths, **OFWx**. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the  decreasing :option:`largeFilter` until 2.
+The **PRCLOFWM** HDU contains :ref:`pre-calculated values by using the noise weight matrix from noise intervals <optimalFilter_WEIGHTM>` :math:`(M'WM)^{-1}M'W` for different lengths, **OFWx**. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the  decreasing :option:`largeFilter` until 2.
 
 
 .. _inputFiles:
@@ -489,13 +489,13 @@ The SIRENA input parameter that controls the reconstruction method applied is :o
 :pageblue:`Optimal Filtering by using the noise weight matrix from noise intervals`
 ------------------------------------------------------------------------------------
 
-	By choosing the input parameter :option:`OFNoise` as **WEIGHTM** the optimal filtering method is going to use the noise weight matrix calculated from noise intervals (rather than the noise spectral density as in :ref:`first order approach <optimalFilter_NSD>`). Using the noise power spectrum (FFT) is also possible, but it introduces an additional wrong assumption of periodicity. The signal-to-noise cost for filtering in the Fourier domain may be small in some cases but it is worth while checking the importance of this cost (:cite:`Fowler2015`).
+	By choosing the input parameter :option:`OFNoise` as **WEIGHTM** the optimal filtering method is going to use the noise weight matrix calculated from noise intervals (rather than the noise spectral density as in :ref:`the previous section <optimalFilter_NSD>`). Using the noise power spectrum (FFT) is also possible, but it introduces an additional wrong assumption of periodicity. The signal-to-noise cost for filtering in the Fourier domain may be small in some cases but it is worth while checking the importance of this cost (:cite:`Fowler2015`).
 
-	Being :math:`W` the noise covariance matrix, the best estimate energy is (:ref:`see mathematical development <WEIGHTN>`):
+	Being :math:`W` the noise covariance matrix, the best estimate energy is (:ref:`see mathematical development of the first order approach <WEIGHTN>` where the variables :math:`X` and :math:`M` should be exchanged because they are not exactly the same):
 	
 	.. math::
 			
-		E = e_1^T[X^T \cdot W \cdot X]^{-1} [X^T \cdot W \cdot Y]
+		E = e_1^T[M^T \cdot W \cdot M]^{-1} [M^T \cdot W \cdot Y]
 		
 where :math:`e_1^T \equiv [1, 0]` is the unit vector to select only the term that corresponds to the energy (amplitude) of the pulse. :math:`M` is a model matrix whose first column is the pulse shape and the second column is a column of ones in order to can calculate the baseline. :math:`Y` is the measured data.
 
