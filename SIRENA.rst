@@ -608,7 +608,7 @@ where :math:`e_1^T \equiv [1, 0]` is the unit vector to select only the term tha
            Dab -> does not mind
            Pab -> no baseline
 
-	A first order approximation can be used for the Covariance Matrices method from a first order expansion of the pulse expression at a iven *t*:
+	A first order approximation can be used for the Covariance Matrices method from a first order expansion of the pulse expression at a given *t*:
 
         .. math::
 
