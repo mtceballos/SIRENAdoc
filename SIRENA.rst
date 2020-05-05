@@ -81,9 +81,9 @@ The second step is simulating the noise stream. This can be done by choosing eit
    :align: center
    :scale: 50%
    
-   Noise file triggered into records of 10000 samples by using ``tessim`` [#fn1]_ .
+   Noise file triggered into records of 10000 samples by using ``tessim`` [#]_ .
    
-.. [#fn1] If ``xifusim`` (XIFUSIM) is used, the noise records are in the *TESRECORDS* HDU (among others HDUs such as *GEOCHANNELPARAM*, *TESPARAM*, *SQUIDPARAM*,...).    
+.. [#] If ``xifusim`` (XIFUSIM) is used, the noise records are in the *TESRECORDS* HDU (among others HDUs such as *GEOCHANNELPARAM*, *TESPARAM*, *SQUIDPARAM*,...).    
    
    
 **2) Noise spectrum and weight matrices generation**
@@ -170,11 +170,11 @@ where *suppress* is the time (in samples) after the triggering of an event, duri
     :align: center
     :scale: 50%
 
-    Parameters involved in triggering into records from ``tesconstpileup`` to ``tessim`` [#f2]_.
+    Parameters involved in triggering into records from ``tesconstpileup`` to ``tessim`` [#]_.
    
-.. [#f2] Previous figure is equivalent in ``xifusim`` replacing *triggerSize*, *suppress* and *PreBufferSize* by *trig_reclength*, *trig_n_suppress* and *trig_n_pre* respectively. 
+.. [#] Previous figure is equivalent in ``xifusim`` replacing *triggerSize*, *suppress* and *PreBufferSize* by *trig_reclength*, *trig_n_suppress* and *trig_n_pre* respectively. 
   
-The SIXTE simulated calibration files are now FITS files with only one HDU called *RECORDS* [#f3]_ populated with four columns: **TIME** (arrival time of the event), **ADC** (digitized current), **PIXID** (pixel identification) and **PH_ID** (photon identification, for debugging purposes only).
+The SIXTE simulated calibration files are now FITS files with only one HDU called *RECORDS* [#]_ populated with four columns: **TIME** (arrival time of the event), **ADC** (digitized current), **PIXID** (pixel identification) and **PH_ID** (photon identification, for debugging purposes only).
 
 .. figure:: images/records.png
    :align:  center
@@ -182,7 +182,7 @@ The SIXTE simulated calibration files are now FITS files with only one HDU calle
 
    Records in calibration file by using ``tessim``.
    
-.. [#f3] If XIFUSIM is used, the calibration files have not only the *TESRECORDS* HDU with the events records but also others such as *GEOCHANNELPARAM*, *TESPARAM*, *SQUIDPARAM*, *WFEEPARAM*, *DREPARAM*, *ADCPARAM* and *TRIGGERPARAM*.    
+.. [#] If XIFUSIM is used, the calibration files have not only the *TESRECORDS* HDU with the events records but also others such as *GEOCHANNELPARAM*, *TESPARAM*, *SQUIDPARAM*, *WFEEPARAM*, *DREPARAM*, *ADCPARAM* and *TRIGGERPARAM*.    
    
 **2) Library construction**
 
@@ -252,7 +252,7 @@ The *PRCLOFWM* HDU contains :ref:`pre-calculated values by using the noise weigh
 Input Files
 ============
 
-The input data (simulated) files, currently required to be in FITS format, are a sequence of variable length ``RECORDS``, containing at least a column for the **TIME** of the digitalization process and a column for the detector current (**ADC**) at these samples. Every record (file row) is the result of an initial triggering process done by the SIXTE simulation tool ``tessim`` [#f31]_. 
+The input data (simulated) files, currently required to be in FITS format, are a sequence of variable length ``RECORDS``, containing at least a column for the **TIME** of the digitalization process and a column for the detector current (**ADC**) at these samples. Every record (file row) is the result of an initial triggering process done by the SIXTE simulation tool ``tessim`` [#]_. 
 
 .. _records:
 
@@ -262,7 +262,7 @@ The input data (simulated) files, currently required to be in FITS format, are a
    
    Simulated data (pulses) in FITS records by using ``tessim``.
    
-.. [#f31]  When working with ``xifusim``, ``TESRECORDS`` instead of ``RECORDS``.
+.. [#]  When working with ``xifusim``, ``TESRECORDS`` instead of ``RECORDS``.
 
 .. _reconOutFiles:
 	
@@ -355,12 +355,12 @@ It follows these steps:
    
    Block diagram explaining the AD detection process (after the threshold establishment).
 
-3.- Based on the first sample of the signal derivative which passes the threshold level, a template is selected from the library. The 25-samples-long dot product of the pre-detected pulse and the template is then calculated at different positions (lags) around the initial starting time of the pulse to better determine its correct starting point. Usually a dot product in 3 different **lags** [#f1]_ around the sample of the initial detection is adequate to find a maximum and the following steps will depend on whether a maximum of the dot product has been found or not:
+3.- Based on the first sample of the signal derivative which passes the threshold level, a template is selected from the library. The 25-samples-long dot product of the pre-detected pulse and the template is then calculated at different positions (lags) around the initial starting time of the pulse to better determine its correct starting point. Usually a dot product in 3 different **lags** [#]_ around the sample of the initial detection is adequate to find a maximum and the following steps will depend on whether a maximum of the dot product has been found or not:
 
 - If a maximum of the dot product has not been found, the starting time of the pulse is fixed to the time when the derivative gets over the threshold (in this case, the *tstart* matches a digitized sample without taking the possible jitter into account).
 - If a maximum of the dot product has been found, a new starting time f the pulse is going to be established (by using the 3-dot-product results around the maximum to analytically define a parabola and locate its maximum). Then, an iterative process begins in order to select the best template from the library, resulting each time in a new starting time with a different jitter. As due to the jitter, the pulses are placed out of a digitized sample clock, the first sample of the derivative of the pulse itself is not exactly the value of the first sample getting over the threshold and it would need to be corrected depending on the time shift with respect to the digitized samples (*samp1DER correction*). 
 
-.. [#f1] Nevertheless, when the residual signals are large, the maximum of the dot product moves towards the secondary pulse, missing the primary detection. This is why currently the maximum number of the dot product lags is limited to 5.
+.. [#] Nevertheless, when the residual signals are large, the maximum of the dot product moves towards the secondary pulse, missing the primary detection. This is why currently the maximum number of the dot product lags is limited to 5.
 
 4.- Every time a sample is over the threshold, a check is performed for the slope of the straight line defined by this sample, its preceding one and its following one. If the slope is lower than the minimum slope of the templates in the calibration library, the pulse is discarded (it is likely a residual signal) and start a new search. If the slope is higher than the minimum slope of the templates in the calibration library, the pulse is labeled as detected.
 
@@ -542,7 +542,7 @@ The SIRENA input parameter that controls the reconstruction method applied is :o
 
     This type of transformations are currently implemented in SIRENA and can be accessed through the :option:`EnergyMethod` command line option. Some of them, considers linearization as a linear scale in the height of the pulses with energy (*I2RALL*, *I2RNOL*, *I2R*) while the last one is also able to get a linear  gain scale when the signal is reconstructed with a simple filter (*I2RFITTED*).
 	
-    Let's see first some definitions given by columns and keywords in ``tessim`` simulated data files [#f4]_:
+    Let's see first some definitions given by columns and keywords in ``tessim`` simulated data files [#]_:
 
 	:PXLnnnnn: column that stores the data signal in pixel *nnnnn* [ADC]
 	:PULSEnnnnn: column for the data signal in pixel *nnnnn* over the bias current [Amp]
@@ -612,7 +612,7 @@ The SIRENA input parameter that controls the reconstruction method applied is :o
                                         
 	*The optimal* :math:`I_{fit}` was found to be  :math:`45.3\mu A`.*
 		
-    .. [#f4] When working with ``xifusim`` simulated data files, the parameters used in the previous transformations are provided in different keywords and columns:
+    .. [#] When working with ``xifusim`` simulated data files, the parameters used in the previous transformations are provided in different keywords and columns:
  
           * The next colums in the *TESPARAM* HDU:
 
