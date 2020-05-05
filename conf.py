@@ -43,6 +43,7 @@ def setup(app):
 
 extensions = [
 	   'sphinx.ext.imgmath',
+	   'sphinx_rtd_theme',
 	  'sphinx.ext.autodoc',
           'sphinx.ext.doctest',
           'ipython_console_highlighting',
@@ -116,8 +117,8 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'default' # classic
-#html_theme = 'sphinx_rtd_theme'
+#html_theme = 'default' # classic
+html_theme = 'sphinx_rtd_theme'
 
 
 # Theme options are theme-specific and customize the look and feel of a theme
