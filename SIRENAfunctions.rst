@@ -1756,11 +1756,11 @@ Search functions by name at :ref:`genindex`.
     
      .. cpp:member:: int hduPRECALWN
     
-        Add or not the PRECALWN HDU in the library file (1/0) (only for library creation, :option:`opmode` = 0), :option:`hduPRECALWN`
+        Add or not the *PRECALWN* HDU in the library file (1/0) (only for library creation, :option:`opmode` = 0), :option:`hduPRECALWN`
         
     .. cpp:member:: int hduPRCLOFWM
     
-        Add or not the hduPRCLOFWM HDU in the library file (1/0) (only for library creation, :option:`opmode` = 0), :option:`hduPRCLOFWM`
+        Add or not the *PRCLOFWM* HDU in the library file (1/0) (only for library creation, :option:`opmode` = 0), :option:`hduPRCLOFWM`
         
     .. cpp:member:: int largeFilter
     
@@ -1831,7 +1831,7 @@ Search functions by name at :ref:`genindex`.
         
     .. cpp:member:: int hduPRCLOFWM
     
-        Add or not the hduPRCLOFWM HDU in the library file (1/0) (only for library creation, :option:`opmode` = 0), :option:`hduPRCLOFWM`
+        Add or not the *PRCLOFWM* HDU in the library file (1/0) (only for library creation, :option:`opmode` = 0), :option:`hduPRCLOFWM`
         
     .. cpp:member:: char* energy_method
     
@@ -2142,11 +2142,11 @@ Search functions by name at :ref:`genindex`.
         
     .. cpp:member:: int hduPRECALWN
     
-        Add or not the PRECALWN HDU in the library file (1/0) (only for library creation, :option:`opmode` = 0), :option:`hduPRECALWN`
+        Add or not the *PRECALWN* HDU in the library file (1/0) (only for library creation, :option:`opmode` = 0), :option:`hduPRECALWN`
         
     .. cpp:member:: int hduPRCLOFWM
     
-        Add or not the hduPRCLOFWM HDU in the library file (1/0) (only for library creation, :option:`opmode` = 0), :option:`hduPRCLOFWM`
+        Add or not the *PRCLOFWM* HDU in the library file (1/0) (only for library creation, :option:`opmode` = 0), :option:`hduPRCLOFWM`
         
     .. cpp:member:: int largeFilter
     
@@ -3189,12 +3189,12 @@ Search functions by name at :ref:`genindex`.
                     - If :option:`EnergyMethod` = **WEIGHTN** and :option:`OFLib` = 1:
                     
                        - Choose the base-2 system value closest (lower than or equal) to the pulse length
-                       - :cpp:func:`find_prclwn` to find the appropriate values of the PRECALWN HDU (**PCLx** columns)
+                       - :cpp:func:`find_prclwn` to find the appropriate values of the *PRECALWN* HDU (**PCLx** columns)
                 
                 - If :option:`EnergyMethod` = **OPTFILT** (or **I2R**, **I2RALL**, **I2RNOL**, **I2RFITTED**) and :option:`OFLib` = 1 and :option:`OFNoise` = **WEIGHTM**:
                 
                     - Choose the base-2 system value closest (lower than or equal) to the pulse length
-                    - :cpp:func:`find_prclofwm` to find the appropriate values of the PRCLOFWM HDU (**OFWx** columns)
+                    - :cpp:func:`find_prclofwm` to find the appropriate values of the *PRCLOFWM* HDU (**OFWx** columns)
                 
                 - Subtract the sum of the filter if :option:`EnergyMethod` = **OPTFILT**, :option:`OFNoise` = **NSD**, :option:`FilterDomain` = **T**, 0-padding and :option:`Sum0Filt` =1 
                 - Calculate the energy of each pulse
@@ -3465,7 +3465,7 @@ Search functions by name at :ref:`genindex`.
 
     - Declare variables
     - Open intermediate FITS file
-    - Create the FILTER HDU if it is the first pulse
+    - Create the *FILTER* HDU if it is the first pulse
     - Write data
     
       - **OPTIMALF** column

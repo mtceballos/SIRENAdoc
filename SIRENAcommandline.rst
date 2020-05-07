@@ -153,7 +153,7 @@ The *NOISE* HDU contains two keywords:
 
 The *NOISEALL* HDU contains **FREQ** and **CSD** columns for positive and negative frequencies.
 
-If :option:`--weightMS` = *yes*, the **WEIGHTMS** HDU contains **Wx** columns. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the :option:`--intervalMinSamples` decreasing until 2. If :option:`--matrixSize` is different from 0, only the **Wx** column being *x* equals to :option:`--matrixSize` is calculated (although the rest columns appear in the HDU, they are filled with 0's).
+If :option:`--weightMS` = *yes*, the *WEIGHTMS* HDU contains **Wx** columns. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the :option:`--intervalMinSamples` decreasing until 2. If :option:`--matrixSize` is different from 0, only the **Wx** column being *x* equals to :option:`--matrixSize` is calculated (although the rest columns appear in the HDU, they are filled with 0's).
 
 
 .. _tesreconstruction:
@@ -258,13 +258,13 @@ To run SIRENA implementation, the user must supply the following input parameter
 	
 .. option::  hduPRECALWN=<yes|no>
 
-	Add or not the PRECALWN HDU in the library file (only used in calibration run).
+	Add or not the *PRECALWN* HDU in the library file (only used in calibration run).
 
 	Default: *no*	
 
 .. option::  hduPRCLOFWM=<yes|no>
 
-	Add or not the PRECLOFWM HDU in the library file (only used in calibration run).
+	Add or not the *PRCLOFWM* HDU in the library file (only used in calibration run).
 
 	Default: *no*	
 	
