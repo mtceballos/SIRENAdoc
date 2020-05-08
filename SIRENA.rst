@@ -633,7 +633,7 @@ The SIRENA input parameter that controls the reconstruction method applied is :o
 :pageblue:`Two experimental approaches: adding a preBuffer or 0-padding`
 ------------------------------------------------------------------------
 
-        For pulses closer than the High Resolution length, short optimal filters in current or quasi-resistance space must be used in their reconstruction, causing a degradation of the energy resolution that must be studied :cite:`Doriese2009`. Two different experimental approaches (**variant of Optimal Filtering by using the noise spectral density in current or quasi resistance space**) have been developed to try to minimise this degradation:
+        For pulses closer than the High Resolution length, short optimal filters in current or quasi-resistance space must be used in their reconstruction, causing a degradation of the energy resolution that must be studied :cite:`Doriese2009`. Two different experimental approaches (**variant of Optimal Filtering by using the noise spectral density in current or quasi resistance space**) have been developed to try to minimize this degradation:
         
         **a) Adding a preBuffer:**
         
