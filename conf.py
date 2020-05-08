@@ -152,7 +152,7 @@ html_favicon = 'favicon.ico'
 html_static_path = ['_static']
 
 
-autodoc_default_flags = ['members', 'inherited-members']
+autodoc_default_flags = ['members', 'undoc-members','show-inheritance','inherited-members']
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.
