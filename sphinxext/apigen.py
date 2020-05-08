@@ -253,7 +253,7 @@ class ApiDocWriter(object):
                   '  :show-inheritance:\n' \
                   '  :inherited-members:\n' \
                   '\n' \
-                  '  .. automethod:: __init__\n'
+                  #'  .. automethod:: __init__\n'
         if multi_fx:
             ad += '\n' + 'Functions' + '\n' + \
                   self.rst_section_levels[2] * 9 + '\n\n'
