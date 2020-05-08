@@ -47,8 +47,6 @@ Search functions by name at :ref:`genindex`.
     - Calculate and write the pre-calculated values by using the noise weight matrix from noise intervals (M'WM)^{-1}M'W for different lengths, **OFWx** columns in *PRCLOFWM*
    
     **Members/Variables**
-    
-    hola
 
     .. cpp:member:: ReconstructInitSIRENA** reconstruct_init
 
