@@ -263,6 +263,12 @@ class ApiDocWriter(object):
         for f in functions:
             # must NOT exclude from index to keep cross-refs working
             ad += '\n.. autofunction:: ' + uri + '.' + f + '\n\n'
+	    ad += '  :members:\n' \
+                  '  :undoc-members:\n' \
+                  '  :show-inheritance:\n' \
+                  '  :inherited-members:\n' \
+                  '\n' \
+                  '  .. automethod:: __init__\n'
         return ad
 
     def _survives_exclude(self, matchstr, match_type):
