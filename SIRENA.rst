@@ -273,7 +273,7 @@ The reconstructed energies for all the detected events are saved into an output 
 
 * **TIME**: arrival time of the event (in s).
 
-* **SIGNAL**: energy of the event in keV.
+* **SIGNAL**: energy of the event (in keV).
 
 * **AVG4SD**: average of the first 4 samples of the derivative of the pulse.
 
@@ -283,7 +283,7 @@ The reconstructed energies for all the detected events are saved into an output 
 
 * **GRADE2**: distance to the end of the preceding pulse (in samples). If pulse is the first event in the record, this is fixed to the :option:`PulseLength` value.
 
-* **PHI**: arrival phase in samples (offset relative to the central point of the parabola).
+* **PHI**: arrival phase (offset relative to the central point of the parabola) (in samples).
 
 * **LAGS**: number of samples shifted to find the maximum of the parabola.
 
