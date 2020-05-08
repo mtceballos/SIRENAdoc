@@ -38,7 +38,7 @@ Search functions by name at :ref:`genindex`.
 
     Located in file: *tasksSIRENA.cpp*
     
-    This function writes the first row of the library (without intermediate AB-related values, because it would be necessary to have at least two rows=energies in the library). It also writes the *FIXFILTT* and *FIXFILTF* HDUs with the optimal filters in the time and frequency domain with fixed legnths (base-2 values) and the *PRCLOFWM* HDU with the precalculated values for optimal filtering and :option:`EnergyMethod` = *WEIGHTM*.
+    This function writes the first row of the library (without intermediate AB-related values, because it would be necessary to have at least two rows=energies in the library). It also writes the *FIXFILTT* and *FIXFILTF* HDUs with the optimal filters in the time and frequency domain with fixed legnths (base-2 values) and the *PRCLOFWM* HDU with the precalculated values for optimal filtering and :option:`EnergyMethod` = **WEIGHTM**.
     
     - Declare variables
     - Write in the first row of the library FITS file some columns with the info provided by the input GSL vectors :cpp:member:`E`, :cpp:member:`PHEIGHT`, :cpp:member:`PULSE`, :cpp:member:`PULSEB0`,             :cpp:member:`MF` and :cpp:member:`MFB0` (and :cpp:member:`COVAR` and :cpp:member:`WEIGHT` if :option:`hduPRCLOFWM` =1) (and :cpp:member:`PULSEMaxLengthFixedFilter` if :option:`largeFilter` > :option:`PulseLength`)
@@ -47,6 +47,8 @@ Search functions by name at :ref:`genindex`.
     - Calculate and write the pre-calculated values by using the noise weight matrix from noise intervals (M'WM)^{-1}M'W for different lengths, **OFWx** columns in *PRCLOFWM*
    
     **Members/Variables**
+    
+    hola
 
     .. cpp:member:: ReconstructInitSIRENA** reconstruct_init
 
