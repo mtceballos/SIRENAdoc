@@ -51,7 +51,6 @@ extensions = [
           'numpydoc',
           'hidden_code_block',
 	  'sphinxcontrib.bibtex',
-	  'sphinx_automodapi.automodapi'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
