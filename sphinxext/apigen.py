@@ -233,6 +233,17 @@ class ApiDocWriter(object):
             ad += '   :parts: 3\n'
 
         ad += '\n.. automodule:: ' + uri + '\n'
+
+	ad += '  :members:\n' \
+              '  :undoc-members:\n' \
+              '  :show-inheritance:\n' \
+              '  :inherited-members:\n' \
+              '  :imported-members:\n' \
+              '  :private-members:\n' \
+              '  :special-members:\n' \
+	      '  :public-members:\n' \
+              '  :inherited-members:\n' \
+
         ad += '\n.. currentmodule:: ' + uri + '\n'
         multi_class = len(classes) > 1
         multi_fx = len(functions) > 1
