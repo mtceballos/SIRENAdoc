@@ -152,8 +152,8 @@ html_favicon = 'favicon.ico'
 html_static_path = ['_static']
 
 
-autodoc_default_flags = ['members', 'undoc-members','show-inheritance','inherited-members','imported-members']
-autodoc_default_options = ['members', 'undoc-members','show-inheritance','inherited-members','imported-members']
+autodoc_default_flags = ['members', 'undoc-members','show-inheritance','inherited-members','imported-members','pivate-members','special-members','public-members']
+autodoc_default_options = ['members', 'undoc-members','show-inheritance','inherited-members','imported-members','special-members','private-members','public-members']
 
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
