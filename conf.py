@@ -51,6 +51,7 @@ extensions = [
           'numpydoc',
           'hidden_code_block',
 	  'sphinxcontrib.bibtex',
+	  'sphinx_automodapi.automodapi'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -152,7 +153,7 @@ html_favicon = 'favicon.ico'
 html_static_path = ['_static']
 
 
-autodoc_default_flags = ['members', 'undoc-members','show-inheritance','inherited-members','imported-members','pivate-members','special-members','public-members']
+autodoc_default_flags = ['members', 'undoc-members','show-inheritance','inherited-members','imported-members','private-members','special-members','public-members']
 autodoc_default_options = ['members', 'undoc-members','show-inheritance','inherited-members','imported-members','special-members','private-members','public-members']
 
 

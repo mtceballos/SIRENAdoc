@@ -232,7 +232,8 @@ class ApiDocWriter(object):
             ad += '.. inheritance-diagram:: %s \n' % uri
             ad += '   :parts: 3\n'
 
-        ad += '\n.. automodule:: ' + uri + '\n'
+        #ad += '\n.. automodule:: ' + uri + '\n'
+        ad += '\n.. automodapi:: ' + uri + '\n'
 
 	ad += '  :members:\n' \
               '  :undoc-members:\n' \
