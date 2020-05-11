@@ -252,6 +252,11 @@ class ApiDocWriter(object):
                   '  :undoc-members:\n' \
                   '  :show-inheritance:\n' \
                   '  :inherited-members:\n' \
+                  '  :imported-members:\n' \
+                  '  :private-members:\n' \
+                  '  :special-members:\n' \
+		  '  :public-members:\n' \
+                  '  :inherited-members:\n' \
                   '\n' \
                   '  .. automethod:: __init__\n'
         if multi_fx:
@@ -266,6 +271,11 @@ class ApiDocWriter(object):
 	    ad += '  :members:\n' \
                   '  :undoc-members:\n' \
                   '  :show-inheritance:\n' \
+                  '  :inherited-members:\n' \
+                  '  :imported-members:\n' \
+                  '  :private-members:\n' \
+                  '  :special-members:\n' \
+		  '  :public-members:\n' \
                   '  :inherited-members:\n' \
                   '\n' \
                   '  .. automethod:: __init__\n'
