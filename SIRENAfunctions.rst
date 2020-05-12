@@ -47,6 +47,58 @@ Search functions by name at :ref:`genindex`.
     - Calculate and write the pre-calculated values by using the noise weight matrix from noise intervals (M'WM)^{-1}M'W for different lengths, **OFWx** columns in *PRCLOFWM*
    
     **Members/Variables**
+    
+    ReconstructInitSIRENA** **reconstruct_init**
+
+        Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values). 
+     
+    fitsfile** **inLibObject**
+
+        FITS object containing information of the library FITS file  
+        
+    double **samprate**
+
+        Sampling rate
+        
+    int **runF0orB0val**
+    
+        If :option:`FilterMethod` = **F0** :math:`\Rightarrow` :cpp:member:`runF0orB0val` = 1. If :option:`FilterMethod` = **B0** :math:`\Rightarrow` :cpp:member:`runF0orB0val` = 0
+
+    gsl_vector* **E**
+    
+        First energy to be included in the library 
+        
+    gsl_vector* **PHEIGHT**
+    
+        Pulse height associated to the first energy to be included in the library
+        
+    gsl_matrix* **PULSE**
+
+        Pulse template associated to the first energy to be included in the library
+        
+    gsl_matrix* **PULSEB0** 
+    
+        Pulse template without baseline associated to the first energy to be included in the library
+    
+    gsl_matrix* **MF**
+    
+        Matched filter associated to the first energy to be included in the library
+        
+    gsl_matrix* **MFB0**
+    
+        Matched filter (baseline subtracted) associated to the first energy to be included in the library
+        
+    gsl_matrix* **COVAR**
+    
+        Covariance matrix associated to the first energy to be included in the library
+    
+    gsl_matrix* **WEIGHT**
+    
+        Weight matrix associated to the first energy to be included in the library
+	
+    gsl_matrix* **PULSEMaxLengthFixedFilter**
+
+        Pulse template whose length is :option:`largeFilter` associated to the first energy to be included in the library
 
     .. cpp:member:: ReconstructInitSIRENA** reconstruct_init
 
@@ -99,58 +151,7 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: gsl_matrix* PULSEMaxLengthFixedFilter
 
         Pulse template whose length is :option:`largeFilter` associated to the first energy to be included in the library
-        
-    ReconstructInitSIRENA** **reconstruct_init**
 
-        Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values). 
-     
-    fitsfile** **inLibObject**
-
-        FITS object containing information of the library FITS file  
-        
-    double **samprate**
-
-        Sampling rate
-        
-    int **runF0orB0val**
-    
-        If :option:`FilterMethod` = **F0** :math:`\Rightarrow` :cpp:member:`runF0orB0val` = 1. If :option:`FilterMethod` = **B0** :math:`\Rightarrow` :cpp:member:`runF0orB0val` = 0
-
-    gsl_vector* **E**
-    
-        First energy to be included in the library 
-        
-    gsl_vector* **PHEIGHT**
-    
-        Pulse height associated to the first energy to be included in the library
-        
-    gsl_matrix* **PULSE**
-
-        Pulse template associated to the first energy to be included in the library
-        
-    gsl_matrix* **PULSEB0** 
-    
-        Pulse template without baseline associated to the first energy to be included in the library
-    
-    gsl_matrix* **MF**
-    
-        Matched filter associated to the first energy to be included in the library
-        
-    gsl_matrix* **MFB0**
-    
-        Matched filter (baseline subtracted) associated to the first energy to be included in the library
-        
-    gsl_matrix* **COVAR**
-    
-        Covariance matrix associated to the first energy to be included in the library
-    
-    gsl_matrix* **WEIGHT**
-    
-        Weight matrix associated to the first energy to be included in the library
-	
-    gsl_matrix* **PULSEMaxLengthFixedFilter**
-
-        Pulse template whose length is :option:`largeFilter` associated to the first energy to be included in the library
         
 .. cpp:function:: int align(double samprate, gsl_vector **vector1, gsl_vector **vector2)
         
@@ -194,6 +195,18 @@ Search functions by name at :ref:`genindex`.
         GSL vector with input vector
 
     .. cpp:member:: gsl_vector** vector2 
+
+        GSL with input vector which is delayed or moved forward to be aligned with :cpp:member:`vector1`
+        
+    double **samprate**
+
+        Sampling rate
+
+    gsl_vector** **vector1**
+
+        GSL vector with input vector
+
+    gsl_vector** **vector2** 
 
         GSL with input vector which is delayed or moved forward to be aligned with :cpp:member:`vector1`
             
@@ -296,6 +309,85 @@ Search functions by name at :ref:`genindex`.
         Size of the scalar product to be calculated
         
     .. cpp:member:: int tooshortPulse_NoLags
+    
+        Pulse too short to apply lags (1) or not (0)
+        
+    gsl_vector* **vector**
+    
+        Pulse whose energy has to be determined
+        
+    int **pulseGrade** 
+    
+        Grade of the input pulse (to decide whether a full or only a rough estimation of energy is required). 
+        
+    gsl_vector* **filter**
+    
+        Optimal filter in time domain
+    
+    gsl_vector_complex* **filterFFT**
+    
+        Optimal filter in frequency domain
+        
+    int **runEMethod**
+    
+        - :option:`EnergyMethod` = **OPTFILT** :math:`\Rightarrow` :cpp:member:`runEMethod` = 0
+        - :option:`EnergyMethod` = **I2R** :math:`\Rightarrow` :cpp:member:`runEMethod` = 0
+        - :option:`EnergyMethod` = **I2RALL** :math:`\Rightarrow` :cpp:member:`runEMethod` = 0
+        - :option:`EnergyMethod` = **I2RNOL** :math:`\Rightarrow` :cpp:member:`runEMethod` = 0
+        - :option:`EnergyMethod` = **I2RFITTED** :math:`\Rightarrow` :cpp:member:`runEMethod` = 0
+        - :option:`EnergyMethod` = **WEIGHT** :math:`\Rightarrow` :cpp:member:`runEMethod` = 1
+        - :option:`EnergyMethod` = **WEIGHTN** :math:`\Rightarrow` :cpp:member:`runEMethod` = 2
+
+    int **indexEalpha**
+    
+        Index of the energy lower than the energy of the pulse which is being analyzed
+        
+    int **indexEbeta** 
+    
+        Index of the energy higher than the energy of the pulse which is being analyzed
+        
+    ReconstructInitSIRENA** **reconstruct_init**
+
+        Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values)
+        
+    int **domain**
+    
+        - :option:`FilterDomain` = **T** :math:`\Rightarrow` :cpp:member:`domain` = 0
+        - :option:`FilterDomain` = **F** :math:`\Rightarrow` :cpp:member:`domain` = 1
+
+    double **samprate**
+    
+        Sampling rate in Hz
+        
+    gsl_vector* **Pab** 
+    
+        **PAB** column in the library 
+        
+    gsl_vector* **PRCLWN** 
+    
+        **PCLx** column in the library
+
+    gsl_vector* **PRCLOFWM** 
+    
+        **OFWx** column in the library
+        
+    double* **calculatedEnergy**
+    
+        Calculated energy in eV.
+        
+    int **numlags**
+    
+        Number of lags (if option:`EnergyMethod` = **OPTFILT** or **I2R** or **I2RALL** or **I2RNOL** or **I2RFITTED** and :option:`OFNoise` = **NSD**)
+        
+    double **tstartNewDev**
+    
+        Addional deviation of the starting time (if :option:`LagsOrNot` = 1)    
+        
+    int **productSize**
+    
+        Size of the scalar product to be calculated
+        
+    int **tooshortPulse_NoLags**
     
         Pulse too short to apply lags (1) or not (0)
         
@@ -404,6 +496,97 @@ Search functions by name at :ref:`genindex`.
     
         Input/output intermediate parameter
     
+    ReconstructInitSIRENA** reconstruct_init
+
+        Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values). 
+    
+    int indexa 
+    
+        Lower index of the library to calculate the intermediate params (:math:`\alpha`)
+        
+    int indexb
+    
+        Higher index of the library to calculate the intermediate params (:math:`\beta`)
+     
+    double samprate
+
+        Sampling rate
+        
+    int runF0orB0val
+
+        If :option:`FilterMethod` = **F0** :math:`\Rightarrow` :cpp:member:`runF0orB0val` = 1. If :option:`FilterMethod` = **B0** :math:`\Rightarrow` :cpp:member:`runF0orB0val` = 0
+
+    gsl_matrix* modelsaux
+        
+        GSL input matrix with model template 
+    
+    gsl_matrix* covarianceaux
+    
+        GSL input matrix with covariance matrix
+        
+    gsl_matrix* weightaux
+    
+        GSL input matrix with weight matrix 
+        
+    gsl_vector* energycolumn
+    
+        GSL input vector with list of energies
+    
+    gsl_matrix** WAB
+    
+        Input/output intermediate parameter
+        
+    gsl_matrix** TVaux
+    
+        Input/output intermediate parameter
+        
+    gsl_vector** tEcolumn
+        
+        Input/output intermediate parameter
+        
+    gsl_matrix **XMaux
+    
+        Input/output intermediate parameter
+        
+    gsl_matrix **YVaux
+        
+        Input/output intermediate parameter
+        
+    gsl_matrix **ZVaux
+        
+        Input/output intermediate parameter
+        
+    gsl_vector **rEcolumn 
+        
+        Input/output intermediate parameter
+        
+    gsl_matrix **Pabaux
+    
+        Input/output intermediate parameter
+        
+    gsl_matrix **Dabaux 
+
+        Input/output intermediate parameter
+        
+    gsl_matrix **precalWMaux
+    
+        Input/output intermediate parameter
+        
+    gsl_matrix **optimalfiltersabFREQaux
+    
+        Input/output intermediate parameter
+        
+    gsl_matrix **optimalfiltersabTIMEaux
+    
+        Input/output intermediate parameter
+
+    gsl_matrix* modelsMaxLengthFixedFilteraux
+        
+        Input/output intermediate parameter
+        
+    gsl_matrix **PabMaxLengthFixedFilteraux
+    
+        Input/output intermediate parameter
 
 .. cpp:function:: int calculateTemplate(ReconstructInitSIRENA *reconstruct_init, PulsesCollection *pulsesAll, PulsesCollection *pulsesInRecord, double samprate, gsl_vector **pulseaverage, double *pulseaverageHeight, gsl_matrix **covariance, gsl_matrix **weight, int inputPulseLength, gsl_vector **pulseaverageMaxLengthFixedFilter)    
     
