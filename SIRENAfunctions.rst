@@ -32,8 +32,8 @@ SIRENA functions
 Search functions by name at :ref:`genindex`.
 
 
-.. _A:
-
+.. _A: 
+    
 .. cpp:function:: int addFirstRow(ReconstructInitSIRENA *reconstruct_init, fitsfile **inLibObject, double samprate, int runF0orB0val, gsl_vector *E, gsl_vector *PHEIGHT, gsl_matrix *PULSE, gsl_matrix *PULSEB0, gsl_matrix *MF, gsl_matrix *MFB0, gsl_matrix *COVAR, gsl_matrix *WEIGHT, gsl_matrix *PULSEMaxLengthFixedFilter)
 
     Located in file: *tasksSIRENA.cpp*
@@ -100,6 +100,57 @@ Search functions by name at :ref:`genindex`.
 
         Pulse template whose length is :option:`largeFilter` associated to the first energy to be included in the library
         
+    ReconstructInitSIRENA** reconstruct_init
+
+        Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values). 
+     
+    fitsfile** inLibObject
+
+        FITS object containing information of the library FITS file  
+        
+    double samprate
+
+        Sampling rate
+        
+    int runF0orB0val
+    
+        If :option:`FilterMethod` = **F0** :math:`\Rightarrow` :cpp:member:`runF0orB0val` = 1. If :option:`FilterMethod` = **B0** :math:`\Rightarrow` :cpp:member:`runF0orB0val` = 0
+
+    gsl_vector* E
+    
+        First energy to be included in the library 
+        
+    gsl_vector* PHEIGHT
+    
+        Pulse height associated to the first energy to be included in the library
+        
+    gsl_matrix* PULSE
+
+        Pulse template associated to the first energy to be included in the library
+        
+    gsl_matrix* PULSEB0 
+    
+        Pulse template without baseline associated to the first energy to be included in the library
+    
+    gsl_matrix* MF
+    
+        Matched filter associated to the first energy to be included in the library
+        
+    gsl_matrix* MFB0
+    
+        Matched filter (baseline subtracted) associated to the first energy to be included in the library
+        
+    gsl_matrix* COVAR
+    
+        Covariance matrix associated to the first energy to be included in the library
+    
+    gsl_matrix* WEIGHT
+    
+        Weight matrix associated to the first energy to be included in the library
+	
+    gsl_matrix* PULSEMaxLengthFixedFilter
+
+        Pulse template whose length is :option:`largeFilter` associated to the first energy to be included in the library
         
 .. cpp:function:: int align(double samprate, gsl_vector **vector1, gsl_vector **vector2)
         

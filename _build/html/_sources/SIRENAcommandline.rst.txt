@@ -11,7 +11,7 @@ SIRENA Tools CLI
 ##########################
 
 Here we describe the command line options for the tools run for SIRENA reconstruction (``gennoisespec`` and ``tesreconstruction``).
-At the end, links to the documentation of other SIXTE tools required for the simulation of data files are provided (``tesconstpileup`` and ``xifusim``).
+At the end, links to the documentation of other SIXTE tools required for the simulation of data files are provided (``tesconstpileup``) and XIFUSIM.
 
 .. _gennoisespec: 
 
@@ -19,7 +19,7 @@ gennoisespec
 =============
 
 The goal of the ``gennoisespec`` tool is to calculate the current noise spectral density and the noise weight matrixes.
-The input data from which it would be calculated should be a FITS file with the data splitted into records (see :ref:`noise-records`) with or without photon events (pulses).
+The input data from which it would be calculated should be a FITS file with the data splitted into records (see :ref:`noise-records <noise-records>`) with or without photon events (pulses).
 
 The user must supply the following input parameters:
 
@@ -43,7 +43,7 @@ The user must supply the following input parameters:
 	
 	It will be redefined as the base-2 system value closest-lower than or equal than :option:`--intervalMinSamples`.
 	
-	Default: 1024
+	Default: 8192
 
 .. option:: --nplPF=<real>
 
@@ -69,19 +69,19 @@ The user must supply the following input parameters:
 
 	Consecutive samples that the signal must cross over the threshold to trigger a pulse detection (only relevant if pulse detection in the stream has to be performed).
 
-	Default: 2
+	Default: 3
 
 .. option:: --nSgms=<real> 
 
 	Number of quiescent-signal standard deviations to establish the threshold through the *kappa-clipping* algorithm (only relevant if pulse detection in the stream has to be performed).
 
-	Default: 5
+	Default: 3.5
 
 .. option:: --pulse_length=<int> 
 
 	Pulse length in samples. 
 
-	Default: 1024
+	Default: 8192
 
 .. option:: --LrsT=<secs> 
 
@@ -147,13 +147,13 @@ The *NOISE* HDU contains three columns:
 
 The *NOISE* HDU contains two keywords:
 
-* **BSLN0**: Noise baseline (it will be propagated to the library as **BASELINE** in the *Library* HDU when building the library FITS file)
+* ``BSLN0``: Noise baseline (it will be propagated to the library as ``BASELINE`` in the *Library* HDU when building the library FITS file)
 
-* **NOISESTD**: Noise standard deviation 
+* ``NOISESTD``: Noise standard deviation 
 
 The *NOISEALL* HDU contains **FREQ** and **CSD** columns for positive and negative frequencies.
 
-If :option:`--weightMS` = *yes*, the **WEIGHTMS** HDU contains **Wx** columns. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the :option:`--intervalMinSamples` decreasing until 2. If :option:`--matrixSize` is different from 0, only the **Wx** column being *x* equals to :option:`--matrixSize` is calculated (although the rest columns appear in the HDU, they are filled with 0's).
+If :option:`--weightMS` = *yes*, the *WEIGHTMS* HDU contains **Wx** columns. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the :option:`--intervalMinSamples` decreasing until 2. If :option:`--matrixSize` is different from 0, only the **Wx** column being *x* equals to :option:`--matrixSize` is calculated (although the rest columns appear in the HDU, they are filled with 0's).
 
 
 .. _tesreconstruction:
@@ -188,19 +188,19 @@ To run SIRENA implementation, the user must supply the following input parameter
 
 	Output event list FITS file.
 	
-	Default: *events.fits*
+	Default: *event.fits*
 
 .. option::  PulseLength=<int>
 
 	Pulse length in samples.
 	
-	Default: 1024
+	Default: 8192
 
 .. option::  EventListSize=<str> 
 
 	Default size of the event list. 
 
-	Default: 100
+	Default: 1000
 
 .. option::  LibraryFile=<str>
 
@@ -226,13 +226,13 @@ To run SIRENA implementation, the user must supply the following input parameter
 
 	Number of consecutive samples below the threshold to look for other pulse (only used in production run with STC detection mode).
 
-	Default: 3
+	Default: 4
 
 .. option::  nSgms=<real> 
 
 	Number of quiescent-signal standard deviations to establish the threshold through the kappa-clipping algorithm.
 
-	Default: 5
+	Default: 3.5
 
 .. option::  detectSP=<0|1>
 
@@ -258,13 +258,13 @@ To run SIRENA implementation, the user must supply the following input parameter
 	
 .. option::  hduPRECALWN=<yes|no>
 
-	Add or not the PRECALWN HDU in the library file (only used in calibration run).
+	Add or not the *PRECALWN* HDU in the library file (only used in calibration run).
 
 	Default: *no*	
 
 .. option::  hduPRCLOFWM=<yes|no>
 
-	Add or not the PRECLOFWM HDU in the library file (only used in calibration run).
+	Add or not the *PRCLOFWM* HDU in the library file (only used in calibration run).
 
 	Default: *no*	
 	
@@ -284,7 +284,7 @@ To run SIRENA implementation, the user must supply the following input parameter
 
 	Adjusted Derivative (AD) or Single Threshold Crossing (STC). Not used in library creation mode (:option:`opmode` = 0).
 
-	Default: AD
+	Default: STC
 
 .. option::  NoiseFile=<str>
 
@@ -296,7 +296,7 @@ To run SIRENA implementation, the user must supply the following input parameter
 
 	Filtering Domain: Time(T) or Frequency(F). Not used in library creation mode (:option:`opmode` = 0).
 
-	Default: *F*
+	Default: *T*
 
 .. option::  FilterMethod=<F0 | B0>
 	
@@ -316,7 +316,7 @@ To run SIRENA implementation, the user must supply the following input parameter
 
 	Energy of the filters of the library to be used to calculate energy (only for OPTFILT, I2R, I2RALL, I2RNOL and I2RFITTED).
 
-	Default: 1000
+	Default: 6000
 	
 .. option::  OFNoise=<NSD | WEIGHTM>
 
@@ -328,7 +328,7 @@ To run SIRENA implementation, the user must supply the following input parameter
 
 	Use LAGS == 1 or NOLAGS == 0 to indicate whether subsampling pulse arrival time is required. Currently only implemented for :option:`EnergyMethod` =OPTFILT, and :option:`EnergyMethod` =WEIGHTN combined with :option:`OFLib` =yes.
 
-	Default: 0
+	Default: 1
 
 .. option::  nLags=<int> 
 
@@ -352,20 +352,20 @@ To run SIRENA implementation, the user must supply the following input parameter
 
 	Work with a library with optimal filters (OFLib=yes) or instead do Optimal Filter calculation on-the-fly (OFLib=no).
 	
-	Default: no 
+	Default: yes 
 
 .. option::  OFStrategy=<FREE | BYGRADE | FIXED> 
 
 	Optimal Filter length Strategy: FREE (no length restriction), BYGRADE (length according to event grading) or FIXED (fixed length). These last 2 options are only for checking and development purposes; a normal run with *on-the-fly* calculations will be done with :option:`OFStrategy` = *FREE*.
 	Only used if :option:`OFLib` =no. Not used in library creation mode (:option:`opmode` = 0). 
 
-	Default: *FREE*
+	Default: *BYGRADE*
 
 .. option::  OFLength=<int> 
 
 	Fixed Optimal Filter length (only if :option:`OFStrategy` = **FIXED**,  :option:`opmode` = 1 and :option:`OFLib` =no).
 
-	Default: 512
+	Default: 8192
 	
 .. option::  preBuffer=<int> 
 
@@ -454,27 +454,29 @@ To run SIRENA implementation, the user must supply the following input parameter
 
 The output file will also be a FITS file storing one event per row with the following information in the HDU named *EVENTS*:
 
-* **TIME**: arrival time of the event 
+* **TIME**: arrival time of the event (in s)
 
-* **SIGNAL**: energy of the event in keV
+* **SIGNAL**: energy of the event (in keV)
 
 * **AVG4SD**: average of the first 4 samples of the derivative of the pulse
 
-* **ELOWRES**: low resolution energy estimator by filtering with a 4-samples-length filter
+* **ELOWRES**: energy provided by a low resolution energy estimator filtering with a 4-samples-length filter (in keV)
 
-* **GRADE1**: pulse duration (length of optimal filter applied, if that is the case)
+* **GRADE1**: length of the filter used, i.e., the distance to the following pulse (in samples) or the :option:`PulseLength` if the next event is further than this value or if there are no more events in the same record
 
-* **GRADE2**: distance to the start time of the preceding pulse (in samples)
+* **GRADE2**: distance to the end of the preceding pulse (in samples). If pulse is the first event in the record, this is fixed to the :option:`PulseLength` value
 
-* **PHI**: additional deviation of the tstart (in samples)
+* **PHI**: arrival phase (offset relative to the central point of the parabola) (in samples) 
 
 * **LAGS**: number of samples shifted to find the maximum of the parabola
 
-* **BSLN**: baseline
+* **BSLN**: mean value of the baseline in general 'before' a pulse (according the value in samples of :option:`LbT`)
+
+* **RMSBSLN**: standard deviation of the baseline in general 'before' a pulse (according the value in samples of :option:`LbT`)
 
 * **PIX_ID**: pixel number
 
-* **PH_ID**: photon number identification for cross matching with the imapct list (currently not in use)
+* **PH_ID**: photon number identification for cross matching with the impact list
 
 * **GRADING**: Pulse grade (HighRes=1, MidRes=2, LimRes=3, LowRes=4, Rejected=-1, Pileup=-2)
 
