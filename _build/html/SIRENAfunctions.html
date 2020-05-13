@@ -171,6 +171,45 @@ In time domain <strong>Tx</strong> columns are real numbers but in frequency dom
 <li>Calculate and write the pre-calculated values by using the noise weight matrix from noise intervals (M’WM)^{-1}M’W for different lengths, <strong>OFWx</strong> columns in <em>PRCLOFWM</em></li>
 </ul>
 <p><strong>Members/Variables</strong></p>
+<p>ReconstructInitSIRENA** <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values).</div></blockquote>
+<p>fitsfile** <strong>inLibObject</strong></p>
+<blockquote>
+<div>FITS object containing information of the library FITS file</div></blockquote>
+<p>double <strong>samprate</strong></p>
+<blockquote>
+<div>Sampling rate</div></blockquote>
+<p>int <strong>runF0orB0val</strong></p>
+<blockquote>
+<div>If <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-filtermethod"><code class="xref std std-option docutils literal"><span class="pre">FilterMethod</span></code></a> = <strong>F0</strong> <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> <a class="reference internal" href="#_CPPv2N11addFirstRow12runF0orB0valE" title="addFirstRow::runF0orB0val"><code class="xref cpp cpp-member docutils literal"><span class="pre">runF0orB0val</span></code></a> = 1. If <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-filtermethod"><code class="xref std std-option docutils literal"><span class="pre">FilterMethod</span></code></a> = <strong>B0</strong> <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> <a class="reference internal" href="#_CPPv2N11addFirstRow12runF0orB0valE" title="addFirstRow::runF0orB0val"><code class="xref cpp cpp-member docutils literal"><span class="pre">runF0orB0val</span></code></a> = 0</div></blockquote>
+<p>gsl_vector* <strong>E</strong></p>
+<blockquote>
+<div>First energy to be included in the library</div></blockquote>
+<p>gsl_vector* <strong>PHEIGHT</strong></p>
+<blockquote>
+<div>Pulse height associated to the first energy to be included in the library</div></blockquote>
+<p>gsl_matrix* <strong>PULSE</strong></p>
+<blockquote>
+<div>Pulse template associated to the first energy to be included in the library</div></blockquote>
+<p>gsl_matrix* <strong>PULSEB0</strong></p>
+<blockquote>
+<div>Pulse template without baseline associated to the first energy to be included in the library</div></blockquote>
+<p>gsl_matrix* <strong>MF</strong></p>
+<blockquote>
+<div>Matched filter associated to the first energy to be included in the library</div></blockquote>
+<p>gsl_matrix* <strong>MFB0</strong></p>
+<blockquote>
+<div>Matched filter (baseline subtracted) associated to the first energy to be included in the library</div></blockquote>
+<p>gsl_matrix* <strong>COVAR</strong></p>
+<blockquote>
+<div>Covariance matrix associated to the first energy to be included in the library</div></blockquote>
+<p>gsl_matrix* <strong>WEIGHT</strong></p>
+<blockquote>
+<div>Weight matrix associated to the first energy to be included in the library</div></blockquote>
+<p>gsl_matrix* <strong>PULSEMaxLengthFixedFilter</strong></p>
+<blockquote>
+<div>Pulse template whose length is <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-largefilter"><code class="xref std std-option docutils literal"><span class="pre">largeFilter</span></code></a> associated to the first energy to be included in the library</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N11addFirstRow16reconstruct_initE">
 <span id="addFirstRow::reconstruct_init__ReconstructInitSIRENAPP"></span>ReconstructInitSIRENA **<code class="descclassname"></code><code class="descname">reconstruct_init</code><a class="headerlink" href="#_CPPv2N11addFirstRow16reconstruct_initE" title="Permalink to this definition">¶</a><br /></dt>
@@ -249,45 +288,6 @@ In time domain <strong>Tx</strong> columns are real numbers but in frequency dom
 <dd><p>Pulse template whose length is <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-largefilter"><code class="xref std std-option docutils literal"><span class="pre">largeFilter</span></code></a> associated to the first energy to be included in the library</p>
 </dd></dl>
 
-<p>ReconstructInitSIRENA** reconstruct_init</p>
-<blockquote>
-<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values).</div></blockquote>
-<p>fitsfile** inLibObject</p>
-<blockquote>
-<div>FITS object containing information of the library FITS file</div></blockquote>
-<p>double samprate</p>
-<blockquote>
-<div>Sampling rate</div></blockquote>
-<p>int runF0orB0val</p>
-<blockquote>
-<div>If <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-filtermethod"><code class="xref std std-option docutils literal"><span class="pre">FilterMethod</span></code></a> = <strong>F0</strong> <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> <a class="reference internal" href="#_CPPv2N11addFirstRow12runF0orB0valE" title="addFirstRow::runF0orB0val"><code class="xref cpp cpp-member docutils literal"><span class="pre">runF0orB0val</span></code></a> = 1. If <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-filtermethod"><code class="xref std std-option docutils literal"><span class="pre">FilterMethod</span></code></a> = <strong>B0</strong> <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> <a class="reference internal" href="#_CPPv2N11addFirstRow12runF0orB0valE" title="addFirstRow::runF0orB0val"><code class="xref cpp cpp-member docutils literal"><span class="pre">runF0orB0val</span></code></a> = 0</div></blockquote>
-<p>gsl_vector* E</p>
-<blockquote>
-<div>First energy to be included in the library</div></blockquote>
-<p>gsl_vector* PHEIGHT</p>
-<blockquote>
-<div>Pulse height associated to the first energy to be included in the library</div></blockquote>
-<p>gsl_matrix* PULSE</p>
-<blockquote>
-<div>Pulse template associated to the first energy to be included in the library</div></blockquote>
-<p>gsl_matrix* PULSEB0</p>
-<blockquote>
-<div>Pulse template without baseline associated to the first energy to be included in the library</div></blockquote>
-<p>gsl_matrix* MF</p>
-<blockquote>
-<div>Matched filter associated to the first energy to be included in the library</div></blockquote>
-<p>gsl_matrix* MFB0</p>
-<blockquote>
-<div>Matched filter (baseline subtracted) associated to the first energy to be included in the library</div></blockquote>
-<p>gsl_matrix* COVAR</p>
-<blockquote>
-<div>Covariance matrix associated to the first energy to be included in the library</div></blockquote>
-<p>gsl_matrix* WEIGHT</p>
-<blockquote>
-<div>Weight matrix associated to the first energy to be included in the library</div></blockquote>
-<p>gsl_matrix* PULSEMaxLengthFixedFilter</p>
-<blockquote>
-<div>Pulse template whose length is <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-largefilter"><code class="xref std std-option docutils literal"><span class="pre">largeFilter</span></code></a> associated to the first energy to be included in the library</div></blockquote>
 </dd></dl>
 
 <dl class="function">
@@ -311,6 +311,15 @@ In time domain <strong>Tx</strong> columns are real numbers but in frequency dom
 <li>Move forward or delay <a class="reference internal" href="#_CPPv2N5align7vector1E" title="align::vector1"><code class="xref cpp cpp-member docutils literal"><span class="pre">vector1</span></code></a> depending on positive or negative shift</li>
 </ol>
 <p><strong>Members/Variables</strong></p>
+<p>double <strong>samprate</strong></p>
+<blockquote>
+<div>Sampling rate</div></blockquote>
+<p>gsl_vector** <strong>vector1</strong></p>
+<blockquote>
+<div>GSL vector with input vector</div></blockquote>
+<p>gsl_vector** <strong>vector2</strong></p>
+<blockquote>
+<div>GSL with input vector which is delayed or moved forward to be aligned with <a class="reference internal" href="#_CPPv2N5align7vector1E" title="align::vector1"><code class="xref cpp cpp-member docutils literal"><span class="pre">vector1</span></code></a></div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N5align8samprateE">
 <span id="align::samprate__double"></span>double <code class="descclassname"></code><code class="descname">samprate</code><a class="headerlink" href="#_CPPv2N5align8samprateE" title="Permalink to this definition">¶</a><br /></dt>
@@ -348,6 +357,73 @@ In time domain <strong>Tx</strong> columns are real numbers but in frequency dom
 <li><strong>WEIGHT</strong> and <strong>WEIGHTN</strong> (see <a class="reference internal" href="SIRENA.html#covmatrices"><span class="std std-ref">Covariance matrices</span></a>)</li>
 </ol>
 <p><strong>Members/Variables</strong></p>
+<p>gsl_vector* <strong>vector</strong></p>
+<blockquote>
+<div>Pulse whose energy has to be determined</div></blockquote>
+<p>int <strong>pulseGrade</strong></p>
+<blockquote>
+<div>Grade of the input pulse (to decide whether a full or only a rough estimation of energy is required).</div></blockquote>
+<p>gsl_vector* <strong>filter</strong></p>
+<blockquote>
+<div>Optimal filter in time domain</div></blockquote>
+<p>gsl_vector_complex* <strong>filterFFT</strong></p>
+<blockquote>
+<div>Optimal filter in frequency domain</div></blockquote>
+<p>int <strong>runEMethod</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-energymethod"><code class="xref std std-option docutils literal"><span class="pre">EnergyMethod</span></code></a> = <strong>OPTFILT</strong> <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> <a class="reference internal" href="#_CPPv2N15calculateEnergy10runEMethodE" title="calculateEnergy::runEMethod"><code class="xref cpp cpp-member docutils literal"><span class="pre">runEMethod</span></code></a> = 0</li>
+<li><a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-energymethod"><code class="xref std std-option docutils literal"><span class="pre">EnergyMethod</span></code></a> = <strong>I2R</strong> <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> <a class="reference internal" href="#_CPPv2N15calculateEnergy10runEMethodE" title="calculateEnergy::runEMethod"><code class="xref cpp cpp-member docutils literal"><span class="pre">runEMethod</span></code></a> = 0</li>
+<li><a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-energymethod"><code class="xref std std-option docutils literal"><span class="pre">EnergyMethod</span></code></a> = <strong>I2RALL</strong> <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> <a class="reference internal" href="#_CPPv2N15calculateEnergy10runEMethodE" title="calculateEnergy::runEMethod"><code class="xref cpp cpp-member docutils literal"><span class="pre">runEMethod</span></code></a> = 0</li>
+<li><a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-energymethod"><code class="xref std std-option docutils literal"><span class="pre">EnergyMethod</span></code></a> = <strong>I2RNOL</strong> <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> <a class="reference internal" href="#_CPPv2N15calculateEnergy10runEMethodE" title="calculateEnergy::runEMethod"><code class="xref cpp cpp-member docutils literal"><span class="pre">runEMethod</span></code></a> = 0</li>
+<li><a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-energymethod"><code class="xref std std-option docutils literal"><span class="pre">EnergyMethod</span></code></a> = <strong>I2RFITTED</strong> <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> <a class="reference internal" href="#_CPPv2N15calculateEnergy10runEMethodE" title="calculateEnergy::runEMethod"><code class="xref cpp cpp-member docutils literal"><span class="pre">runEMethod</span></code></a> = 0</li>
+<li><a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-energymethod"><code class="xref std std-option docutils literal"><span class="pre">EnergyMethod</span></code></a> = <strong>WEIGHT</strong> <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> <a class="reference internal" href="#_CPPv2N15calculateEnergy10runEMethodE" title="calculateEnergy::runEMethod"><code class="xref cpp cpp-member docutils literal"><span class="pre">runEMethod</span></code></a> = 1</li>
+<li><a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-energymethod"><code class="xref std std-option docutils literal"><span class="pre">EnergyMethod</span></code></a> = <strong>WEIGHTN</strong> <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> <a class="reference internal" href="#_CPPv2N15calculateEnergy10runEMethodE" title="calculateEnergy::runEMethod"><code class="xref cpp cpp-member docutils literal"><span class="pre">runEMethod</span></code></a> = 2</li>
+</ul>
+</div></blockquote>
+<p>int <strong>indexEalpha</strong></p>
+<blockquote>
+<div>Index of the energy lower than the energy of the pulse which is being analyzed</div></blockquote>
+<p>int <strong>indexEbeta</strong></p>
+<blockquote>
+<div>Index of the energy higher than the energy of the pulse which is being analyzed</div></blockquote>
+<p>ReconstructInitSIRENA** <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values)</div></blockquote>
+<p>int <strong>domain</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-filterdomain"><code class="xref std std-option docutils literal"><span class="pre">FilterDomain</span></code></a> = <strong>T</strong> <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> <a class="reference internal" href="#_CPPv2N15calculateEnergy6domainE" title="calculateEnergy::domain"><code class="xref cpp cpp-member docutils literal"><span class="pre">domain</span></code></a> = 0</li>
+<li><a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-filterdomain"><code class="xref std std-option docutils literal"><span class="pre">FilterDomain</span></code></a> = <strong>F</strong> <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> <a class="reference internal" href="#_CPPv2N15calculateEnergy6domainE" title="calculateEnergy::domain"><code class="xref cpp cpp-member docutils literal"><span class="pre">domain</span></code></a> = 1</li>
+</ul>
+</div></blockquote>
+<p>double <strong>samprate</strong></p>
+<blockquote>
+<div>Sampling rate in Hz</div></blockquote>
+<p>gsl_vector* <strong>Pab</strong></p>
+<blockquote>
+<div><strong>PAB</strong> column in the library</div></blockquote>
+<p>gsl_vector* <strong>PRCLWN</strong></p>
+<blockquote>
+<div><strong>PCLx</strong> column in the library</div></blockquote>
+<p>gsl_vector* <strong>PRCLOFWM</strong></p>
+<blockquote>
+<div><strong>OFWx</strong> column in the library</div></blockquote>
+<p>double* <strong>calculatedEnergy</strong></p>
+<blockquote>
+<div>Calculated energy in eV.</div></blockquote>
+<p>int <strong>numlags</strong></p>
+<blockquote>
+<div>Number of lags (if option:<cite>EnergyMethod</cite> = <strong>OPTFILT</strong> or <strong>I2R</strong> or <strong>I2RALL</strong> or <strong>I2RNOL</strong> or <strong>I2RFITTED</strong> and <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-ofnoise"><code class="xref std std-option docutils literal"><span class="pre">OFNoise</span></code></a> = <strong>NSD</strong>)</div></blockquote>
+<p>double <strong>tstartNewDev</strong></p>
+<blockquote>
+<div>Addional deviation of the starting time (if <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-lagsornot"><code class="xref std std-option docutils literal"><span class="pre">LagsOrNot</span></code></a> = 1)</div></blockquote>
+<p>int <strong>productSize</strong></p>
+<blockquote>
+<div>Size of the scalar product to be calculated</div></blockquote>
+<p>int <strong>tooshortPulse_NoLags</strong></p>
+<blockquote>
+<div>Pulse too short to apply lags (1) or not (0)</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N15calculateEnergy6vectorE">
 <span id="calculateEnergy::vector__gsl_vectorP"></span>gsl_vector *<code class="descclassname"></code><code class="descname">vector</code><a class="headerlink" href="#_CPPv2N15calculateEnergy6vectorE" title="Permalink to this definition">¶</a><br /></dt>
@@ -480,6 +556,75 @@ In time domain <strong>Tx</strong> columns are real numbers but in frequency dom
 <li>Free allocated GSL vectors and matrices</li>
 </ul>
 <p><strong>Members/Variables</strong></p>
+<p>ReconstructInitSIRENA** <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values).</div></blockquote>
+<p>int <strong>indexa</strong></p>
+<blockquote>
+<div>Lower index of the library to calculate the intermediate params (<img class="math" src="_images/math/877d234f4cec6974ce218fc2e975a486a7972dfd.png" alt="\alpha"/>)</div></blockquote>
+<p>int <strong>indexb</strong></p>
+<blockquote>
+<div>Higher index of the library to calculate the intermediate params (<img class="math" src="_images/math/410a9d0df9c135dd73b269cba7ef04dcfd932b1f.png" alt="\beta"/>)</div></blockquote>
+<p>double <strong>samprate</strong></p>
+<blockquote>
+<div>Sampling rate</div></blockquote>
+<p>int <strong>runF0orB0val</strong></p>
+<blockquote>
+<div>If <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-filtermethod"><code class="xref std std-option docutils literal"><span class="pre">FilterMethod</span></code></a> = <strong>F0</strong> <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> <a class="reference internal" href="#_CPPv2N18calculateIntParams12runF0orB0valE" title="calculateIntParams::runF0orB0val"><code class="xref cpp cpp-member docutils literal"><span class="pre">runF0orB0val</span></code></a> = 1. If <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-filtermethod"><code class="xref std std-option docutils literal"><span class="pre">FilterMethod</span></code></a> = <strong>B0</strong> <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> <a class="reference internal" href="#_CPPv2N18calculateIntParams12runF0orB0valE" title="calculateIntParams::runF0orB0val"><code class="xref cpp cpp-member docutils literal"><span class="pre">runF0orB0val</span></code></a> = 0</div></blockquote>
+<p>gsl_matrix* <strong>modelsaux</strong></p>
+<blockquote>
+<div>GSL input matrix with model template</div></blockquote>
+<p>gsl_matrix* <strong>covarianceaux</strong></p>
+<blockquote>
+<div>GSL input matrix with covariance matrix</div></blockquote>
+<p>gsl_matrix* <strong>weightaux</strong></p>
+<blockquote>
+<div>GSL input matrix with weight matrix</div></blockquote>
+<p>gsl_vector* <strong>energycolumn</strong></p>
+<blockquote>
+<div>GSL input vector with list of energies</div></blockquote>
+<p>gsl_matrix** <strong>WAB</strong></p>
+<blockquote>
+<div>Input/output intermediate parameter</div></blockquote>
+<p>gsl_matrix** <strong>TVaux</strong></p>
+<blockquote>
+<div>Input/output intermediate parameter</div></blockquote>
+<p>gsl_vector** <strong>tEcolumn</strong></p>
+<blockquote>
+<div>Input/output intermediate parameter</div></blockquote>
+<p>gsl_matrix** <strong>XMaux</strong></p>
+<blockquote>
+<div>Input/output intermediate parameter</div></blockquote>
+<p>gsl_matrix** <strong>YVaux</strong></p>
+<blockquote>
+<div>Input/output intermediate parameter</div></blockquote>
+<p>gsl_matrix** <strong>ZVaux</strong></p>
+<blockquote>
+<div>Input/output intermediate parameter</div></blockquote>
+<p>gsl_vector** <strong>rEcolumn</strong></p>
+<blockquote>
+<div>Input/output intermediate parameter</div></blockquote>
+<p>gsl_matrix** <strong>Pabaux</strong></p>
+<blockquote>
+<div>Input/output intermediate parameter</div></blockquote>
+<p>gsl_matrix** <strong>Dabaux</strong></p>
+<blockquote>
+<div>Input/output intermediate parameter</div></blockquote>
+<p>gsl_matrix** <strong>precalWMaux</strong></p>
+<blockquote>
+<div>Input/output intermediate parameter</div></blockquote>
+<p>gsl_matrix** <strong>optimalfiltersabFREQaux</strong></p>
+<blockquote>
+<div>Input/output intermediate parameter</div></blockquote>
+<p>gsl_matrix** <strong>optimalfiltersabTIMEaux</strong></p>
+<blockquote>
+<div>Input/output intermediate parameter</div></blockquote>
+<p>gsl_matrix* <strong>modelsMaxLengthFixedFilteraux</strong></p>
+<blockquote>
+<div>Input/output intermediate parameter</div></blockquote>
+<p>gsl_matrix** <strong>PabMaxLengthFixedFilteraux</strong></p>
+<blockquote>
+<div>Input/output intermediate parameter</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N18calculateIntParams16reconstruct_initE">
 <span id="calculateIntParams::reconstruct_init__ReconstructInitSIRENAPP"></span>ReconstructInitSIRENA **<code class="descclassname"></code><code class="descname">reconstruct_init</code><a class="headerlink" href="#_CPPv2N18calculateIntParams16reconstruct_initE" title="Permalink to this definition">¶</a><br /></dt>
@@ -647,6 +792,36 @@ Just in case in the detection process some piled-up pulses have not been disting
 </li>
 </ol>
 <p><strong>Members/Variables</strong></p>
+<p>ReconstructInitSIRENA** <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values).</div></blockquote>
+<p>PulsesCollection* <strong>pulsesAll</strong></p>
+<blockquote>
+<div>Collection of pulses found in the previous records</div></blockquote>
+<p>PulsesCollection* <strong>pulsesInRecord</strong></p>
+<blockquote>
+<div>Collection of pulses found in the current record</div></blockquote>
+<p>double <strong>samprate</strong></p>
+<blockquote>
+<div>Sampling rate</div></blockquote>
+<p>gsl_vector** <strong>pulseaverage</strong></p>
+<blockquote>
+<div>GSL vector with the pulseaverage (template) of the non piled-up pulses</div></blockquote>
+<p>double* <strong>pulseaverageHeight</strong></p>
+<blockquote>
+<div>Height value of the pulseaverage</div></blockquote>
+<p>gsl_matrix** <strong>covariance</strong></p>
+<blockquote>
+<div>GSL matrix with covariance matrix</div></blockquote>
+<p>gsl_matrix** <strong>weight</strong></p>
+<blockquote>
+<div>GSL matrix with weight matrix (inverse of covariance matrix)</div></blockquote>
+<p>int <strong>inputPulseLength</strong></p>
+<blockquote>
+<div><a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-pulselength"><code class="xref std std-option docutils literal"><span class="pre">PulseLength</span></code></a> input parameter</div></blockquote>
+<p>gsl_vector** <strong>pulseaverageMaxLengthFixedFilter</strong></p>
+<blockquote>
+<div>GSL vector with the pulseaverage (template) whose length is <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-largefilter"><code class="xref std std-option docutils literal"><span class="pre">largeFilter</span></code></a> of the non piled-up pulses</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N17calculateTemplate16reconstruct_initE">
 <span id="calculateTemplate::reconstruct_init__ReconstructInitSIRENAPP"></span>ReconstructInitSIRENA **<code class="descclassname"></code><code class="descname">reconstruct_init</code><a class="headerlink" href="#_CPPv2N17calculateTemplate16reconstruct_initE" title="Permalink to this definition">¶</a><br /></dt>
@@ -773,6 +948,45 @@ to be minimized:</p>
 </li>
 </ul>
 <p><strong>Members/Variables</strong></p>
+<p>int <strong>TorF</strong></p>
+<blockquote>
+<div>If <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-filterdomain"><code class="xref std std-option docutils literal"><span class="pre">FilterDomain</span></code></a> = <strong>T</strong> <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> <a class="reference internal" href="#_CPPv2N22calculus_optimalFilter4TorFE" title="calculus_optimalFilter::TorF"><code class="xref cpp cpp-member docutils literal"><span class="pre">TorF</span></code></a> = 0; If <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-filterdomain"><code class="xref std std-option docutils literal"><span class="pre">FilterDomain</span></code></a> = <strong>F</strong> <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> <a class="reference internal" href="#_CPPv2N22calculus_optimalFilter4TorFE" title="calculus_optimalFilter::TorF"><code class="xref cpp cpp-member docutils literal"><span class="pre">TorF</span></code></a> = 1</div></blockquote>
+<p>int <strong>intermediate</strong></p>
+<blockquote>
+<div>If <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-intermediate"><code class="xref std std-option docutils literal"><span class="pre">intermediate</span></code></a> = 0 <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> Do not write an intermediate file; If <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-intermediate"><code class="xref std std-option docutils literal"><span class="pre">intermediate</span></code></a> = 1 <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> Write an intermediate file</div></blockquote>
+<p>int <strong>opmode</strong></p>
+<blockquote>
+<div>If <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-opmode"><code class="xref std std-option docutils literal"><span class="pre">opmode</span></code></a> = 0 <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> CALIBRATION run (library creation); If <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-opmode"><code class="xref std std-option docutils literal"><span class="pre">opmode</span></code></a> = 1 <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> RECONSTRUCTION run (energy determination)</div></blockquote>
+<p>gsl_vector* <strong>matchedfiltergsl</strong></p>
+<blockquote>
+<div>Matched filter associated to the pulse (in general, from the interpolation between two matched filters of the library)</div></blockquote>
+<p>long <strong>mf_size</strong></p>
+<blockquote>
+<div>Matched filter size (samples)</div></blockquote>
+<p>double <strong>samprate</strong></p>
+<blockquote>
+<div>Sampling rate</div></blockquote>
+<p>int <strong>runF0orB0val</strong></p>
+<blockquote>
+<div>If <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-filtermethod"><code class="xref std std-option docutils literal"><span class="pre">FilterMethod</span></code></a> = <strong>F0</strong> <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> <a class="reference internal" href="#_CPPv2N22calculus_optimalFilter12runF0orB0valE" title="calculus_optimalFilter::runF0orB0val"><code class="xref cpp cpp-member docutils literal"><span class="pre">runF0orB0val</span></code></a> = 1. If <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-filtermethod"><code class="xref std std-option docutils literal"><span class="pre">FilterMethod</span></code></a> = <strong>B0</strong> <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> <a class="reference internal" href="#_CPPv2N22calculus_optimalFilter12runF0orB0valE" title="calculus_optimalFilter::runF0orB0val"><code class="xref cpp cpp-member docutils literal"><span class="pre">runF0orB0val</span></code></a> = 0.</div></blockquote>
+<p>gsl_vector* <strong>freqgsl</strong></p>
+<blockquote>
+<div>Frequency axis of the current noise spectral density (input)</div></blockquote>
+<p>gsl_vector* <strong>csdgsl</strong></p>
+<blockquote>
+<div>Current noise spectral density (input)</div></blockquote>
+<p>gsl_vector* * <strong>optimal_filtergsl</strong></p>
+<blockquote>
+<div>Optimal filter in time domain (output)</div></blockquote>
+<p>gsl_vector** <strong>of_f</strong></p>
+<blockquote>
+<div>Frequency axis of the optimal filter spectrum (output)</div></blockquote>
+<p>gsl_vector** <strong>of_FFT</strong></p>
+<blockquote>
+<div>Optimal filter spectrum (absolute values) (output)</div></blockquote>
+<p>gsl_vector_complex** <strong>of_FFT_complex</strong></p>
+<blockquote>
+<div>Optimal filter spectrum (complex values) (output)</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N22calculus_optimalFilter4TorFE">
 <span id="calculus_optimalFilter::TorF__i"></span>int <code class="descclassname"></code><code class="descname">TorF</code><a class="headerlink" href="#_CPPv2N22calculus_optimalFilter4TorFE" title="Permalink to this definition">¶</a><br /></dt>
@@ -882,6 +1096,36 @@ to be minimized:</p>
 </li>
 </ul>
 <p><strong>Members/Variables</strong></p>
+<p>char* <strong>EnergyMethod</strong></p>
+<blockquote>
+<div>Quasi-resistance energy calculation method: <strong>I2R</strong>, <strong>I2RALL</strong>, <strong>I2RNOL</strong> or <strong>I2RFITTED</strong>, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-energymethod"><code class="xref std std-option docutils literal"><span class="pre">EnergyMethod</span></code></a></div></blockquote>
+<p>double <strong>R0</strong></p>
+<blockquote>
+<div>Operating point resistance</div></blockquote>
+<p>double <strong>Ibias</strong></p>
+<blockquote>
+<div>Initial bias current</div></blockquote>
+<p>double <strong>Imin</strong></p>
+<blockquote>
+<div>Current corresponding to 0 ADU</div></blockquote>
+<p>double <strong>Imax</strong></p>
+<blockquote>
+<div>Current corresponding to maximum ADU</div></blockquote>
+<p>double <strong>TTR</strong></p>
+<blockquote>
+<div>Transformer Turns Ratio</div></blockquote>
+<p>double <strong>LFILTER</strong></p>
+<blockquote>
+<div>Filter circuit inductance</div></blockquote>
+<p>double <strong>RPARA</strong></p>
+<blockquote>
+<div>Parasitic resistor value</div></blockquote>
+<p>double <strong>samprate</strong></p>
+<blockquote>
+<div>Sampling rate</div></blockquote>
+<p>gsl_vector* <strong>invector</strong></p>
+<blockquote>
+<div>GSL vector with input signal values (<strong>ADC</strong> column of the input FITS file)</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N10convertI2R12EnergyMethodE">
 <span id="convertI2R::EnergyMethod__cP"></span>char *<code class="descclassname"></code><code class="descname">EnergyMethod</code><a class="headerlink" href="#_CPPv2N10convertI2R12EnergyMethodE" title="Permalink to this definition">¶</a><br /></dt>
@@ -958,6 +1202,18 @@ to be minimized:</p>
 </div></blockquote>
 <p>If file exists <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> Check <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-clobber"><code class="xref std std-option docutils literal"><span class="pre">clobber</span></code></a> for overwritting. If it does not, then create it.</p>
 <p><strong>Members/Variables</strong></p>
+<p>ReconstructInitSIRENA** <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values).</div></blockquote>
+<p>double <strong>samprate</strong></p>
+<blockquote>
+<div>Sampling rate</div></blockquote>
+<p>fitsfile <strong>dtcObject</strong></p>
+<blockquote>
+<div>Object which contains information of the intermediate FITS file (used also by <a class="reference internal" href="#_CPPv213writeTestInfoP21ReconstructInitSIRENAP10gsl_vectordP8fitsfile" title="writeTestInfo"><code class="xref cpp cpp-func docutils literal"><span class="pre">writeTestInfo()</span></code></a> and <a class="reference internal" href="#_CPPv211writePulsesPP21ReconstructInitSIRENAddP10gsl_vectoriP10gsl_vectorP10gsl_vectorP10gsl_vectorP10gsl_vectorP10gsl_vectorP8fitsfile" title="writePulses"><code class="xref cpp cpp-func docutils literal"><span class="pre">writePulses()</span></code></a>).</div></blockquote>
+<p>int <strong>inputPulseLength</strong></p>
+<blockquote>
+<div><a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-pulselength"><code class="xref std std-option docutils literal"><span class="pre">PulseLength</span></code></a> input parameter</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N16createDetectFile16reconstruct_initE">
 <span id="createDetectFile::reconstruct_init__ReconstructInitSIRENAPP"></span>ReconstructInitSIRENA **<code class="descclassname"></code><code class="descname">reconstruct_init</code><a class="headerlink" href="#_CPPv2N16createDetectFile16reconstruct_initE" title="Permalink to this definition">¶</a><br /></dt>
@@ -1005,6 +1261,18 @@ to be minimized:</p>
 <li>Free allocated GSL vectors</li>
 </ol>
 <p><strong>Members/Variables</strong></p>
+<p>gsl_vector* <strong>invector</strong></p>
+<blockquote>
+<div>GSL input vector</div></blockquote>
+<p>int <strong>nbins</strong></p>
+<blockquote>
+<div>Number of bins to build the histogram</div></blockquote>
+<p>gsl_vector** <strong>xhistogsl</strong></p>
+<blockquote>
+<div>GSL vector with output histogram x-axis</div></blockquote>
+<p>gsl_vector** <strong>yhistogsl</strong></p>
+<blockquote>
+<div>GSL vector with output histogram y-axis</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N11createHisto8invectorE">
 <span id="createHisto::invector__gsl_vectorP"></span>gsl_vector *<code class="descclassname"></code><code class="descname">invector</code><a class="headerlink" href="#_CPPv2N11createHisto8invectorE" title="Permalink to this definition">¶</a><br /></dt>
@@ -1051,6 +1319,18 @@ to be minimized:</p>
 </ol>
 </div></blockquote>
 <p><strong>Members/Variables</strong></p>
+<p>ReconstructInitSIRENA** <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values)</div></blockquote>
+<p>bool <strong>appendToLibrary</strong></p>
+<blockquote>
+<div>Used by the function <a class="reference internal" href="#_CPPv212writeLibraryP21ReconstructInitSIRENAddP10gsl_vectorP10gsl_matrixP10gsl_matrixbPP8fitsfileP10gsl_vector" title="writeLibrary"><code class="xref cpp cpp-func docutils literal"><span class="pre">writeLibrary()</span></code></a></div></blockquote>
+<p>fitsfile** <strong>inLibObject</strong></p>
+<blockquote>
+<div>Object which contains information of the library FITS file (used also by <a class="reference internal" href="#_CPPv212writeLibraryP21ReconstructInitSIRENAddP10gsl_vectorP10gsl_matrixP10gsl_matrixbPP8fitsfileP10gsl_vector" title="writeLibrary"><code class="xref cpp cpp-func docutils literal"><span class="pre">writeLibrary()</span></code></a>)</div></blockquote>
+<p>int <strong>inputPulseLength</strong></p>
+<blockquote>
+<div><a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-pulselength"><code class="xref std std-option docutils literal"><span class="pre">PulseLength</span></code></a> input parameter</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N13createLibrary16reconstruct_initE">
 <span id="createLibrary::reconstruct_init__ReconstructInitSIRENAPP"></span>ReconstructInitSIRENA **<code class="descclassname"></code><code class="descname">reconstruct_init</code><a class="headerlink" href="#_CPPv2N13createLibrary16reconstruct_initE" title="Permalink to this definition">¶</a><br /></dt>
@@ -1085,6 +1365,12 @@ to be minimized:</p>
 <p>The derivative method provides more sensitivity to handle with piled-up pulses.
 Moreover, little variations of the baseline will not affect.</p>
 <p><strong>Members/Variables</strong></p>
+<p>gsl_vector** <strong>invector</strong></p>
+<blockquote>
+<div>Input/Ouput GSL vector (non-differentiate input vector/differentiate input vector)</div></blockquote>
+<p>int <strong>szVct</strong></p>
+<blockquote>
+<div>Size of <a class="reference internal" href="#_CPPv2N13differentiate8invectorE" title="differentiate::invector"><code class="xref cpp cpp-member docutils literal"><span class="pre">invector</span></code></a></div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N13differentiate8invectorE">
 <span id="differentiate::invector__gsl_vectorPP"></span>gsl_vector **<code class="descclassname"></code><code class="descname">invector</code><a class="headerlink" href="#_CPPv2N13differentiate8invectorE" title="Permalink to this definition">¶</a><br /></dt>
@@ -1110,6 +1396,15 @@ Moreover, little variations of the baseline will not affect.</p>
 <li>Choose the main eigenvectors and eigenvalues (the principal components analysis). At the moment, the first two eigenvectors and eigenvalues</li>
 </ul>
 <p><strong>Members/Variables</strong></p>
+<p>gsl_matrix* <strong>matrixin</strong></p>
+<blockquote>
+<div>Input GSL matrix</div></blockquote>
+<p>gsl_matrix** <strong>eigenvectors</strong></p>
+<blockquote>
+<div>Subset of eigenvectors of ‘matrixin’ chosen by PCA (the first two ones)</div></blockquote>
+<p>gsl_vector** <strong>eigenvalues</strong></p>
+<blockquote>
+<div>Subset of eigenvalues of ‘matrixin’ chosen by PCA (the first two ones)</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N7eigenVV8matrixinE">
 <span id="eigenVV::matrixin__gsl_matrixP"></span>gsl_matrix *<code class="descclassname"></code><code class="descname">matrixin</code><a class="headerlink" href="#_CPPv2N7eigenVV8matrixinE" title="Permalink to this definition">¶</a><br /></dt>
@@ -1136,6 +1431,15 @@ Moreover, little variations of the baseline will not affect.</p>
 <dd><p>Located in file: <em>genutils.cpp</em></p>
 <p>This function prints out error messages and exits program.</p>
 <p><strong>Members/Variables</strong></p>
+<p>const char* const <strong>func</strong></p>
+<blockquote>
+<div>Function name whose error is printed</div></blockquote>
+<p>string <strong>msg</strong></p>
+<blockquote>
+<div>Error message to be printed</div></blockquote>
+<p>int <strong>status</strong></p>
+<blockquote>
+<div>Status</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N10exit_error4funcE">
 <span id="exit_error::func__cCPC"></span><em class="property">const</em> char *<em class="property">const</em> <code class="descclassname"></code><code class="descname">func</code><a class="headerlink" href="#_CPPv2N10exit_error4funcE" title="Permalink to this definition">¶</a><br /></dt>
@@ -1218,6 +1522,17 @@ DFT is <img class="math" src="_images/math/4d26a3c646f81ab56cceb818c7801dd1f3cfa
 </table>
 <p>The frequency axis will be built as <em>f = i/STD = i/(size/samprate)</em> with <em>i</em> varying from 0 to <em>size/2-1</em> (<em>n=size</em> and <img class="math" src="_images/math/87971eb88bf6c327ba61b49da16606039c4e8fa2.png" alt="\Delta=1/samprate"/>  sec/sample).</p>
 <p><strong>Members/Variables</strong></p>
+<p>gsl_vector* <strong>invector</strong></p>
+<blockquote>
+<div>Input GSL vector</div></blockquote>
+<p>gsl_vector_complex* <strong>outvector</strong></p>
+<blockquote>
+<div><blockquote>
+<div>Output GSL complex vector with the FFT of <a class="reference internal" href="#_CPPv2N3FFT8invectorE" title="FFT::invector"><code class="xref cpp cpp-member docutils literal"><span class="pre">invector</span></code></a></div></blockquote>
+<p>double <strong>STD</strong></p>
+<blockquote>
+<div>SelectedTimeDuration = (Size of <a class="reference internal" href="#_CPPv2N3FFT8invectorE" title="FFT::invector"><code class="xref cpp cpp-member docutils literal"><span class="pre">invector</span></code></a>)/<em>samprate</em></div></blockquote>
+</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N3FFT8invectorE">
 <span id="FFT::invector__gsl_vectorP"></span>gsl_vector *<code class="descclassname"></code><code class="descname">invector</code><a class="headerlink" href="#_CPPv2N3FFT8invectorE" title="Permalink to this definition">¶</a><br /></dt>
@@ -1244,6 +1559,15 @@ DFT is <img class="math" src="_images/math/4d26a3c646f81ab56cceb818c7801dd1f3cfa
 <dd><p>Located in file: <em>genutils.cpp</em></p>
 <p>This function calculates the inverse FFT of the elements of a vector.</p>
 <p><strong>Members/Variables</strong></p>
+<p>gsl_vector_complex* <strong>invector</strong></p>
+<blockquote>
+<div>Input GSL complex vector</div></blockquote>
+<p>gsl_vector* <strong>outvector</strong></p>
+<blockquote>
+<div>Output GSL vector with the inverse FFT of <a class="reference internal" href="#_CPPv2N10FFTinverse8invectorE" title="FFTinverse::invector"><code class="xref cpp cpp-member docutils literal"><span class="pre">invector</span></code></a></div></blockquote>
+<p>double <strong>STD</strong></p>
+<blockquote>
+<div>SelectedTimeDuration = (Size of <a class="reference internal" href="#_CPPv2N10FFTinverse8invectorE" title="FFTinverse::invector"><code class="xref cpp cpp-member docutils literal"><span class="pre">invector</span></code></a>)/<em>samprate</em></div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N10FFTinverse8invectorE">
 <span id="FFTinverse::invector__gsl_vector_complexP"></span>gsl_vector_complex *<code class="descclassname"></code><code class="descname">invector</code><a class="headerlink" href="#_CPPv2N10FFTinverse8invectorE" title="Permalink to this definition">¶</a><br /></dt>
@@ -1279,6 +1603,12 @@ and it stores the <em>pulse_templates_filder</em> and the <em>maxDERs</em> and <
 <li>Locate the 1st sample of the (low-pass filtered and) differentiated models (<em>samp1DERs</em>)</li>
 </ol>
 <p><strong>Members/Variables</strong></p>
+<p>ReconstructInitSIRENA** <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values).</div></blockquote>
+<p>double <strong>samprate</strong></p>
+<blockquote>
+<div>Sampling rate</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N13filderLibrary16reconstruct_initE">
 <span id="filderLibrary::reconstruct_init__ReconstructInitSIRENAPP"></span>ReconstructInitSIRENA **<code class="descclassname"></code><code class="descname">reconstruct_init</code><a class="headerlink" href="#_CPPv2N13filderLibrary16reconstruct_initE" title="Permalink to this definition">¶</a><br /></dt>
@@ -1299,6 +1629,9 @@ and it stores the <em>pulse_templates_filder</em> and the <em>maxDERs</em> and <
 <dd><p>Located in file: <em>genutils.cpp</em></p>
 <p>This function checks for file existence returning a boolean value.</p>
 <p><strong>Members/Variables</strong></p>
+<p>const std::string&amp; <strong>name</strong></p>
+<blockquote>
+<div>File name</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N10fileExists4nameE">
 <span id="fileExists::name__ssCR"></span><em class="property">const</em> std::string &amp;<code class="descclassname"></code><code class="descname">name</code><a class="headerlink" href="#_CPPv2N10fileExists4nameE" title="Permalink to this definition">¶</a><br /></dt>
@@ -1321,6 +1654,18 @@ and it stores the <em>pulse_templates_filder</em> and the <em>maxDERs</em> and <
 <li>Inverse DWT</li>
 </ul>
 <p><strong>Members/Variables</strong></p>
+<p>ReconstructInitSIRENA** <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values).</div></blockquote>
+<p>gsl_vector** <strong>invector</strong></p>
+<blockquote>
+<div>Input/output signal</div></blockquote>
+<p>int <strong>length</strong></p>
+<blockquote>
+<div>Length of the wavelet transform</div></blockquote>
+<p>int* <strong>onlyOnce</strong></p>
+<blockquote>
+<div>In order to control the times to be executed</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N16filterByWavelets16reconstruct_initE">
 <span id="filterByWavelets::reconstruct_init__ReconstructInitSIRENAPP"></span>ReconstructInitSIRENA **<code class="descclassname"></code><code class="descname">reconstruct_init</code><a class="headerlink" href="#_CPPv2N16filterByWavelets16reconstruct_initE" title="Permalink to this definition">¶</a><br /></dt>
@@ -1353,6 +1698,15 @@ and it stores the <em>pulse_templates_filder</em> and the <em>maxDERs</em> and <
 <dd><p>Located in file: <em>pulseprocess.cpp</em></p>
 <p>This function calculates the mean and the standard deviation of the input vector.</p>
 <p><strong>Members/Variables</strong></p>
+<p>gsl_vector* <strong>invector</strong></p>
+<blockquote>
+<div>Input GSL vector</div></blockquote>
+<p>double* <strong>mean</strong></p>
+<blockquote>
+<div>Mean of the elements of <a class="reference internal" href="#_CPPv2N13findMeanSigma8invectorE" title="findMeanSigma::invector"><code class="xref cpp cpp-member docutils literal"><span class="pre">invector</span></code></a></div></blockquote>
+<p>double* <strong>sigma</strong></p>
+<blockquote>
+<div>Standard deviation of the elements of <a class="reference internal" href="#_CPPv2N13findMeanSigma8invectorE" title="findMeanSigma::invector"><code class="xref cpp cpp-member docutils literal"><span class="pre">invector</span></code></a></div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N13findMeanSigma8invectorE">
 <span id="findMeanSigma::invector__gsl_vectorP"></span>gsl_vector *<code class="descclassname"></code><code class="descname">invector</code><a class="headerlink" href="#_CPPv2N13findMeanSigma8invectorE" title="Permalink to this definition">¶</a><br /></dt>
@@ -1390,6 +1744,57 @@ and it stores the <em>pulse_templates_filder</em> and the <em>maxDERs</em> and <
 <li>Free allocated GSL vectors</li>
 </ul>
 <p><strong>Members/Variables</strong></p>
+<p>gsl_vector* <strong>vectorin</strong></p>
+<blockquote>
+<div>Not filtered record</div></blockquote>
+<p>gsl_vector* <strong>vectorinDER</strong></p>
+<blockquote>
+<div>Derivative of the (low-pass filtered) <a class="reference internal" href="#_CPPv2N13findPulsesCAL8vectorinE" title="findPulsesCAL::vectorin"><code class="xref cpp cpp-member docutils literal"><span class="pre">vectorin</span></code></a></div></blockquote>
+<p>gsl_vector** <strong>tstart</strong></p>
+<blockquote>
+<div>Starting time of the found pulses into the record (in samples)</div></blockquote>
+<p>gsl_vector** <strong>quality</strong></p>
+<blockquote>
+<div>Quality of the found pulses into the record</div></blockquote>
+<p>gsl_vector** <strong>pulseheight</strong></p>
+<blockquote>
+<div>Pulse height of the found pulses into the record</div></blockquote>
+<p>gsl_vector** <strong>maxDERgsl</strong></p>
+<blockquote>
+<div>Maximum of the derivative of the found (low-pass filtered) pulses into the record</div></blockquote>
+<p>int* <strong>nPulses</strong></p>
+<blockquote>
+<div>Number of found pulses</div></blockquote>
+<p>double* <strong>threshold</strong></p>
+<blockquote>
+<div>Threshold used to find the pulses (output parameter because it is necessary out of the function)</div></blockquote>
+<p>double <strong>scalefactor</strong></p>
+<blockquote>
+<div>Scale factor to calculate the LPF box-car length (<a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-scalefactor"><code class="xref std std-option docutils literal"><span class="pre">scaleFactor</span></code></a>)</div></blockquote>
+<p>double <strong>samplingRate</strong></p>
+<blockquote>
+<div>Sampling rate</div></blockquote>
+<p>int <strong>samplesup</strong></p>
+<blockquote>
+<div>Number of consecutive samples over the threshold to locate a pulse (<a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-samplesup"><code class="xref std std-option docutils literal"><span class="pre">samplesUp</span></code></a>)</div></blockquote>
+<p>double <strong>nsgms</strong></p>
+<blockquote>
+<div>Number of Sigmas to establish the threshold (<a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-nsgms"><code class="xref std std-option docutils literal"><span class="pre">nSgms</span></code></a>)</div></blockquote>
+<p>double <strong>lb</strong></p>
+<blockquote>
+<div>Vector containing the baseline averaging length used for each pulse</div></blockquote>
+<p>double <strong>lrs</strong></p>
+<blockquote>
+<div>Running sum length (<a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-lrst"><code class="xref std std-option docutils literal"><span class="pre">LrsT</span></code></a> in samples)</div></blockquote>
+<p>ReconstructInitSIRENA* <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values).</div></blockquote>
+<p>double <strong>stopcriteriamkc</strong></p>
+<blockquote>
+<div>Used in <a class="reference internal" href="#_CPPv219medianKappaClippingP10gsl_vectordddiPd" title="medianKappaClipping"><code class="xref cpp cpp-func docutils literal"><span class="pre">medianKappaClipping()</span></code></a> (%)</div></blockquote>
+<p>double <strong>kappamkc</strong></p>
+<blockquote>
+<div>Used in <a class="reference internal" href="#_CPPv219medianKappaClippingP10gsl_vectordddiPd" title="medianKappaClipping"><code class="xref cpp cpp-func docutils literal"><span class="pre">medianKappaClipping()</span></code></a></div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N13findPulsesCAL8vectorinE">
 <span id="findPulsesCAL::vectorin__gsl_vectorP"></span>gsl_vector *<code class="descclassname"></code><code class="descname">vectorin</code><a class="headerlink" href="#_CPPv2N13findPulsesCAL8vectorinE" title="Permalink to this definition">¶</a><br /></dt>
@@ -1579,6 +1984,42 @@ The first condition to detect an event is that the <a class="reference internal"
 </li>
 </ul>
 <p><strong>Members/Variables</strong></p>
+<p>int <strong>maxPulsesPerRecord</strong></p>
+<blockquote>
+<div>Expected maximum number of events per record in order to not allocate the GSL variables with the size of the input vector (<a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-eventlistsize"><code class="xref std std-option docutils literal"><span class="pre">EventListSize</span></code></a>)</div></blockquote>
+<p>gsl_vector* <strong>adjustedDerivative</strong></p>
+<blockquote>
+<div>First derivative of the (low-pass filtered) record</div></blockquote>
+<p>double <strong>adaptativethreshold</strong></p>
+<blockquote>
+<div>Threshold</div></blockquote>
+<p>double <strong>samprate</strong></p>
+<blockquote>
+<div>Sampling rate</div></blockquote>
+<p>ReconstructInitSIRENA* <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values).</div></blockquote>
+<p>int <strong>tstartFirstEvent</strong></p>
+<blockquote>
+<div>Tstart of the first event of the record (in samples) found by <a class="reference internal" href="#_CPPv217InitialTriggeringP10gsl_vectordddddPbPiPiPdi" title="InitialTriggering"><code class="xref cpp cpp-func docutils literal"><span class="pre">InitialTriggering()</span></code></a></div></blockquote>
+<p>int* <strong>numberPulses</strong></p>
+<blockquote>
+<div>Number of found events</div></blockquote>
+<p>gsl_vector** <strong>tstartgsl</strong></p>
+<blockquote>
+<div>Starting time of the found events (in samples)</div></blockquote>
+<p>gsl_vector** <strong>flagTruncated</strong></p>
+<blockquote>
+<div>Flag indicating if the event is truncated (inside this function only initial truncated pulses are classified)</div></blockquote>
+<p>gsl_vector** <strong>maxDERgsl</strong></p>
+<blockquote>
+<div>Maximum of the derivative of the event</div></blockquote>
+<p>gsl_vector** <strong>samp1DERgsl</strong></p>
+<blockquote>
+<div>Average of the first 4 samples of the derivative of the event</div></blockquote>
+<p>gsl_vector** <strong>lagsgsl</strong></p>
+<blockquote>
+<div>Number of necessary lags to establish the tstart (currently limited to 5)</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N15FindSecondaries18maxPulsesPerRecordE">
 <span id="FindSecondaries::maxPulsesPerRecord__i"></span>int <code class="descclassname"></code><code class="descname">maxPulsesPerRecord</code><a class="headerlink" href="#_CPPv2N15FindSecondaries18maxPulsesPerRecordE" title="Permalink to this definition">¶</a><br /></dt>
@@ -1682,6 +2123,39 @@ The condition to detect an event is that the <a class="reference internal" href=
 </li>
 </ul>
 <p><strong>Members/Variables</strong></p>
+<p>int <strong>maxPulsesPerRecord</strong></p>
+<blockquote>
+<div>Expected maximum number of events per record in order to not allocate the GSL variables with the size of the input vector (<a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-eventlistsize"><code class="xref std std-option docutils literal"><span class="pre">EventListSize</span></code></a>)</div></blockquote>
+<p>gsl_vector* <strong>adjustedDerivative</strong></p>
+<blockquote>
+<div>First derivative of the (low-pass filtered) record</div></blockquote>
+<p>double <strong>adaptativethreshold</strong></p>
+<blockquote>
+<div>Threshold</div></blockquote>
+<p>double <strong>samprate</strong></p>
+<blockquote>
+<div>Sampling rate</div></blockquote>
+<p>ReconstructInitSIRENA* <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values).</div></blockquote>
+<p>int <strong>tstartFirstEvent</strong></p>
+<blockquote>
+<div>Tstart of the first event of the record (in samples) found by <a class="reference internal" href="#_CPPv217InitialTriggeringP10gsl_vectordddddPbPiPiPdi" title="InitialTriggering"><code class="xref cpp cpp-func docutils literal"><span class="pre">InitialTriggering()</span></code></a></div></blockquote>
+<p>int* <strong>numberPulses</strong></p>
+<blockquote>
+<div>Number of found events</div></blockquote>
+<p>gsl_vector** <strong>tstartgsl</strong></p>
+<blockquote>
+<div>Starting time of the found events (in samples)</div></blockquote>
+<p>gsl_vector** <strong>flagTruncated</strong></p>
+<blockquote>
+<div>Flag indicating if the event is truncated (inside this function only initial truncated pulses are classified)</div></blockquote>
+<p>gsl_vector** <strong>maxDERgsl</strong></p>
+<blockquote>
+<div>Maximum of the derivative of the event</div></blockquote>
+<p>gsl_vector** <strong>samp1DERgsl</strong></p>
+<blockquote>
+<div>Average of the first 4 samples of the derivative of the event</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N18FindSecondariesSTC18maxPulsesPerRecordE">
 <span id="FindSecondariesSTC::maxPulsesPerRecord__i"></span>int <code class="descclassname"></code><code class="descname">maxPulsesPerRecord</code><a class="headerlink" href="#_CPPv2N18FindSecondariesSTC18maxPulsesPerRecordE" title="Permalink to this definition">¶</a><br /></dt>
@@ -1785,6 +2259,33 @@ values (due to the noise more than 1 value is required) over the threshold. To l
 </li>
 </ul>
 <p><strong>Members/Variables</strong></p>
+<p>int <strong>maxPulsesPerRecord</strong></p>
+<blockquote>
+<div>Expected maximum number of pulses per record in order to not allocate the GSL variables with the size of the input vector (<a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-eventlistsize"><code class="xref std std-option docutils literal"><span class="pre">EventListSize</span></code></a>)</div></blockquote>
+<p>gsl_vector* <strong>der</strong></p>
+<blockquote>
+<div>First derivative of the (low-pass filtered) record</div></blockquote>
+<p>double <strong>adaptativethreshold</strong></p>
+<blockquote>
+<div>Threshold</div></blockquote>
+<p>int <strong>nSamplesUp</strong></p>
+<blockquote>
+<div>Number of consecutive samples over the threshold to ‘find’ a pulse (<a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-samplesup"><code class="xref std std-option docutils literal"><span class="pre">samplesUp</span></code></a>)</div></blockquote>
+<p>ReconstructInitSIRENA* <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values).</div></blockquote>
+<p>int* <strong>numberPulses</strong></p>
+<blockquote>
+<div>Number of found pulses</div></blockquote>
+<p>gsl_vector** <strong>tstartgsl</strong></p>
+<blockquote>
+<div>Pulses tstart (in samples)</div></blockquote>
+<p>gsl_vector** <strong>flagTruncated</strong></p>
+<blockquote>
+<div>Flag indicating if the pulse is truncated</div></blockquote>
+<p>gsl_vector** <strong>maxDERgsl</strong></p>
+<blockquote>
+<div>Maximum of the first derivative of the (low-pass filtered) record inside each found pulse</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N13findTstartCAL18maxPulsesPerRecordE">
 <span id="findTstartCAL::maxPulsesPerRecord__i"></span>int <code class="descclassname"></code><code class="descname">maxPulsesPerRecord</code><a class="headerlink" href="#_CPPv2N13findTstartCAL18maxPulsesPerRecordE" title="Permalink to this definition">¶</a><br /></dt>
@@ -1855,6 +2356,27 @@ values (due to the noise more than 1 value is required) over the threshold. To l
 </ul>
 </div></blockquote>
 <p><strong>Members/Variables</strong></p>
+<p>double <strong>maxDER</strong></p>
+<blockquote>
+<div>Max value of the derivative of the (filtered) pulse whose embracing energies are being sought</div></blockquote>
+<p>gsl_vector* <strong>maxDERs</strong></p>
+<blockquote>
+<div>GSL vector with the maximum values of the derivatives of the templates in the library to be compared with the pulse being analysed</div></blockquote>
+<p>ReconstructInitSIRENA* <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values). In particular, this function uses the info in the library about the energies</div></blockquote>
+<p>int* <strong>indexEalpha</strong></p>
+<blockquote>
+<div>Index of the energy lower than the energy of the pulse which is being analyzed</div></blockquote>
+<p>int* <strong>indexEbeta</strong></p>
+<blockquote>
+<div>Index of the energy higher than the energy of the pulse which is being analyzed</div></blockquote>
+<p>double* <strong>Ealpha</strong></p>
+<blockquote>
+<div>Energy (in eV) which straddle the <a class="reference internal" href="#_CPPv2N15find_Esboundary6maxDERE" title="find_Esboundary::maxDER"><code class="xref cpp cpp-member docutils literal"><span class="pre">maxDER</span></code></a> in the lower limit</div></blockquote>
+<p>double* <strong>Ebeta</strong></p>
+<blockquote>
+<div>Energy (in eV) which straddle the <a class="reference internal" href="#_CPPv2N15find_Esboundary6maxDERE" title="find_Esboundary::maxDER"><code class="xref cpp cpp-member docutils literal"><span class="pre">maxDER</span></code></a> in the higher limit</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N15find_Esboundary6maxDERE">
 <span id="find_Esboundary::maxDER__double"></span>double <code class="descclassname"></code><code class="descname">maxDER</code><a class="headerlink" href="#_CPPv2N15find_Esboundary6maxDERE" title="Permalink to this definition">¶</a><br /></dt>
@@ -1912,6 +2434,30 @@ values (due to the noise more than 1 value is required) over the threshold. To l
 </ul>
 </div></blockquote>
 <p><strong>Members/Variables</strong></p>
+<p>int <strong>runF0orB0val</strong></p>
+<blockquote>
+<div>If <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-filtermethod"><code class="xref std std-option docutils literal"><span class="pre">FilterMethod</span></code></a> = <strong>F0</strong> <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> <a class="reference internal" href="#_CPPv2N21find_matchedfilterDAB12runF0orB0valE" title="find_matchedfilterDAB::runF0orB0val"><code class="xref cpp cpp-member docutils literal"><span class="pre">runF0orB0val</span></code></a> = 1. If <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-filtermethod"><code class="xref std std-option docutils literal"><span class="pre">FilterMethod</span></code></a> = <strong>B0</strong> <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> <a class="reference internal" href="#_CPPv2N21find_matchedfilterDAB12runF0orB0valE" title="find_matchedfilterDAB::runF0orB0val"><code class="xref cpp cpp-member docutils literal"><span class="pre">runF0orB0val</span></code></a> = 0</div></blockquote>
+<p>double <strong>maxDER</strong></p>
+<blockquote>
+<div>Max value of the derivative of the (filtered) pulse whose matched filter is being sought</div></blockquote>
+<p>gsl_vector* <strong>maxDERs</strong></p>
+<blockquote>
+<div>GSL vector with the maximum values of the derivatives of the templates in the library to be compared with the pulse being analysed</div></blockquote>
+<p>ReconstructInitSIRENA* <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values).</div></blockquote>
+<p>gsl_vector** <strong>matchedfilterFound</strong></p>
+<blockquote>
+<div>GSL vector with the matched filter selected</div></blockquote>
+<p>gsl_vector** <strong>PabFound</strong></p>
+<blockquote>
+<div><strong>PAB</strong> column from the library</div></blockquote>
+<p>double* <strong>Ealpha</strong></p>
+<blockquote>
+<div>Energy (in eV) which straddle the <a class="reference internal" href="#_CPPv2N21find_matchedfilterDAB6maxDERE" title="find_matchedfilterDAB::maxDER"><code class="xref cpp cpp-member docutils literal"><span class="pre">maxDER</span></code></a> in the lower limit</div></blockquote>
+<p>double* <strong>Ebeta</strong></p>
+<blockquote>
+<div>Energy (in eV) which straddle the <a class="reference internal" href="#_CPPv2N21find_matchedfilterDAB6maxDERE" title="find_matchedfilterDAB::maxDER"><code class="xref cpp cpp-member docutils literal"><span class="pre">maxDER</span></code></a> in the higher limit</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N21find_matchedfilterDAB12runF0orB0valE">
 <span id="find_matchedfilterDAB::runF0orB0val__i"></span>int <code class="descclassname"></code><code class="descname">runF0orB0val</code><a class="headerlink" href="#_CPPv2N21find_matchedfilterDAB12runF0orB0valE" title="Permalink to this definition">¶</a><br /></dt>
@@ -1975,6 +2521,17 @@ values (due to the noise more than 1 value is required) over the threshold. To l
 </ul>
 </div></blockquote>
 <p><strong>Members/Variables</strong></p>
+<p>double <strong>energy</strong></p>
+<blockquote>
+<div>Energy of the pulse whose pulse template is being sought</div></blockquote>
+<p>ReconstructInitSIRENA* <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values). In particular, this function uses the energies of the models (<em>energies</em>)
+and their templates (<em>pulse_templates</em>), the number of templates in the library (<em>ntemplates</em>), the template duration (<em>template_duration</em>) and
+the <em>pulse_templates_B0</em>.</div></blockquote>
+<p>gsl_vector** <strong>modelFound</strong></p>
+<blockquote>
+<div>Found template of the pulse whose energy is <a class="reference internal" href="#_CPPv2N19find_model_energies6energyE" title="find_model_energies::energy"><code class="xref cpp cpp-member docutils literal"><span class="pre">energy</span></code></a></div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N19find_model_energies6energyE">
 <span id="find_model_energies::energy__double"></span>double <code class="descclassname"></code><code class="descname">energy</code><a class="headerlink" href="#_CPPv2N19find_model_energies6energyE" title="Permalink to this definition">¶</a><br /></dt>
@@ -2013,6 +2570,17 @@ the highest <em>maxDERs</em> in the library is chosen</li>
 </ul>
 </div></blockquote>
 <p><strong>Members/Variables</strong></p>
+<p>double <strong>maxDER</strong></p>
+<blockquote>
+<div>Maximum of the derivative of the (filtered) pulse whose pulse template is being sought</div></blockquote>
+<p>ReconstructInitSIRENA* <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values). In particular, this function uses the number of templates in
+the library (<em>ntemplates</em>), the template duration (<em>template_duration</em>), the filtered and differentiated templates (<em>pulse_templates_filder</em>)
+and the <em>maxDERs</em> of the templates</div></blockquote>
+<p>gsl_vector** <strong>modelFound</strong></p>
+<blockquote>
+<div>Found template of the pulse whose maximum of the derivative of the filtered version is <a class="reference internal" href="#_CPPv2N18find_model_maxDERs6maxDERE" title="find_model_maxDERs::maxDER"><code class="xref cpp cpp-member docutils literal"><span class="pre">maxDER</span></code></a></div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N18find_model_maxDERs6maxDERE">
 <span id="find_model_maxDERs::maxDER__double"></span>double <code class="descclassname"></code><code class="descname">maxDER</code><a class="headerlink" href="#_CPPv2N18find_model_maxDERs6maxDERE" title="Permalink to this definition">¶</a><br /></dt>
@@ -2048,6 +2616,15 @@ and the <em>maxDERs</em> of the templates</p>
 </ul>
 </div></blockquote>
 <p><strong>Members/Variables</strong></p>
+<p>double <strong>samp1DER</strong></p>
+<blockquote>
+<div>1st sample of the derivative of the filtered pulse whose pulse template is being sought</div></blockquote>
+<p>ReconstructInitSIRENA* <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values). In particular, this function uses the 1st samples of the derivative of the models (<em>samp1DERs</em>) and their derived templates (<em>pulse_templates_filder</em>), the number of templates in the library (<em>ntemplates</em>) and the template duration (<em>template_duration</em>).</div></blockquote>
+<p>gsl_vector** <strong>modelFound</strong></p>
+<blockquote>
+<div>Found template of the pulse whose 1st sample of the derivative of the filtered pulse is <a class="reference internal" href="#_CPPv2N20find_model_samp1DERs8samp1DERE" title="find_model_samp1DERs::samp1DER"><code class="xref cpp cpp-member docutils literal"><span class="pre">samp1DER</span></code></a></div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N20find_model_samp1DERs8samp1DERE">
 <span id="find_model_samp1DERs::samp1DER__double"></span>double <code class="descclassname"></code><code class="descname">samp1DER</code><a class="headerlink" href="#_CPPv2N20find_model_samp1DERs8samp1DERE" title="Permalink to this definition">¶</a><br /></dt>
@@ -2082,6 +2659,28 @@ This function selects the proper optimal filter from the calibration library col
 </ul>
 </div></blockquote>
 <p><strong>Members/Variables</strong></p>
+<p>double <strong>maxDER</strong></p>
+<blockquote>
+<div>Max value of the derivative of the (filtered) pulse whose optimal filter is being sought</div></blockquote>
+<p>gsl_vector* <strong>maxDERs</strong></p>
+<blockquote>
+<div>GSL vector with the maximum values of the derivatives of the templates in the library to be compared with the pulse being analysed</div></blockquote>
+<p>ReconstructInitSIRENA* <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values). In particular, this function uses the info
+in the library (<em>optimal_filters</em>)</div></blockquote>
+<p>gsl_vector** <strong>optimalfilterFound</strong></p>
+<blockquote>
+<div>GSL vector with the optimal filter selected</div></blockquote>
+<p>gsl_vector** <strong>PabFound</strong></p>
+<blockquote>
+<div><strong>PAB</strong> column from the library</div></blockquote>
+<p>double* <strong>Ealpha</strong></p>
+<blockquote>
+<div>Energy (in eV) which straddle the <a class="reference internal" href="#_CPPv2N21find_optimalfilterDAB6maxDERE" title="find_optimalfilterDAB::maxDER"><code class="xref cpp cpp-member docutils literal"><span class="pre">maxDER</span></code></a> in the lower limit</div></blockquote>
+<p>double* <strong>Ebeta</strong></p>
+<blockquote>
+<div>Energy (in eV) which straddle the <a class="reference internal" href="#_CPPv2N21find_optimalfilterDAB6maxDERE" title="find_optimalfilterDAB::maxDER"><code class="xref cpp cpp-member docutils literal"><span class="pre">maxDER</span></code></a> in the higher limit</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N21find_optimalfilterDAB6maxDERE">
 <span id="find_optimalfilterDAB::maxDER__double"></span>double <code class="descclassname"></code><code class="descname">maxDER</code><a class="headerlink" href="#_CPPv2N21find_optimalfilterDAB6maxDERE" title="Permalink to this definition">¶</a><br /></dt>
@@ -2140,6 +2739,24 @@ in the library (<em>optimal_filters</em>)</p>
 </ul>
 </div></blockquote>
 <p><strong>Members/Variables</strong></p>
+<p>double <strong>maxDER</strong></p>
+<blockquote>
+<div>Max value of the derivative of the (filtered) pulse whose optimal filter is being sought</div></blockquote>
+<p>gsl_vector* <strong>maxDERs</strong></p>
+<blockquote>
+<div>GSL vector with the maximum values of the derivatives of the templates in the library to be compared with the pulse being analysed</div></blockquote>
+<p>ReconstructInitSIRENA* <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values).</div></blockquote>
+<p>gsl_vector** <strong>PRCLOFWMFound</strong></p>
+<blockquote>
+<div>GSL vector with some precalculated selected</div></blockquote>
+<p>double* <strong>Ealpha</strong></p>
+<blockquote>
+<div>Energy (in eV) which straddle the <a class="reference internal" href="#_CPPv2N13find_prclofwm6maxDERE" title="find_prclofwm::maxDER"><code class="xref cpp cpp-member docutils literal"><span class="pre">maxDER</span></code></a> in the lower limit</div></blockquote>
+<p>double* <strong>Ebeta</strong></p>
+<blockquote>
+<div>Energy (in eV) which straddle the <a class="reference internal" href="#_CPPv2N13find_prclofwm6maxDERE" title="find_prclofwm::maxDER"><code class="xref cpp cpp-member docutils literal"><span class="pre">maxDER</span></code></a> in the higher limit</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N13find_prclofwm6maxDERE">
 <span id="find_prclofwm::maxDER__double"></span>double <code class="descclassname"></code><code class="descname">maxDER</code><a class="headerlink" href="#_CPPv2N13find_prclofwm6maxDERE" title="Permalink to this definition">¶</a><br /></dt>
@@ -2191,6 +2808,27 @@ in the library (<em>optimal_filters</em>)</p>
 </ul>
 </div></blockquote>
 <p><strong>Members/Variables</strong></p>
+<p>double <strong>maxDER</strong></p>
+<blockquote>
+<div>Max value of the derivative of the (filtered) pulse whose optimal filter is being sought</div></blockquote>
+<p>gsl_vector* <strong>maxDERs</strong></p>
+<blockquote>
+<div>GSL vector with the maximum values of the derivatives of the templates in the library to be compared with the pulse being analysed</div></blockquote>
+<p>ReconstructInitSIRENA* <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values).</div></blockquote>
+<p>gsl_vector** <strong>PRCLWNFound</strong></p>
+<blockquote>
+<div>GSL vector with the precalculated values selected</div></blockquote>
+<p>gsl_vector** <strong>PabFound</strong></p>
+<blockquote>
+<div><strong>PAB</strong> column from the library</div></blockquote>
+<p>double* <strong>Ealpha</strong></p>
+<blockquote>
+<div>Energy (in eV) which straddle the <a class="reference internal" href="#_CPPv2N11find_prclwn6maxDERE" title="find_prclwn::maxDER"><code class="xref cpp cpp-member docutils literal"><span class="pre">maxDER</span></code></a> in the lower limit</div></blockquote>
+<p>double* <strong>Ebeta</strong></p>
+<blockquote>
+<div>Energy (in eV) which straddle the <a class="reference internal" href="#_CPPv2N11find_prclwn6maxDERE" title="find_prclwn::maxDER"><code class="xref cpp cpp-member docutils literal"><span class="pre">maxDER</span></code></a> in the higher limit</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N11find_prclwn6maxDERE">
 <span id="find_prclwn::maxDER__double"></span>double <code class="descclassname"></code><code class="descname">maxDER</code><a class="headerlink" href="#_CPPv2N11find_prclwn6maxDERE" title="Permalink to this definition">¶</a><br /></dt>
@@ -2241,6 +2879,9 @@ in the library (<em>optimal_filters</em>)</p>
 <dd><p>Located in file: <em>integraSIRENA.cpp</em></p>
 <p>Destructor of <em>OptimalFilterSIRENA</em> structure.</p>
 <p><strong>Members/Variables</strong></p>
+<p>OptimalFilterSIRENA* <strong>OFilterColl</strong></p>
+<blockquote>
+<div>Instance of <em>OptimalFilterSIRENA</em> structure</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N23freeOptimalFilterSIRENA11OFilterCollE">
 <span id="freeOptimalFilterSIRENA::OFilterColl__OptimalFilterSIRENAP"></span>OptimalFilterSIRENA *<code class="descclassname"></code><code class="descname">OFilterColl</code><a class="headerlink" href="#_CPPv2N23freeOptimalFilterSIRENA11OFilterCollE" title="Permalink to this definition">¶</a><br /></dt>
@@ -2255,6 +2896,9 @@ in the library (<em>optimal_filters</em>)</p>
 <dd><p>Located in file: <em>integraSIRENA.cpp</em></p>
 <p>Destructor of <em>ReconstructInitSIRENA</em> structure.</p>
 <p><strong>Members/Variables</strong></p>
+<p>ReconstructInitSIRENA* <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Instance of <em>ReconstructInitSIRENA</em> structure</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N25freeReconstructInitSIRENA16reconstruct_initE">
 <span id="freeReconstructInitSIRENA::reconstruct_init__ReconstructInitSIRENAP"></span>ReconstructInitSIRENA *<code class="descclassname"></code><code class="descname">reconstruct_init</code><a class="headerlink" href="#_CPPv2N25freeReconstructInitSIRENA16reconstruct_initE" title="Permalink to this definition">¶</a><br /></dt>
@@ -2269,6 +2913,9 @@ in the library (<em>optimal_filters</em>)</p>
 <dd><p>Located in file: <em>integraSIRENA.cpp</em></p>
 <p>Destructor of <em>PulsesCollection</em> structure.</p>
 <p><strong>Members/Variables</strong></p>
+<p>PulsesCollection* <strong>PulsesColl</strong></p>
+<blockquote>
+<div>Instance of <em>PulsesCollection</em> structure</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N20freePulsesCollection10PulsesCollE">
 <span id="freePulsesCollection::PulsesColl__PulsesCollectionP"></span>PulsesCollection *<code class="descclassname"></code><code class="descname">PulsesColl</code><a class="headerlink" href="#_CPPv2N20freePulsesCollection10PulsesCollE" title="Permalink to this definition">¶</a><br /></dt>
@@ -2283,10 +2930,31 @@ in the library (<em>optimal_filters</em>)</p>
 <dd><p>Located in file: <em>inoututils.cpp</em></p>
 <p>The function puts the values of the input GSL matrix into an output buffer.</p>
 <p><strong>Members/Variables</strong></p>
+<p>void** <strong>buffer</strong></p>
+<blockquote>
+<div>Output buffer</div></blockquote>
+<p>gsl_matrix** <strong>matrix</strong></p>
+<blockquote>
+<div>Input GSL matrix</div></blockquote>
+<p>int <strong>type</strong></p>
+<blockquote>
+<div>FITS type (TINT, TSHORT, TDOUBLE, etc.)</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N13fromGslMatrix6bufferE">
 <span id="fromGslMatrix::buffer__voidPP"></span>void **<code class="descclassname"></code><code class="descname">buffer</code><a class="headerlink" href="#_CPPv2N13fromGslMatrix6bufferE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Output buffer</p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv2N13fromGslMatrix6matrixE">
+<span id="fromGslMatrix::matrix__gsl_matrixPP"></span>gsl_matrix **<code class="descclassname"></code><code class="descname">matrix</code><a class="headerlink" href="#_CPPv2N13fromGslMatrix6matrixE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Input GSL matrix</p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv2N13fromGslMatrix4typeE">
+<span id="fromGslMatrix::type__i"></span>int <code class="descclassname"></code><code class="descname">type</code><a class="headerlink" href="#_CPPv2N13fromGslMatrix4typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>FITS type (TINT, TSHORT, TDOUBLE, etc.)</p>
 </dd></dl>
 
 </dd></dl>
@@ -2297,6 +2965,15 @@ in the library (<em>optimal_filters</em>)</p>
 <dd><p>Located in file: <em>inoututils.cpp</em></p>
 <p>The function puts the values of the input GSL vector into an output buffer.</p>
 <p><strong>Members/Variables</strong></p>
+<p>void** <strong>buffer</strong></p>
+<blockquote>
+<div>Output buffer</div></blockquote>
+<p>gsl_vector** <strong>array</strong></p>
+<blockquote>
+<div>Input GSL vector</div></blockquote>
+<p>int <strong>type</strong></p>
+<blockquote>
+<div>FITS type (TINT, TSHORT, TDOUBLE, etc.)</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N13fromGslVector6bufferE">
 <span id="fromGslVector::buffer__voidPP"></span>void **<code class="descclassname"></code><code class="descname">buffer</code><a class="headerlink" href="#_CPPv2N13fromGslVector6bufferE" title="Permalink to this definition">¶</a><br /></dt>
@@ -2309,9 +2986,12 @@ in the library (<em>optimal_filters</em>)</p>
 <dd><p>Input GSL vector</p>
 </dd></dl>
 
-<p>. cpp:member:: int type</p>
-<blockquote>
-<div>FITS type (TINT, TSHORT, TDOUBLE, etc.)</div></blockquote>
+<dl class="member">
+<dt id="_CPPv2N13fromGslVector4typeE">
+<span id="fromGslVector::type__i"></span>int <code class="descclassname"></code><code class="descname">type</code><a class="headerlink" href="#_CPPv2N13fromGslVector4typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>FITS type (TINT, TSHORT, TDOUBLE, etc.)</p>
+</dd></dl>
+
 </dd></dl>
 
 <span class="target" id="g"></span><dl class="function">
@@ -2342,6 +3022,27 @@ Then, the code is divided into 2 <em>if</em> statements:</p>
 <p>If <em>Baux</em> is still -999, a pulse-free interval can not be found to apply the running sum filter. This has to be taken into account,
 out of the function, to try to get a usable <a class="reference internal" href="#_CPPv2N4getB1BE" title="getB::B"><code class="xref cpp cpp-member docutils literal"><span class="pre">B</span></code></a>.</p>
 <p><strong>Members/Variables</strong></p>
+<p>gsl_vector* <strong>vectorin</strong></p>
+<blockquote>
+<div>Input record</div></blockquote>
+<p>gsl_vector* <strong>tstart</strong></p>
+<blockquote>
+<div>Starting time of the pulses into the record</div></blockquote>
+<p>int <strong>nPulses</strong></p>
+<blockquote>
+<div>Number of pulses into the record</div></blockquote>
+<p>gsl_vector** <strong>lb</strong></p>
+<blockquote>
+<div>Vector containing the baseline averaging length used for each pulse</div></blockquote>
+<p>int <strong>sizepulse</strong></p>
+<blockquote>
+<div>Size of the pulse in samples</div></blockquote>
+<p>gsl_vector** <strong>B</strong></p>
+<blockquote>
+<div>In general, sum of the <em>Lb</em> digitized data samples (<a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-lbt"><code class="xref std std-option docutils literal"><span class="pre">LbT</span></code></a> input parameters in samples) of a pulse-free interval immediately before the current pulse</div></blockquote>
+<p>gsl_vector** <strong>rmsB</strong></p>
+<blockquote>
+<div>In general, rms of the baseline related to a pulse-free interval immediately before the current pulse</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N4getB8vectorinE">
 <span id="getB::vectorin__gsl_vectorP"></span>gsl_vector *<code class="descclassname"></code><code class="descname">vectorin</code><a class="headerlink" href="#_CPPv2N4getB8vectorinE" title="Permalink to this definition">¶</a><br /></dt>
@@ -2404,6 +3105,57 @@ out of the function, to try to get a usable <a class="reference internal" href="
 <li>Free allocated GSL vectors and matrices</li>
 </ul>
 <p><strong>Members/Variables</strong></p>
+<p>const char* const <strong>filename</strong></p>
+<blockquote>
+<div>File with library information</div></blockquote>
+<p>int <strong>opmode</strong></p>
+<blockquote>
+<div><blockquote>
+<div>Calibration run (0) or energy reconstruction run (1), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-opmode"><code class="xref std std-option docutils literal"><span class="pre">opmode</span></code></a></div></blockquote>
+<p>int <strong>hduPRECALWN</strong></p>
+<blockquote>
+<div>Add or not the <em>PRECALWN</em> HDU in the library file (1/0) (only for library creation, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-opmode"><code class="xref std std-option docutils literal"><span class="pre">opmode</span></code></a> = 0), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-hduprecalwn"><code class="xref std std-option docutils literal"><span class="pre">hduPRECALWN</span></code></a></div></blockquote>
+</div></blockquote>
+<p>int <strong>hduPRCLOFWM</strong></p>
+<blockquote>
+<div>Add or not the <em>PRCLOFWM</em> HDU in the library file (1/0) (only for library creation, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-opmode"><code class="xref std std-option docutils literal"><span class="pre">opmode</span></code></a> = 0), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-hduprclofwm"><code class="xref std std-option docutils literal"><span class="pre">hduPRCLOFWM</span></code></a></div></blockquote>
+<p>int <strong>largeFilter</strong></p>
+<blockquote>
+<div>Length of the longest fixed filters (only for library creation, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-opmode"><code class="xref std std-option docutils literal"><span class="pre">opmode</span></code></a> = 0), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-largefilter"><code class="xref std std-option docutils literal"><span class="pre">largeFilter</span></code></a></div></blockquote>
+<p>char* <strong>filter_domain</strong></p>
+<blockquote>
+<div>Filtering Domain: Time (<strong>T</strong>) or Frequency (<strong>F</strong>), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-filterdomain"><code class="xref std std-option docutils literal"><span class="pre">FilterDomain</span></code></a></div></blockquote>
+<p>int <strong>pulse_length</strong></p>
+<blockquote>
+<div>Pulse length, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-pulselength"><code class="xref std std-option docutils literal"><span class="pre">PulseLength</span></code></a></div></blockquote>
+<p>char* <strong>energy_method</strong></p>
+<blockquote>
+<div>Energy calculation Method: <strong>OPTFILT</strong>, <strong>WEIGHT</strong>, <strong>WEIGHTN</strong>, <strong>I2R</strong>, <strong>I2RALL</strong>, <strong>I2RNOL</strong>, <strong>I2RFITTED</strong> or <strong>PCA</strong>, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-energymethod"><code class="xref std std-option docutils literal"><span class="pre">EnergyMethod</span></code></a></div></blockquote>
+<p>char* <strong>ofnoise</strong></p>
+<blockquote>
+<div>For optimal filtering : <strong>NSD</strong> or <strong>WEIGHTM</strong>, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-ofnoise"><code class="xref std std-option docutils literal"><span class="pre">OFNoise</span></code></a></div></blockquote>
+<p>char* <strong>filter_method</strong></p>
+<blockquote>
+<div>Filtering Method: <strong>F0</strong> (deleting the zero frequency bin) or <strong>B0</strong> (deleting the baseline), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-filtermethod"><code class="xref std std-option docutils literal"><span class="pre">FilterMethod</span></code></a></div></blockquote>
+<p>char <strong>oflib</strong></p>
+<blockquote>
+<div>Work or not with a library with optimal filters (1/0), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-oflib"><code class="xref std std-option docutils literal"><span class="pre">OFLib</span></code></a></div></blockquote>
+<p>char** <strong>ofinterp</strong></p>
+<blockquote>
+<div>Optimal Filter by using the Matched Filter or the DAB as matched filter (<em>MF</em>/<em>DAB</em>)
+It has been fixed in ‘<a class="reference internal" href="SIRENAcommandline.html#tesreconstruction"><span class="std std-ref">tesreconstruction</span></a> as <em>DAB</em> (but it would be possible to work with <em>MF</em>)</div></blockquote>
+<p>double <strong>filtEev</strong></p>
+<blockquote>
+<div>Energy of the filters of the library to be used to calculate energy (only for OPTFILT, I2R, I2RALL, I2RNOL and I2RFITTED), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-filteev"><code class="xref std std-option docutils literal"><span class="pre">filtEeV</span></code></a></div></blockquote>
+<p>int* const <strong>status</strong></p>
+<blockquote>
+<div>Input/output status</div></blockquote>
+<dl class="member">
+<dt id="_CPPv2N20getLibraryCollection8filenameE">
+<span id="getLibraryCollection::filename__cCPC"></span><em class="property">const</em> char *<em class="property">const</em> <code class="descclassname"></code><code class="descname">filename</code><a class="headerlink" href="#_CPPv2N20getLibraryCollection8filenameE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>File with library information</p>
+</dd></dl>
+
 <dl class="member">
 <dt id="_CPPv2N20getLibraryCollection6opmodeE">
 <span id="getLibraryCollection::opmode__i"></span>int <code class="descclassname"></code><code class="descname">opmode</code><a class="headerlink" href="#_CPPv2N20getLibraryCollection6opmodeE" title="Permalink to this definition">¶</a><br /></dt>
@@ -2460,6 +3212,12 @@ out of the function, to try to get a usable <a class="reference internal" href="
 </dd></dl>
 
 <dl class="member">
+<dt id="_CPPv2N20getLibraryCollection5oflibE">
+<span id="getLibraryCollection::oflib__c"></span>char <code class="descclassname"></code><code class="descname">oflib</code><a class="headerlink" href="#_CPPv2N20getLibraryCollection5oflibE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Work or not with a library with optimal filters (1/0), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-oflib"><code class="xref std std-option docutils literal"><span class="pre">OFLib</span></code></a></p>
+</dd></dl>
+
+<dl class="member">
 <dt id="_CPPv2N20getLibraryCollection8ofinterpE">
 <span id="getLibraryCollection::ofinterp__cPP"></span>char **<code class="descclassname"></code><code class="descname">ofinterp</code><a class="headerlink" href="#_CPPv2N20getLibraryCollection8ofinterpE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Optimal Filter by using the Matched Filter or the DAB as matched filter (<em>MF</em>/<em>DAB</em>)
@@ -2496,6 +3254,27 @@ It has been fixed in ‘<a class="reference internal" href="SIRENAcommandline.ht
 <li>Return noise spectrum</li>
 </ul>
 <p><strong>Members/Variables</strong></p>
+<p>const char* const <strong>filename</strong></p>
+<blockquote>
+<div>File name with noise</div></blockquote>
+<p>int <strong>opmode</strong></p>
+<blockquote>
+<div>Calibration run (0) or energy reconstruction run (1), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-opmode"><code class="xref std std-option docutils literal"><span class="pre">opmode</span></code></a></div></blockquote>
+<p>int <strong>hduPRCLOFWM</strong></p>
+<blockquote>
+<div>Add or not the <em>PRCLOFWM</em> HDU in the library file (1/0) (only for library creation, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-opmode"><code class="xref std std-option docutils literal"><span class="pre">opmode</span></code></a> = 0), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-hduprclofwm"><code class="xref std std-option docutils literal"><span class="pre">hduPRCLOFWM</span></code></a></div></blockquote>
+<p>char* <strong>energy_method</strong></p>
+<blockquote>
+<div>Energy calculation Method: <strong>OPTFILT</strong>, <strong>WEIGHT</strong>, <strong>WEIGHTN</strong>, <strong>I2R</strong>, <strong>I2RALL</strong>, <strong>I2RNOL</strong>, <strong>I2RFITTED</strong> or <strong>PCA</strong>, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-energymethod"><code class="xref std std-option docutils literal"><span class="pre">EnergyMethod</span></code></a></div></blockquote>
+<p>char* <strong>ofnoise</strong></p>
+<blockquote>
+<div>For optimal filtering:  <strong>NSD</strong> or <strong>WEIGHTM</strong>, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-ofnoise"><code class="xref std std-option docutils literal"><span class="pre">OFNoise</span></code></a></div></blockquote>
+<p>char* <strong>filter_method</strong></p>
+<blockquote>
+<div>Filtering Method: <strong>F0</strong> (deleting the zero frequency bin) or <strong>B0</strong> (deleting the baseline), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-filtermethod"><code class="xref std std-option docutils literal"><span class="pre">FilterMethod</span></code></a></div></blockquote>
+<p>int* const <strong>status</strong></p>
+<blockquote>
+<div>Input/Output status</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N12getNoiseSpec8filenameE">
 <span id="getNoiseSpec::filename__cCPC"></span><em class="property">const</em> char *<em class="property">const</em> <code class="descclassname"></code><code class="descname">filename</code><a class="headerlink" href="#_CPPv2N12getNoiseSpec8filenameE" title="Permalink to this definition">¶</a><br /></dt>
@@ -2553,6 +3332,33 @@ pulse height is going to be estimated by using <a class="reference internal" hre
 <li>Apply the running sum filter</li>
 </ul>
 <p><strong>Members/Variables</strong></p>
+<p>gsl_vector* <strong>vectorin</strong></p>
+<blockquote>
+<div>Not filtered record</div></blockquote>
+<p>double <strong>tstart</strong></p>
+<blockquote>
+<div>Starting time of the pulse whose pulse height is going to be estimated</div></blockquote>
+<p>double <strong>tstartnext</strong></p>
+<blockquote>
+<div>Starting time of the next pulse whose pulse height is going to be estimated</div></blockquote>
+<p>int <strong>lastPulse</strong></p>
+<blockquote>
+<div>It is 1 if the pulse is the last one into the record or the only one</div></blockquote>
+<p>double <strong>lrs</strong></p>
+<blockquote>
+<div>Running sum length (equal to the <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-lrst"><code class="xref std std-option docutils literal"><span class="pre">LrsT</span></code></a> input parameter in samples)</div></blockquote>
+<p>double <strong>lb</strong></p>
+<blockquote>
+<div>Baseline averaging length used for the pulse whose pulse height is going to be estimated</div></blockquote>
+<p>double <strong>B</strong></p>
+<blockquote>
+<div>In general, sum of the <em>Lb</em> digitized data samples (<a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-lbt"><code class="xref std std-option docutils literal"><span class="pre">LbT</span></code></a> input parameters in samples) of a pulse-free interval immediately before the current pulse</div></blockquote>
+<p>int <strong>sizepulse</strong></p>
+<blockquote>
+<div>Size of the pulse in samples</div></blockquote>
+<p>double* <strong>pulseheight</strong></p>
+<blockquote>
+<div>Estimated pulse height of the pulse</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N14getPulseHeight8vectorinE">
 <span id="getPulseHeight::vectorin__gsl_vectorP"></span>gsl_vector *<code class="descclassname"></code><code class="descname">vectorin</code><a class="headerlink" href="#_CPPv2N14getPulseHeight8vectorinE" title="Permalink to this definition">¶</a><br /></dt>
@@ -2615,6 +3421,12 @@ pulse height is going to be estimated by using <a class="reference internal" hre
 <dd><p>Located in file: <em>genutils.cpp</em></p>
 <p>This function calculates the magnitude of the complex elements of a vector (real part).</p>
 <p><strong>Members/Variables</strong></p>
+<p>gsl_vector_complex* <strong>cv</strong></p>
+<blockquote>
+<div>Input GSL complex vector</div></blockquote>
+<p>gsl_vector* <strong>cvnew</strong></p>
+<blockquote>
+<div>Output GSL vector with the absolute values of the elements of <a class="reference internal" href="#_CPPv2N26gsl_vector_complex_absIFCA2cvE" title="gsl_vector_complex_absIFCA::cv"><code class="xref cpp cpp-member docutils literal"><span class="pre">cv</span></code></a></div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N26gsl_vector_complex_absIFCA2cvE">
 <span id="gsl_vector_complex_absIFCA::cv__gsl_vector_complexP"></span>gsl_vector_complex *<code class="descclassname"></code><code class="descname">cv</code><a class="headerlink" href="#_CPPv2N26gsl_vector_complex_absIFCA2cvE" title="Permalink to this definition">¶</a><br /></dt>
@@ -2635,6 +3447,12 @@ pulse height is going to be estimated by using <a class="reference internal" hre
 <dd><p>Located in file: <em>genutils.cpp</em></p>
 <p>This function calculates the arguments of the complex elements of a vector.</p>
 <p><strong>Members/Variables</strong></p>
+<p>gsl_vector_complex* <strong>vin</strong></p>
+<blockquote>
+<div>Input GSL complex vector</div></blockquote>
+<p>gsl_vector* <strong>varg</strong></p>
+<blockquote>
+<div>Output GSL vector with the arguments of the elements of <a class="reference internal" href="#_CPPv2N26gsl_vector_complex_argIFCA3vinE" title="gsl_vector_complex_argIFCA::vin"><code class="xref cpp cpp-member docutils literal"><span class="pre">vin</span></code></a></div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N26gsl_vector_complex_argIFCA3vinE">
 <span id="gsl_vector_complex_argIFCA::vin__gsl_vector_complexP"></span>gsl_vector_complex *<code class="descclassname"></code><code class="descname">vin</code><a class="headerlink" href="#_CPPv2N26gsl_vector_complex_argIFCA3vinE" title="Permalink to this definition">¶</a><br /></dt>
@@ -2655,6 +3473,12 @@ pulse height is going to be estimated by using <a class="reference internal" hre
 <dd><p>Located in file: <em>genutils.cpp</em></p>
 <p>This function multiplies the complex elements of a vector by a complex number.</p>
 <p><strong>Members/Variables</strong></p>
+<p>gsl_vector_complex* <strong>cv</strong></p>
+<blockquote>
+<div>Input/Output (scaled) GSL complex vector</div></blockquote>
+<p>gsl_complex <strong>z</strong></p>
+<blockquote>
+<div>Input GSL complex number</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N28gsl_vector_complex_scaleIFCA2cvE">
 <span id="gsl_vector_complex_scaleIFCA::cv__gsl_vector_complexP"></span>gsl_vector_complex *<code class="descclassname"></code><code class="descname">cv</code><a class="headerlink" href="#_CPPv2N28gsl_vector_complex_scaleIFCA2cvE" title="Permalink to this definition">¶</a><br /></dt>
@@ -2675,6 +3499,12 @@ pulse height is going to be estimated by using <a class="reference internal" hre
 <dd><p>Located in file: <em>genutils.cpp</em></p>
 <p>This function calculates the square root of the elements of a vector.</p>
 <p><strong>Members/Variables</strong></p>
+<p>gsl_vector* <strong>cv</strong></p>
+<blockquote>
+<div>Input GSL complex vector</div></blockquote>
+<p>gsl_vector* <strong>cvnew</strong></p>
+<blockquote>
+<div>Output GSL vector with the square root values of the elements of <a class="reference internal" href="#_CPPv2N19gsl_vector_sqrtIFCA2cvE" title="gsl_vector_sqrtIFCA::cv"><code class="xref cpp cpp-member docutils literal"><span class="pre">cv</span></code></a></div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N19gsl_vector_sqrtIFCA2cvE">
 <span id="gsl_vector_sqrtIFCA::cv__gsl_vectorP"></span>gsl_vector *<code class="descclassname"></code><code class="descname">cv</code><a class="headerlink" href="#_CPPv2N19gsl_vector_sqrtIFCA2cvE" title="Permalink to this definition">¶</a><br /></dt>
@@ -2697,6 +3527,18 @@ pulse height is going to be estimated by using <a class="reference internal" hre
 <p>The starting element of the sum is <a class="reference internal" href="#_CPPv2N23gsl_vector_Sumsubvector6offsetE" title="gsl_vector_Sumsubvector::offset"><code class="xref cpp cpp-member docutils literal"><span class="pre">offset</span></code></a> from the start of the input vector. It will sum up <a class="reference internal" href="#_CPPv2N23gsl_vector_Sumsubvector1nE" title="gsl_vector_Sumsubvector::n"><code class="xref cpp cpp-member docutils literal"><span class="pre">n</span></code></a> elements.</p>
 <p><a class="reference internal" href="#_CPPv2N23gsl_vector_Sumsubvector6offsetE" title="gsl_vector_Sumsubvector::offset"><code class="xref cpp cpp-member docutils literal"><span class="pre">offset</span></code></a> can take values from 0 to <em>invector-&gt;size</em></p>
 <p><strong>Members/Variables</strong></p>
+<p>gsl_vector* <strong>invector</strong></p>
+<blockquote>
+<div>Input GSL vector</div></blockquote>
+<p>long <strong>offset</strong></p>
+<blockquote>
+<div>It is the first element to be summed</div></blockquote>
+<p>long <strong>n</strong></p>
+<blockquote>
+<div>Number of elements in the sum</div></blockquote>
+<p>double* <strong>sum</strong></p>
+<blockquote>
+<div>Calculated output value (sum of the corresponding elements)</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N23gsl_vector_Sumsubvector8invectorE">
 <span id="gsl_vector_Sumsubvector::invector__gsl_vectorP"></span>gsl_vector *<code class="descclassname"></code><code class="descname">invector</code><a class="headerlink" href="#_CPPv2N23gsl_vector_Sumsubvector8invectorE" title="Permalink to this definition">¶</a><br /></dt>
@@ -2735,6 +3577,154 @@ pulse height is going to be estimated by using <a class="reference internal" hre
 <li>Fill in <em>reconstruct_init</em></li>
 </ul>
 <p><strong>Members/Variables</strong></p>
+<p>ReconstructInitSIRENA* <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values)</div></blockquote>
+<p>char* const <strong>record_file</strong></p>
+<blockquote>
+<div>Filename of input data file with records, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-recordfile"><code class="xref std std-option docutils literal"><span class="pre">RecordFile</span></code></a></div></blockquote>
+<p>fitsfile* <strong>fptr</strong></p>
+<blockquote>
+<div>FITS object with pointer to data file</div></blockquote>
+<p>char* const <strong>library_file</strong></p>
+<blockquote>
+<div>File name of calibration library, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-libraryfile"><code class="xref std std-option docutils literal"><span class="pre">LibraryFile</span></code></a></div></blockquote>
+<p>char* const <strong>event_file</strong></p>
+<blockquote>
+<div>File name of output events (with reconstructed energy), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-teseventfile"><code class="xref std std-option docutils literal"><span class="pre">TesEventFile</span></code></a></div></blockquote>
+<p>int <strong>pulse_length</strong></p>
+<blockquote>
+<div>Pulse length, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-pulselength"><code class="xref std std-option docutils literal"><span class="pre">PulseLength</span></code></a></div></blockquote>
+<p>double <strong>scaleFactor</strong></p>
+<blockquote>
+<div>Detection scale factor for initial filtering, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-scalefactor"><code class="xref std std-option docutils literal"><span class="pre">scaleFactor</span></code></a></div></blockquote>
+<p>double <strong>samplesUp</strong></p>
+<blockquote>
+<div>Number of samples for threshold trespassing, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-samplesup"><code class="xref std std-option docutils literal"><span class="pre">samplesUp</span></code></a></div></blockquote>
+<p>double <strong>samplesDown</strong></p>
+<blockquote>
+<div>Number of samples below the threshold to look for other pulse, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-samplesdown"><code class="xref std std-option docutils literal"><span class="pre">samplesDown</span></code></a></div></blockquote>
+<p>double <strong>nSgms</strong></p>
+<blockquote>
+<div>Number of standard deviations in the kappa-clipping process for threshold estimation, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-nsgms"><code class="xref std std-option docutils literal"><span class="pre">nSgms</span></code></a></div></blockquote>
+<p>int <strong>detectSP</strong></p>
+<blockquote>
+<div>Detect secondary pulses (1) or not (0), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-detectsp"><code class="xref std std-option docutils literal"><span class="pre">detectSP</span></code></a></div></blockquote>
+<p>int <strong>opmode</strong></p>
+<blockquote>
+<div>Calibration run (0) or energy reconstruction run (1), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-opmode"><code class="xref std std-option docutils literal"><span class="pre">opmode</span></code></a></div></blockquote>
+<p>char* <strong>detectionMode</strong></p>
+<blockquote>
+<div>Adjusted Derivative (AD) or Single Threshold Crossing (STC), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-detectionmode"><code class="xref std std-option docutils literal"><span class="pre">detectionMode</span></code></a></div></blockquote>
+<p>double <strong>LrsT</strong></p>
+<blockquote>
+<div>Running sum length for the RS raw energy estimation (seconds), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-lrst"><code class="xref std std-option docutils literal"><span class="pre">LrsT</span></code></a></div></blockquote>
+<p>double <strong>LbT</strong></p>
+<blockquote>
+<div>Baseline averaging length for the RS raw energy estimation (seconds), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-lbt"><code class="xref std std-option docutils literal"><span class="pre">LbT</span></code></a></div></blockquote>
+<p>char* const <strong>noise_file</strong></p>
+<blockquote>
+<div>Noise file, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-noisefile"><code class="xref std std-option docutils literal"><span class="pre">NoiseFile</span></code></a></div></blockquote>
+<p>char* <strong>filter_domain</strong></p>
+<blockquote>
+<div>Filtering Domain: Time (<strong>T</strong>) or Frequency (<strong>F</strong>), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-filterdomain"><code class="xref std std-option docutils literal"><span class="pre">FilterDomain</span></code></a></div></blockquote>
+<p>char* <strong>filter_method</strong></p>
+<blockquote>
+<div>Filtering Method: <strong>F0</strong> (deleting the zero frequency bin) or <strong>F0</strong> (deleting the baseline), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-filtermethod"><code class="xref std std-option docutils literal"><span class="pre">FilterMethod</span></code></a></div></blockquote>
+<p>char* <strong>energy_method</strong></p>
+<blockquote>
+<div>Energy calculation Method: <strong>OPTFILT</strong>, <strong>WEIGHT</strong>, <strong>WEIGHTN</strong>, <strong>I2R</strong>, <strong>I2RALL</strong>, <strong>I2RNOL</strong>, <strong>I2RFITTED</strong> or <strong>PCA</strong>, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-energymethod"><code class="xref std std-option docutils literal"><span class="pre">EnergyMethod</span></code></a></div></blockquote>
+<p>double <strong>filtEev</strong></p>
+<blockquote>
+<div>Energy of the filters of the library to be used to calculate energy (only for OPTFILT, I2R, I2RALL, I2RNOL and I2RFITTED), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-filteev"><code class="xref std std-option docutils literal"><span class="pre">filtEeV</span></code></a></div></blockquote>
+<p>char* <strong>ofnoise</strong></p>
+<blockquote>
+<div>For optimal filtering:  <strong>NSD</strong> or <strong>WEIGHTM</strong>, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-ofnoise"><code class="xref std std-option docutils literal"><span class="pre">OFNoise</span></code></a></div></blockquote>
+<p>int <strong>lagsornot</strong></p>
+<blockquote>
+<div>Lags (1) or no lags (0), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-lagsornot"><code class="xref std std-option docutils literal"><span class="pre">LagsOrNot</span></code></a></div></blockquote>
+<p>int <strong>nLags</strong></p>
+<blockquote>
+<div>Number of lags (positive odd number)</div></blockquote>
+<p>int <strong>Fitting35</strong></p>
+<blockquote>
+<div>Number of lags to analytically calculate a parabola (3) or to fit a parabola (5)</div></blockquote>
+<p>int <strong>ofiter</strong></p>
+<blockquote>
+<div>Iterate (1) or not iterate (0), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-ofiter"><code class="xref std std-option docutils literal"><span class="pre">OFIter</span></code></a></div></blockquote>
+<p>char <strong>oflib</strong></p>
+<blockquote>
+<div>Work or not with a library with optimal filters (1/0), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-oflib"><code class="xref std std-option docutils literal"><span class="pre">OFLib</span></code></a></div></blockquote>
+<p>char* <strong>ofinterp</strong></p>
+<blockquote>
+<div>Optimal Filter by using the Matched Filter or the DAB as matched filter (<em>MF</em>/<em>DAB</em>)
+It has been fixed in <a class="reference internal" href="SIRENAcommandline.html#tesreconstruction"><span class="std std-ref">tesreconstruction</span></a> as <em>DAB</em></div></blockquote>
+<p>char* <strong>oflength_strategy</strong></p>
+<blockquote>
+<div>Optimal Filter length Strategy: <strong>FREE</strong>, <strong>BYGRADE</strong> or <strong>FIXED</strong>, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-ofstrategy"><code class="xref std std-option docutils literal"><span class="pre">OFStrategy</span></code></a></div></blockquote>
+<p>int <strong>oflength</strong></p>
+<blockquote>
+<div>Optimal Filter length (taken into account if <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-ofstrategy"><code class="xref std std-option docutils literal"><span class="pre">OFStrategy</span></code></a> = <strong>FIXED</strong>), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-oflength"><code class="xref std std-option docutils literal"><span class="pre">OFLength</span></code></a></div></blockquote>
+<p>int <strong>preBuffer</strong></p>
+<blockquote>
+<div>Some samples added before the starting time of a pulse</div></blockquote>
+<p>double <strong>monoenergy</strong></p>
+<blockquote>
+<div>Monochromatic energy of input file in eV (only for library creation, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-opmode"><code class="xref std std-option docutils literal"><span class="pre">opmode</span></code></a> = 0), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-monoenergy"><code class="xref std std-option docutils literal"><span class="pre">monoenergy</span></code></a></div></blockquote>
+<p>int <strong>hduPRECALWN</strong></p>
+<blockquote>
+<div>Add or not the <em>PRECALWN</em> HDU in the library file (1/0) (only for library creation, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-opmode"><code class="xref std std-option docutils literal"><span class="pre">opmode</span></code></a> = 0), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-hduprecalwn"><code class="xref std std-option docutils literal"><span class="pre">hduPRECALWN</span></code></a></div></blockquote>
+<p>int <strong>hduPRCLOFWM</strong></p>
+<blockquote>
+<div>Add or not the <em>PRCLOFWM</em> HDU in the library file (1/0) (only for library creation, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-opmode"><code class="xref std std-option docutils literal"><span class="pre">opmode</span></code></a> = 0), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-hduprclofwm"><code class="xref std std-option docutils literal"><span class="pre">hduPRCLOFWM</span></code></a></div></blockquote>
+<p>int <strong>largeFilter</strong></p>
+<blockquote>
+<div>Length of the longest fixed filters (only for library creation, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-opmode"><code class="xref std std-option docutils literal"><span class="pre">opmode</span></code></a> = 0), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-largefilter"><code class="xref std std-option docutils literal"><span class="pre">largeFilter</span></code></a></div></blockquote>
+<p>int <strong>interm</strong></p>
+<blockquote>
+<div>Write or not intermediate files (1/0), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-intermediate"><code class="xref std std-option docutils literal"><span class="pre">intermediate</span></code></a></div></blockquote>
+<p>char* const <strong>detectFile</strong></p>
+<blockquote>
+<div>Intermediate detections file (if <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-intermediate"><code class="xref std std-option docutils literal"><span class="pre">intermediate</span></code></a> = 1), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-detectfile"><code class="xref std std-option docutils literal"><span class="pre">detectFile</span></code></a></div></blockquote>
+<p>char* const <strong>filterFile</strong></p>
+<blockquote>
+<div>Intermediate filters file (if <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-intermediate"><code class="xref std std-option docutils literal"><span class="pre">intermediate</span></code></a> = 1), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-filterfile"><code class="xref std std-option docutils literal"><span class="pre">filterFile</span></code></a></div></blockquote>
+<p>int <strong>errorT</strong></p>
+<blockquote>
+<div>Additional error (in samples) added to the detected time (logically, it changes the reconstructed energies)</div></blockquote>
+<p>int <strong>Sum0Filt</strong></p>
+<blockquote>
+<div>0-padding: Subtract the sum of the filter (1) or not (0)</div></blockquote>
+<p>char <strong>clobber</strong></p>
+<blockquote>
+<div>Overwrite or not output files if exist (1/0), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-clobber"><code class="xref std std-option docutils literal"><span class="pre">clobber</span></code></a></div></blockquote>
+<p>int <strong>maxPulsesPerRecord</strong></p>
+<blockquote>
+<div>Default size of the event list, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-eventlistsize"><code class="xref std std-option docutils literal"><span class="pre">EventListSize</span></code></a></div></blockquote>
+<p>double <strong>SaturationValue</strong></p>
+<blockquote>
+<div>Saturation level of the ADC curves</div></blockquote>
+<p>int <strong>tstartPulse1</strong></p>
+<blockquote>
+<div>Start time (in samples) of the first pulse (0 if detection should be performed by the system; greater than 0 if provided by the user) or file name containing the tstart (in seconds) of every pulse, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-tstartpulse1"><code class="xref std std-option docutils literal"><span class="pre">tstartPulse1</span></code></a></div></blockquote>
+<p>int <strong>tstartPulse2</strong></p>
+<blockquote>
+<div>Tstart (samples) of the second pulse, <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-tstartpulse2"><code class="xref std std-option docutils literal"><span class="pre">tstartPulse2</span></code></a></div></blockquote>
+<p>int <strong>tstartPulse3</strong></p>
+<blockquote>
+<div>Tstart (samples) of the third pulse (if 0 <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> PAIRS, if not 0 <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> TRIOS), <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-tstartpulse3"><code class="xref std std-option docutils literal"><span class="pre">tstartPulse3</span></code></a></div></blockquote>
+<p>double <strong>energyPCA1</strong></p>
+<blockquote>
+<div>First energy (only for <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-energymethod"><code class="xref std std-option docutils literal"><span class="pre">EnergyMethod</span></code></a> = <strong>PCA</strong>)</div></blockquote>
+<p>double <strong>energyPCA2</strong></p>
+<blockquote>
+<div>Second energy (only for <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-energymethod"><code class="xref std std-option docutils literal"><span class="pre">EnergyMethod</span></code></a> = <strong>PCA</strong>)</div></blockquote>
+<p>char * const <strong>XMLFile</strong></p>
+<blockquote>
+<div>File name of the XML input file with instrument definition</div></blockquote>
+<p>int* const <strong>status</strong></p>
+<blockquote>
+<div>Input/Output status</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N30initializeReconstructionSIRENA16reconstruct_initE">
 <span id="initializeReconstructionSIRENA::reconstruct_init__ReconstructInitSIRENAP"></span>ReconstructInitSIRENA *<code class="descclassname"></code><code class="descname">reconstruct_init</code><a class="headerlink" href="#_CPPv2N30initializeReconstructionSIRENA16reconstruct_initE" title="Permalink to this definition">¶</a><br /></dt>
@@ -3050,6 +4040,41 @@ It has been fixed in <a class="reference internal" href="SIRENAcommandline.html#
 </li>
 </ul>
 <p><strong>Members/Variables</strong></p>
+<p>gsl_vector* <strong>derivative</strong></p>
+<blockquote>
+<div>First derivative of the (low-pass filtered) record</div></blockquote>
+<p>double <strong>nSgms</strong></p>
+<blockquote>
+<div>Number of <em>Sigmas</em> to establish the threshold (<a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-nsgms"><code class="xref std std-option docutils literal"><span class="pre">nSgms</span></code></a>)</div></blockquote>
+<p>double <strong>scalefactor</strong></p>
+<blockquote>
+<div>Scale factor to calculate the LPF box-car length (<a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-scalefactor"><code class="xref std std-option docutils literal"><span class="pre">scaleFactor</span></code></a>)</div></blockquote>
+<p>double <strong>samplingRate</strong></p>
+<blockquote>
+<div>Sampling rate</div></blockquote>
+<p>double <strong>stopcriteriamkc</strong></p>
+<blockquote>
+<div>Used in <a class="reference internal" href="#_CPPv219medianKappaClippingP10gsl_vectordddiPd" title="medianKappaClipping"><code class="xref cpp cpp-func docutils literal"><span class="pre">medianKappaClipping()</span></code></a> (%)</div></blockquote>
+<p>double <strong>kappamkc</strong></p>
+<blockquote>
+<div>Used in <a class="reference internal" href="#_CPPv219medianKappaClippingP10gsl_vectordddiPd" title="medianKappaClipping"><code class="xref cpp cpp-func docutils literal"><span class="pre">medianKappaClipping()</span></code></a></div></blockquote>
+<p>bool* <strong>triggerCondition</strong></p>
+<blockquote>
+<div><p>True <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> The algorithm has found the first event</p>
+<p>False <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> The algorithm has not found any event</p>
+</div></blockquote>
+<p>int* <strong>tstart</strong></p>
+<blockquote>
+<div>First event tstart (in samples)</div></blockquote>
+<p>int* <strong>flagTruncated</strong></p>
+<blockquote>
+<div>Flag indicating if the event is truncated</div></blockquote>
+<p>double* <strong>threshold</strong></p>
+<blockquote>
+<div>Calculated threshold  (output parameter because it is necessary out of the function)</div></blockquote>
+<p>int <strong>tstartProvided</strong></p>
+<blockquote>
+<div>Tstart of the first pulse provided as input parameter</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N17InitialTriggering10derivativeE">
 <span id="InitialTriggering::derivative__gsl_vectorP"></span>gsl_vector *<code class="descclassname"></code><code class="descname">derivative</code><a class="headerlink" href="#_CPPv2N17InitialTriggering10derivativeE" title="Permalink to this definition">¶</a><br /></dt>
@@ -3126,6 +4151,15 @@ It has been fixed in <a class="reference internal" href="SIRENAcommandline.html#
 <p>This function reads input parameters interactively (provided by the user or taken as default values).
 Used in tool <a class="reference internal" href="SIRENAcommandline.html#gennoisespec"><span class="std std-ref">gennoisespec</span></a>.</p>
 <p><strong>Members/Variables</strong></p>
+<p>inparam* <strong>taskPars</strong></p>
+<blockquote>
+<div>Instance of <em>inparam</em> structure storing input parameters</div></blockquote>
+<p>int <strong>np</strong></p>
+<blockquote>
+<div>Number of parameters</div></blockquote>
+<p>string <strong>task</strong></p>
+<blockquote>
+<div>Tool name</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N15interactivePars8taskParsE">
 <span id="interactivePars::taskPars__inparamP"></span>inparam *<code class="descclassname"></code><code class="descname">taskPars</code><a class="headerlink" href="#_CPPv2N15interactivePars8taskParsE" title="Permalink to this definition">¶</a><br /></dt>
@@ -3158,6 +4192,24 @@ Used in tool <a class="reference internal" href="SIRENAcommandline.html#gennoise
 <li>Free memory</li>
 </ul>
 <p><strong>Members/Variables</strong></p>
+<p>gsl_vector* <strong>x_in</strong></p>
+<blockquote>
+<div>GSL input vector with the abscissas of the vector which is going to be interpolated</div></blockquote>
+<p>gsl_vector* <strong>y_in</strong></p>
+<blockquote>
+<div>GSL input vector with the ordinates of the vector which is going to be interpolated</div></blockquote>
+<p>long <strong>size</strong></p>
+<blockquote>
+<div>Size of the interpolated output vector</div></blockquote>
+<p>double <strong>step</strong></p>
+<blockquote>
+<div>Frequency step of the interpolated output vector</div></blockquote>
+<p>gsl_vector** <strong>x_out</strong></p>
+<blockquote>
+<div>GSL output vector with the abscissas of the interpolated vector</div></blockquote>
+<p>gsl_vector** <strong>y_out</strong></p>
+<blockquote>
+<div>GSL output vector with the ordinates of the interpolated vector</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N14interpolatePOS4x_inE">
 <span id="interpolatePOS::x_in__gsl_vectorP"></span>gsl_vector *<code class="descclassname"></code><code class="descname">x_in</code><a class="headerlink" href="#_CPPv2N14interpolatePOS4x_inE" title="Permalink to this definition">¶</a><br /></dt>
@@ -3206,6 +4258,24 @@ Used in tool <a class="reference internal" href="SIRENAcommandline.html#gennoise
 <div class="math">
 <p><img src="_images/math/8996ff4711de85d2acd5229b81c678e92b03750f.png" alt="p(t,E)={\frac{E_2-E}{E_2-E_1}}p(t,E_1)+{\frac{E-E_1}{E_2-E_1}}p(t,E_2)"/></p>
 </div><p><strong>Members/Variables</strong></p>
+<p>gsl_vector** <strong>modelFound</strong></p>
+<blockquote>
+<div>Found model of the pulse whose <em>energy</em> or <em>maxDER</em> is <a class="reference internal" href="#_CPPv2N17interpolate_model7p_modelE" title="interpolate_model::p_model"><code class="xref cpp cpp-member docutils literal"><span class="pre">p_model</span></code></a></div></blockquote>
+<p>double <strong>p_model</strong></p>
+<blockquote>
+<div>Parameter (<em>energy</em> or <em>maxDER</em>) of the pulse whose model is being sought</div></blockquote>
+<p>gsl_vector* <strong>modelIn1</strong></p>
+<blockquote>
+<div>Model of the pulse whose parameter (<em>energy</em> or <em>maxDER</em>) is immediately lower than <a class="reference internal" href="#_CPPv2N17interpolate_model7p_modelE" title="interpolate_model::p_model"><code class="xref cpp cpp-member docutils literal"><span class="pre">p_model</span></code></a> in the library FITS file</div></blockquote>
+<p>double <strong>p_modelIn1</strong></p>
+<blockquote>
+<div>Parameter (<em>energy</em> or <em>maxDER</em>) immediately lower than <a class="reference internal" href="#_CPPv2N17interpolate_model7p_modelE" title="interpolate_model::p_model"><code class="xref cpp cpp-member docutils literal"><span class="pre">p_model</span></code></a> in the library FITS file</div></blockquote>
+<p>gsl_vector* <strong>modelIn2</strong></p>
+<blockquote>
+<div>Model of the pulse whose parameter (<em>energy</em> or <em>maxDER</em>) is immediately greater than <a class="reference internal" href="#_CPPv2N17interpolate_model7p_modelE" title="interpolate_model::p_model"><code class="xref cpp cpp-member docutils literal"><span class="pre">p_model</span></code></a> in the library FITS file</div></blockquote>
+<p>double <strong>p_modelIn2</strong></p>
+<blockquote>
+<div>Parameter (<em>energy</em> or <em>maxDER</em>) immediately greater than <a class="reference internal" href="#_CPPv2N17interpolate_model7p_modelE" title="interpolate_model::p_model"><code class="xref cpp cpp-member docutils literal"><span class="pre">p_model</span></code></a> in the library FITS file</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N17interpolate_model10modelFoundE">
 <span id="interpolate_model::modelFound__gsl_vectorPP"></span>gsl_vector **<code class="descclassname"></code><code class="descname">modelFound</code><a class="headerlink" href="#_CPPv2N17interpolate_model10modelFoundE" title="Permalink to this definition">¶</a><br /></dt>
@@ -3250,6 +4320,9 @@ Used in tool <a class="reference internal" href="SIRENAcommandline.html#gennoise
 <dd><p>Located in file: <em>genutils.cpp</em></p>
 <p>This function returns TRUE if the input string is a number or FALSE if not.</p>
 <p><strong>Members/Variables</strong></p>
+<p>string <strong>s</strong></p>
+<blockquote>
+<div>Input string</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N8isNumber1sE">
 <span id="isNumber::s__string"></span>string <code class="descclassname"></code><code class="descname">s</code><a class="headerlink" href="#_CPPv2N8isNumber1sE" title="Permalink to this definition">¶</a><br /></dt>
@@ -3265,6 +4338,15 @@ Used in tool <a class="reference internal" href="SIRENAcommandline.html#gennoise
 <p>This fucntion loads the structure <a class="reference internal" href="#_CPPv2N10loadRecord6recordE" title="loadRecord::record"><code class="xref cpp cpp-member docutils literal"><span class="pre">record</span></code></a> into the <a class="reference internal" href="#_CPPv2N10loadRecord10adc_doubleE" title="loadRecord::adc_double"><code class="xref cpp cpp-member docutils literal"><span class="pre">adc_double</span></code></a> GSL vector.</p>
 <p>It checks if the record has been filled out with 0’s <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> It only loads the first values (which are different from 0).</p>
 <p><strong>Members/Variables</strong></p>
+<p>TesRecord* <strong>record</strong></p>
+<blockquote>
+<div>Member of <em>TesRecord</em> structure that contains the input record</div></blockquote>
+<p>double <strong>time_record</strong></p>
+<blockquote>
+<div>Starting time of the record (output)</div></blockquote>
+<p>gsl_vector** <strong>adc_double</strong></p>
+<blockquote>
+<div>Storage of the record to be processed (input/output)</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N10loadRecord6recordE">
 <span id="loadRecord::record__TesRecordP"></span>TesRecord *<code class="descclassname"></code><code class="descname">record</code><a class="headerlink" href="#_CPPv2N10loadRecord6recordE" title="Permalink to this definition">¶</a><br /></dt>
@@ -3315,6 +4397,15 @@ Used in tool <a class="reference internal" href="SIRENAcommandline.html#gennoise
 </ul>
 </div></blockquote>
 <p><strong>Members/Variables</strong></p>
+<p>gsl_vector** <strong>invector</strong></p>
+<blockquote>
+<div>Input/Output GSL vector (non-filtered input vector/filtered input vector)</div></blockquote>
+<p>int <strong>szVct</strong></p>
+<blockquote>
+<div>Size of <a class="reference internal" href="#_CPPv2N10lpf_boxcar8invectorE" title="lpf_boxcar::invector"><code class="xref cpp cpp-member docutils literal"><span class="pre">invector</span></code></a></div></blockquote>
+<p>int <strong>sampleRate</strong></p>
+<blockquote>
+<div>Sampling rate (samples/s)</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N10lpf_boxcar8invectorE">
 <span id="lpf_boxcar::invector__gsl_vectorPP"></span>gsl_vector **<code class="descclassname"></code><code class="descname">invector</code><a class="headerlink" href="#_CPPv2N10lpf_boxcar8invectorE" title="Permalink to this definition">¶</a><br /></dt>
@@ -3341,6 +4432,12 @@ Used in tool <a class="reference internal" href="SIRENAcommandline.html#gennoise
 <dd><p>Located in file: <em>tasksSIRENA.cpp</em></p>
 <p>This function converts an input square matrix <img class="math" src="_images/math/ad8aa55157284eecb46d368d254fbcbcc1808f57.png" alt="[n \times n]"/> into an output <img class="math" src="_images/math/b3f3eaa34b1d5ebe3808600684699430c83cee7f.png" alt="n^2"/> vector. It puts the first row of the matrix (<img class="math" src="_images/math/e11f2701c4a39c7fe543a6c4150b421d50f1c159.png" alt="n"/> elements) in the first <img class="math" src="_images/math/e11f2701c4a39c7fe543a6c4150b421d50f1c159.png" alt="n"/> elements of the vector (from <img class="math" src="_images/math/532f3248d6552e7ac6b785bd935f404ad593e6a9.png" alt="0"/> to <img class="math" src="_images/math/09f6e3c7bf705fcf0fb2f289b07cd472b60d215c.png" alt="n-1"/>), the second row of the matrix in the elements from <img class="math" src="_images/math/e11f2701c4a39c7fe543a6c4150b421d50f1c159.png" alt="n"/> to <img class="math" src="_images/math/7883ee481d56b9b7196947b5f8d19809c42a2a89.png" alt="2n-1"/> of the vector and so on.</p>
 <p><strong>Members/Variables</strong></p>
+<p>gsl_matrix* <strong>matrixin</strong></p>
+<blockquote>
+<div>GSL input square matrix <img class="math" src="_images/math/ad8aa55157284eecb46d368d254fbcbcc1808f57.png" alt="[n \times n]"/></div></blockquote>
+<p>gsl_vector** <strong>vectorout</strong></p>
+<blockquote>
+<div>GSL output vector whose length is <img class="math" src="_images/math/b3f3eaa34b1d5ebe3808600684699430c83cee7f.png" alt="n^2"/></div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N13matrix2vector8matrixinE">
 <span id="matrix2vector::matrixin__gsl_matrixP"></span>gsl_matrix *<code class="descclassname"></code><code class="descname">matrixin</code><a class="headerlink" href="#_CPPv2N13matrix2vector8matrixinE" title="Permalink to this definition">¶</a><br /></dt>
@@ -3373,6 +4470,24 @@ no points beyond <img class="math" src="_images/math/f399d6fbae9606b1a5bade8d724
 <li>Establish the threshold as mean+nSigmas*sigma</li>
 </ul>
 <p><strong>Members/Variables</strong></p>
+<p>gsl_vector* <strong>invector</strong></p>
+<blockquote>
+<div>First derivative of the (filtered) record</div></blockquote>
+<p>double <strong>kappa</strong></p>
+<blockquote>
+<div>Value to establish the range around of the mean</div></blockquote>
+<p>double <strong>stopCriteria</strong></p>
+<blockquote>
+<div>It is given in %</div></blockquote>
+<p>double <strong>nSigmas</strong></p>
+<blockquote>
+<div>Times sigma to calculate threshold as <img class="math" src="_images/math/bba4c7821030912dc9369ca0d2b8aebddf44369b.png" alt="mean+nSigmas \cdot sigma"/></div></blockquote>
+<p>int <strong>boxLPF</strong></p>
+<blockquote>
+<div>Length of the low-pass filtering box-car</div></blockquote>
+<p>double* <strong>threshold</strong></p>
+<blockquote>
+<div>Calculated threshold</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N19medianKappaClipping8invectorE">
 <span id="medianKappaClipping::invector__gsl_vectorP"></span>gsl_vector *<code class="descclassname"></code><code class="descname">invector</code><a class="headerlink" href="#_CPPv2N19medianKappaClipping8invectorE" title="Permalink to this definition">¶</a><br /></dt>
@@ -3417,6 +4532,9 @@ no points beyond <img class="math" src="_images/math/f399d6fbae9606b1a5bade8d724
 <dd><p>Located in file: <em>integraSIRENA.cpp</em></p>
 <p>Constructor. It returns a pointer to an empty <em>OptimalFilterSIRENA</em> data structure.</p>
 <p><strong>Members/Variables</strong></p>
+<p>int* const <strong>status</strong></p>
+<blockquote>
+<div>Input/output status</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N22newOptimalFilterSIRENA6statusE">
 <span id="newOptimalFilterSIRENA::status__iPC"></span>int *<em class="property">const</em> <code class="descclassname"></code><code class="descname">status</code><a class="headerlink" href="#_CPPv2N22newOptimalFilterSIRENA6statusE" title="Permalink to this definition">¶</a><br /></dt>
@@ -3431,6 +4549,9 @@ no points beyond <img class="math" src="_images/math/f399d6fbae9606b1a5bade8d724
 <dd><p>Located in file: <em>integraSIRENA.cpp</em></p>
 <p>Constructor. It returns a pointer to an empty <em>PulsesCollection</em> data structure.</p>
 <p><strong>Members/Variables</strong></p>
+<p>int* const <strong>status</strong></p>
+<blockquote>
+<div>Input/output status</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N19newPulsesCollection6statusE">
 <span id="newPulsesCollection::status__iPC"></span>int *<em class="property">const</em> <code class="descclassname"></code><code class="descname">status</code><a class="headerlink" href="#_CPPv2N19newPulsesCollection6statusE" title="Permalink to this definition">¶</a><br /></dt>
@@ -3445,6 +4566,9 @@ no points beyond <img class="math" src="_images/math/f399d6fbae9606b1a5bade8d724
 <dd><p>Located in file <em>integraSIRENA.cpp</em></p>
 <p>Constructor. It returns a pointer to an empty <em>ReconstructInitSIRENA</em> data structure.</p>
 <p><strong>Members/Variables</strong></p>
+<p>int* const <strong>status</strong></p>
+<blockquote>
+<div>Input/output status</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N24newReconstructInitSIRENA6statusE">
 <span id="newReconstructInitSIRENA::status__iPC"></span>int *<em class="property">const</em> <code class="descclassname"></code><code class="descname">status</code><a class="headerlink" href="#_CPPv2N24newReconstructInitSIRENA6statusE" title="Permalink to this definition">¶</a><br /></dt>
@@ -3460,6 +4584,27 @@ no points beyond <img class="math" src="_images/math/f399d6fbae9606b1a5bade8d724
 <p>This function runs if the starting time of the pulses are agiven as input parameters (<a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-tstartpulse1"><code class="xref std std-option docutils literal"><span class="pre">tstartPulse1</span></code></a> != 0).
 It looks for the maximum of the derivative of the pulse and the average of the first 4 samples of the derivative of the pulse.</p>
 <p><strong>Members/Variables</strong></p>
+<p>gsl_vector* <strong>der</strong></p>
+<blockquote>
+<div>First derivative of the (low-pass filtered) record</div></blockquote>
+<p>ReconstructInitSIRENA* <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values)</div></blockquote>
+<p>int* <strong>numberPulses</strong></p>
+<blockquote>
+<div>Number of events</div></blockquote>
+<p>gsl_vector** <strong>tstartgsl</strong></p>
+<blockquote>
+<div>Starting time of the events (in samples)</div></blockquote>
+<p>gsl_vector** <strong>flagTruncated</strong></p>
+<blockquote>
+<div>Flag indicating if the event is truncated (inside this function only initial truncated pulses are classified)</div></blockquote>
+<p>gsl_vector** <strong>maxDERgsl</strong></p>
+<blockquote>
+<div>Maximum of the derivative of the event</div></blockquote>
+<p>gsl_vector** <strong>samp1DERgsl</strong></p>
+<blockquote>
+<div>Average of the first 4 samples of the derivative of the event</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N8noDetect3derE">
 <span id="noDetect::der__gsl_vectorP"></span>gsl_vector *<code class="descclassname"></code><code class="descname">der</code><a class="headerlink" href="#_CPPv2N8noDetect3derE" title="Permalink to this definition">¶</a><br /></dt>
@@ -3510,6 +4655,21 @@ It looks for the maximum of the derivative of the pulse and the average of the f
 <dd><p>Located in file: <em>genutils.cpp</em></p>
 <p>This function calculates the equation of a parabola given 3 points.</p>
 <p><strong>Members/Variables</strong></p>
+<p>gsl_vector* <strong>x</strong></p>
+<blockquote>
+<div>Input GSL with <em>x</em> vector</div></blockquote>
+<p>gsl_vector* <strong>y</strong></p>
+<blockquote>
+<div>Input GSL with <em>y</em> vector</div></blockquote>
+<p>double* <strong>a</strong></p>
+<blockquote>
+<div>Fit coefficient of the quadratic term</div></blockquote>
+<p>double* <strong>b</strong></p>
+<blockquote>
+<div>Fit coefficient of the linear term</div></blockquote>
+<p>double* <strong>c</strong></p>
+<blockquote>
+<div>Fit coefficient (independent term)</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N12parabola3Pts1xE">
 <span id="parabola3Pts::x__gsl_vectorP"></span>gsl_vector *<code class="descclassname"></code><code class="descname">x</code><a class="headerlink" href="#_CPPv2N12parabola3Pts1xE" title="Permalink to this definition">¶</a><br /></dt>
@@ -3563,6 +4723,21 @@ S_{(x,x^2)}=\sum{{x_i}^3}-\frac{\sum{x_i}\cdot\sum{{x_i}^2}}{N} &amp; \\
 </div><div class="math">
 <p><img src="_images/math/4e3e441470848ca55a320213dae421ccaad46017.png" alt="c = \frac{\sum{y_i}}{N}-b\frac{\sum{x_i}}{N}-a\frac{\sum{{x_i}^2}}{N}"/></p>
 </div><p><strong>Members/Variables</strong></p>
+<p>gsl_vector* <strong>x_fit</strong></p>
+<blockquote>
+<div>Input GSL with <em>x</em> vector</div></blockquote>
+<p>gsl_vector* <strong>y_fit</strong></p>
+<blockquote>
+<div>Input GSL with <em>y</em> vector</div></blockquote>
+<p>double* <strong>a</strong></p>
+<blockquote>
+<div>Fit coefficient of the quadratic term</div></blockquote>
+<p>double* <strong>b</strong></p>
+<blockquote>
+<div>Fit coefficient of the linear term</div></blockquote>
+<p>double* <strong>c</strong></p>
+<blockquote>
+<div>Fit coefficient (independent term)</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N7polyFit5x_fitE">
 <span id="polyFit::x_fit__gsl_vectorP"></span>gsl_vector *<code class="descclassname"></code><code class="descname">x_fit</code><a class="headerlink" href="#_CPPv2N7polyFit5x_fitE" title="Permalink to this definition">¶</a><br /></dt>
@@ -3608,6 +4783,18 @@ S_{(x,x^2)}=\sum{{x_i}^3}-\frac{\sum{x_i}\cdot\sum{{x_i}^2}}{N} &amp; \\
 </div><div class="math">
 <p><img src="_images/math/9ad3d6014136974fad17b22a390bf3b5d38d7192.png" alt="b = \frac{\sum{y_i}}{N}-a \frac{\sum{x_i}}{N}"/></p>
 </div><p><strong>Members/Variables</strong></p>
+<p>gsl_vector* <strong>x_fit</strong></p>
+<blockquote>
+<div>Input GSL with <em>x</em> vector</div></blockquote>
+<p>gsl_vector* <strong>y_fit</strong></p>
+<blockquote>
+<div>Input GSL with <em>y</em> vector</div></blockquote>
+<p>double* <strong>a</strong></p>
+<blockquote>
+<div>Fit coefficient of the linear term</div></blockquote>
+<p>double* <strong>b</strong></p>
+<blockquote>
+<div>Fit coefficient (independent term)</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N13polyFitLinear5x_fitE">
 <span id="polyFitLinear::x_fit__gsl_vectorP"></span>gsl_vector *<code class="descclassname"></code><code class="descname">x_fit</code><a class="headerlink" href="#_CPPv2N13polyFitLinear5x_fitE" title="Permalink to this definition">¶</a><br /></dt>
@@ -3640,6 +4827,15 @@ S_{(x,x^2)}=\sum{{x_i}^3}-\frac{\sum{x_i}\cdot\sum{{x_i}^2}}{N} &amp; \\
 <dd><p>Located in file: <em>genutils.cpp</em></p>
 <p>This function prints out error messages.</p>
 <p><strong>Members/Variables</strong></p>
+<p>const char* const <strong>func</strong></p>
+<blockquote>
+<div>Function name whose error is printed</div></blockquote>
+<p>string <strong>msg</strong></p>
+<blockquote>
+<div>Error message to be printed</div></blockquote>
+<p>int <strong>status</strong></p>
+<blockquote>
+<div>Status</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N11print_error4funcE">
 <span id="print_error::func__cCPC"></span><em class="property">const</em> char *<em class="property">const</em> <code class="descclassname"></code><code class="descname">func</code><a class="headerlink" href="#_CPPv2N11print_error4funcE" title="Permalink to this definition">¶</a><br /></dt>
@@ -3710,6 +4906,36 @@ S_{(x,x^2)}=\sum{{x_i}^3}-\frac{\sum{x_i}\cdot\sum{{x_i}^2}}{N} &amp; \\
 </li>
 </ol>
 <p><strong>Members/Variables</strong></p>
+<p>ReconstructInitSIRENA** <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values)</div></blockquote>
+<p>double <strong>tstartRecord</strong></p>
+<blockquote>
+<div>Starting time of the record (in order to calculate absolute times)</div></blockquote>
+<p>double <strong>samprate</strong></p>
+<blockquote>
+<div>Sampling rate (in order to low-pass filter)</div></blockquote>
+<p>fitsfile* <strong>dtcObject</strong></p>
+<blockquote>
+<div>Object which contains information of the intermediate FITS file (to be written if <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-intermediate"><code class="xref std std-option docutils literal"><span class="pre">intermediate</span></code></a> = 1)</div></blockquote>
+<p>gsl_vector* <strong>record</strong></p>
+<blockquote>
+<div>GSL vector with signal values of input record</div></blockquote>
+<p>gsl_vector* <strong>recordWithoutConvert2R</strong></p>
+<blockquote>
+<div>GSL vector with original signal values of input record (without being converted to R space)</div></blockquote>
+<p>PulsesCollection* <strong>foundPulses</strong></p>
+<blockquote>
+<div>Input/output structure where the info about found pulses is stored</div></blockquote>
+<p>long <strong>num_previousDetectedPulses</strong></p>
+<blockquote>
+<div>Number of previous detected pulses (to know the index to get the proper element from <em>tstartPulse1_i</em> in case <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-tstartpulse1"><code class="xref std std-option docutils literal"><span class="pre">tstartPulse1</span></code></a> was a file name)</div></blockquote>
+<p>int <strong>pixid</strong></p>
+<blockquote>
+<div>Pixel ID (from the input file) to be propagated</div></blockquote>
+<p>int <strong>phid</strong></p>
+<blockquote>
+<div>Photon ID (from the input file) to be propagated</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N10procRecord16reconstruct_initE">
 <span id="procRecord::reconstruct_init__ReconstructInitSIRENAPP"></span>ReconstructInitSIRENA **<code class="descclassname"></code><code class="descname">reconstruct_init</code><a class="headerlink" href="#_CPPv2N10procRecord16reconstruct_initE" title="Permalink to this definition">¶</a><br /></dt>
@@ -3778,6 +5004,24 @@ S_{(x,x^2)}=\sum{{x_i}^3}-\frac{\sum{x_i}\cdot\sum{{x_i}^2}}{N} &amp; \\
 <dd><p>Located in file: <em>tasksSIRENA.cpp</em></p>
 <p>This function provides the pulse grade (Pileup=-2, Rejected=-1, HighRes=1, MidRes=2, LimRes=3, LowRes=4) and the optimal filter length by taking into account the info read from the XML file and the <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-ofstrategy"><code class="xref std std-option docutils literal"><span class="pre">OFStrategy</span></code></a> (<strong>FREE</strong>, <strong>BYGRADE</strong> or <strong>FIXED</strong>).</p>
 <p><strong>Members/Variables</strong></p>
+<p>ReconstructInitSIRENA** <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values).</div></blockquote>
+<p>int <strong>grade1</strong></p>
+<blockquote>
+<div>Pulse duration (length of optimal filter applied)</div></blockquote>
+<p>int <strong>grade2</strong></p>
+<blockquote>
+<div>Difference between the start time of the pulse and the start time of the previous pulse</div></blockquote>
+<p>int <strong>OFlength_strategy</strong></p>
+<blockquote>
+<div>Same as <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-ofstrategy"><code class="xref std std-option docutils literal"><span class="pre">OFStrategy</span></code></a> (input)</div></blockquote>
+<p>int* <strong>pulseGrade</strong></p>
+<blockquote>
+<div>Pulse grade (output)</div></blockquote>
+<p>long* <strong>OFlength</strong></p>
+<blockquote>
+<div>Optimal filter length (= <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-oflength"><code class="xref std std-option docutils literal"><span class="pre">OFLength</span></code></a> only if <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-ofstrategy"><code class="xref std std-option docutils literal"><span class="pre">OFStrategy</span></code></a> = <strong>FIXED</strong> and <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-oflength"><code class="xref std std-option docutils literal"><span class="pre">OFLength</span></code></a> &lt;= grade1) (output)</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N12pulseGrading16reconstruct_initE">
 <span id="pulseGrading::reconstruct_init__ReconstructInitSIRENAPP"></span>ReconstructInitSIRENA **<code class="descclassname"></code><code class="descname">reconstruct_init</code><a class="headerlink" href="#_CPPv2N12pulseGrading16reconstruct_initE" title="Permalink to this definition">¶</a><br /></dt>
@@ -3832,6 +5076,33 @@ S_{(x,x^2)}=\sum{{x_i}^3}-\frac{\sum{x_i}\cdot\sum{{x_i}^2}}{N} &amp; \\
 <li>Free allocated GSL vectors</li>
 </ul>
 <p><strong>Members/Variables</strong></p>
+<p>ReconstructInitSIRENA** <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values).</div></blockquote>
+<p>fitsfile** <strong>inLibObject</strong></p>
+<blockquote>
+<div>FITS object containing information of the library FITS file</div></blockquote>
+<p>double <strong>samprate</strong></p>
+<blockquote>
+<div>Sampling rate</div></blockquote>
+<p>int <strong>eventcntLib</strong></p>
+<blockquote>
+<div>Number of templates in the library</div></blockquote>
+<p>double <strong>estenergy</strong></p>
+<blockquote>
+<div>Pulse height of the template whose energy is going to be added to the library</div></blockquote>
+<p>gsl_vector* <strong>pulsetemplate</strong></p>
+<blockquote>
+<div>GSL vector with the pulse template whose energy is going to be added to the library</div></blockquote>
+<p>gsl_matrix* <strong>covariance</strong></p>
+<blockquote>
+<div>GSL matrix with covariance matrix of the energy which is going to be added to the library</div></blockquote>
+<p>gsl_matrix* <strong>weight</strong></p>
+<blockquote>
+<div>GSL matrix with weight matrix of the energy which is going to be added to the library</div></blockquote>
+<p>gsl_vector* <strong>pulsetemplateMaxLengthFixedFilter</strong></p>
+<blockquote>
+<div>GSL vector with the <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-largefilter"><code class="xref std std-option docutils literal"><span class="pre">largeFilter</span></code></a>-length template whose energy is going to be added to the library</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N18readAddOrderParams16reconstruct_initE">
 <span id="readAddOrderParams::reconstruct_init__ReconstructInitSIRENAPP"></span>ReconstructInitSIRENA **<code class="descclassname"></code><code class="descname">reconstruct_init</code><a class="headerlink" href="#_CPPv2N18readAddOrderParams16reconstruct_initE" title="Permalink to this definition">¶</a><br /></dt>
@@ -3894,6 +5165,12 @@ S_{(x,x^2)}=\sum{{x_i}^3}-\frac{\sum{x_i}\cdot\sum{{x_i}^2}}{N} &amp; \\
 <dd><p>Located in file: <em>inoututils.cpp</em></p>
 <p>This function reads values of a complex column of a FITS file. After that, the function puts them into a GSL matrix for an easier processing.</p>
 <p><strong>Members/Variables</strong></p>
+<p>IOData <strong>obj</strong></p>
+<blockquote>
+<div>Input object for complex FITS column</div></blockquote>
+<p>gsl_matrix** <strong>result</strong></p>
+<blockquote>
+<div>Output GSL matrix</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N15readFitsComplex3objE">
 <span id="readFitsComplex::obj__IOData"></span>IOData <code class="descclassname"></code><code class="descname">obj</code><a class="headerlink" href="#_CPPv2N15readFitsComplex3objE" title="Permalink to this definition">¶</a><br /></dt>
@@ -3914,6 +5191,12 @@ S_{(x,x^2)}=\sum{{x_i}^3}-\frac{\sum{x_i}\cdot\sum{{x_i}^2}}{N} &amp; \\
 <dd><p>Located in file: <em>inoututils.cpp</em></p>
 <p>This function reads values of a simple column of a FITS file. After that, the function puts them into a GSL vector for an easier processing.</p>
 <p><strong>Members/Variables</strong></p>
+<p>IOData <strong>obj</strong></p>
+<blockquote>
+<div>Input object for simple FITS column</div></blockquote>
+<p>gsl_vector** <strong>result</strong></p>
+<blockquote>
+<div>Output GSL vector</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N14readFitsSimple3objE">
 <span id="readFitsSimple::obj__IOData"></span>IOData <code class="descclassname"></code><code class="descname">obj</code><a class="headerlink" href="#_CPPv2N14readFitsSimple3objE" title="Permalink to this definition">¶</a><br /></dt>
@@ -3951,6 +5234,33 @@ S_{(x,x^2)}=\sum{{x_i}^3}-\frac{\sum{x_i}\cdot\sum{{x_i}^2}}{N} &amp; \\
 <li>Populate output event list with pulses energies, arrival time and grading</li>
 </ul>
 <p><strong>Members/Variables</strong></p>
+<p>TesRecord* <strong>record</strong></p>
+<blockquote>
+<div>Instance of <em>TesRecord</em> structure that contains the input record</div></blockquote>
+<p>int <strong>trig_reclength</strong></p>
+<blockquote>
+<div>Record size (just in case threading and input files with different <strong>ADC</strong> lengths but the same record size indeed)</div></blockquote>
+<p>TesEventList* <strong>event_list</strong></p>
+<blockquote>
+<div>Instance of <em>TesEventList</em> structure that contains the information of the reconstructed pulses</div></blockquote>
+<p>ReconstructInitSIRENA* <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values)</div></blockquote>
+<p>int <strong>lastRecord</strong></p>
+<blockquote>
+<div>If record being analyzed is the last one, <a class="reference internal" href="#_CPPv2N23reconstructRecordSIRENA10lastRecordE" title="reconstructRecordSIRENA::lastRecord"><code class="xref cpp cpp-member docutils literal"><span class="pre">lastRecord</span></code></a> = 1. Otherwise it is equal to 0</div></blockquote>
+<p>int <strong>nRecord</strong></p>
+<blockquote>
+<div>Input record number</div></blockquote>
+<p>PulsesCollection** <strong>pulsesAll</strong></p>
+<blockquote>
+<div>Member of <em>PulsesCollection</em> structure to successively store all the pulses used to create the library. Re-populated after each processed record.</div></blockquote>
+<p>OptimalFilterSIRENA** <strong>optimalFilter</strong></p>
+<blockquote>
+<div>Optimal filters used in reconstruction</div></blockquote>
+<p>int* const <strong>status</strong></p>
+<blockquote>
+<div>Input/output status</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N23reconstructRecordSIRENA6recordE">
 <span id="reconstructRecordSIRENA::record__TesRecordP"></span>TesRecord *<code class="descclassname"></code><code class="descname">record</code><a class="headerlink" href="#_CPPv2N23reconstructRecordSIRENA6recordE" title="Permalink to this definition">¶</a><br /></dt>
@@ -4019,6 +5329,21 @@ is scaled with <a class="reference internal" href="#_CPPv2N9RS_filter3lrsE" titl
 <div class="math">
 <p><img src="_images/math/e46dd77a40f398f6a621043c8bcd272b39949158.png" alt="Pulse height=\frac{RS_{max}-B_p}{lrs}"/></p>
 </div><p><strong>Members/Variables</strong></p>
+<p>gsl_vector* <strong>vector</strong></p>
+<blockquote>
+<div>Not filtered pulse (extracted from the record in <a class="reference internal" href="#_CPPv214getPulseHeightP10gsl_vectorddidddiPd" title="getPulseHeight"><code class="xref cpp cpp-func docutils literal"><span class="pre">getPulseHeight()</span></code></a>)</div></blockquote>
+<p>double <strong>lrs</strong></p>
+<blockquote>
+<div>Running sum length (samples)</div></blockquote>
+<p>double <strong>lb</strong></p>
+<blockquote>
+<div>Baseline averaging length (samples)</div></blockquote>
+<p>double <strong>B</strong></p>
+<blockquote>
+<div>In general, sum of the <a class="reference internal" href="#_CPPv2N9RS_filter2lbE" title="RS_filter::lb"><code class="xref cpp cpp-member docutils literal"><span class="pre">lb</span></code></a> digitized data samples of a pulse-free interval immediately before the current pulse</div></blockquote>
+<p>double* <strong>pulseheight</strong></p>
+<blockquote>
+<div>Pulseheight of the input pulse</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N9RS_filter6vectorE">
 <span id="RS_filter::vector__gsl_vectorP"></span>gsl_vector *<code class="descclassname"></code><code class="descname">vector</code><a class="headerlink" href="#_CPPv2N9RS_filter6vectorE" title="Permalink to this definition">¶</a><br /></dt>
@@ -4122,6 +5447,24 @@ is scaled with <a class="reference internal" href="#_CPPv2N9RS_filter3lrsE" titl
 </ol>
 </div></blockquote>
 <p><strong>Members/Variables</strong></p>
+<p>TesRecord* <strong>record</strong></p>
+<blockquote>
+<div>Member of <em>TesRecord</em> structure that contains the input record</div></blockquote>
+<p>int <strong>trig_reclength</strong></p>
+<blockquote>
+<div>Record size (just in case threading and input files with different <strong>ADC</strong> lengths but the same record size indeed)</div></blockquote>
+<p>int <strong>lastRecord</strong></p>
+<blockquote>
+<div>Integer to verify whether <em>record</em> is the last one (=1) to be read (and thus if library file will be created)</div></blockquote>
+<p>PulsesCollection* <strong>pulsesAll</strong></p>
+<blockquote>
+<div>Member of <em>PulsesCollection</em> structure to successively store all the pulses used to create the library. Re-populated after each processed record</div></blockquote>
+<p>ReconstructInitSIRENA** <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values)</div></blockquote>
+<p>PulsesCollection** <strong>pulsesInRecord</strong></p>
+<blockquote>
+<div>Member of <em>PulsesCollection</em> structure to store all the pulses found in the input record</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N9runDetect6recordE">
 <span id="runDetect::record__TesRecordP"></span>TesRecord *<code class="descclassname"></code><code class="descname">record</code><a class="headerlink" href="#_CPPv2N9runDetect6recordE" title="Permalink to this definition">¶</a><br /></dt>
@@ -4260,6 +5603,26 @@ It only runs in RECONSTRUCTION mode (<a class="reference internal" href="SIRENAc
 </li>
 </ul>
 <p><strong>Members/Variables</strong></p>
+<p>TesRecord** <strong>record</strong></p>
+<blockquote>
+<div>Structure that contains the input ADC record</div></blockquote>
+<p>int <strong>trig_reclength</strong></p>
+<blockquote>
+<div>Record size (just in case threading and input files with different <strong>ADC</strong> lengths but the same record size indeed)</div></blockquote>
+<p>ReconstructInitSIRENA** <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values)</div></blockquote>
+<p>PulsesCollection* <strong>pulsesInRecord</strong></p>
+<blockquote>
+<div>Collection of pulses found in the current record</div></blockquote>
+<p>OptimalFilterSIRENA** <strong>optimalFilter</strong></p>
+<blockquote>
+<div><blockquote>
+<div>Optimal filters used in reconstruction</div></blockquote>
+<p>PulsesCollection* <strong>pulsesAll</strong></p>
+<blockquote>
+<div>Member of <em>PulsesCollection</em> structure to store all the pulses found in the input FITS file. To know the index to get the proper element from <em>tstartPulse1_i</em> in case <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-tstartpulse1"><code class="xref std std-option docutils literal"><span class="pre">tstartPulse1</span></code></a> was a file name</div></blockquote>
+</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N9runEnergy6recordE">
 <span id="runEnergy::record__TesRecordPP"></span>TesRecord **<code class="descclassname"></code><code class="descname">record</code><a class="headerlink" href="#_CPPv2N9runEnergy6recordE" title="Permalink to this definition">¶</a><br /></dt>
@@ -4311,6 +5674,15 @@ It only runs in RECONSTRUCTION mode (<a class="reference internal" href="SIRENAc
 <dd><p>Located in file: <em>tasksSIRENA.cpp</em></p>
 <p>This function returns as <a class="reference internal" href="#_CPPv2N6shiftm9vectoroutE" title="shiftm::vectorout"><code class="xref cpp cpp-member docutils literal"><span class="pre">vectorout</span></code></a> the <a class="reference internal" href="#_CPPv2N6shiftm8vectorinE" title="shiftm::vectorin"><code class="xref cpp cpp-member docutils literal"><span class="pre">vectorin</span></code></a> delayed <a class="reference internal" href="#_CPPv2N6shiftm1mE" title="shiftm::m"><code class="xref cpp cpp-member docutils literal"><span class="pre">m</span></code></a> samples.</p>
 <p><strong>Members/Variables</strong></p>
+<p>int <strong>m</strong></p>
+<blockquote>
+<div>Delay in samples</div></blockquote>
+<p>gsl_vector* <strong>vectorin</strong></p>
+<blockquote>
+<div>GSL vector with input vector</div></blockquote>
+<p>gsl_vector* <strong>vectorout</strong></p>
+<blockquote>
+<div>GSL with input vector (<a class="reference internal" href="#_CPPv2N6shiftm8vectorinE" title="shiftm::vectorin"><code class="xref cpp cpp-member docutils literal"><span class="pre">vectorin</span></code></a>) delayed <a class="reference internal" href="#_CPPv2N6shiftm1mE" title="shiftm::m"><code class="xref cpp cpp-member docutils literal"><span class="pre">m</span></code></a> samples</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N6shiftm1mE">
 <span id="shiftm::m__i"></span>int <code class="descclassname"></code><code class="descname">m</code><a class="headerlink" href="#_CPPv2N6shiftm1mE" title="Permalink to this definition">¶</a><br /></dt>
@@ -4337,6 +5709,15 @@ It only runs in RECONSTRUCTION mode (<a class="reference internal" href="SIRENAc
 <dd><p>Located in file: <em>tasksSIRENA.cpp</em></p>
 <p>This function returns as <a class="reference internal" href="#_CPPv2N7shift_m9vectoroutE" title="shift_m::vectorout"><code class="xref cpp cpp-member docutils literal"><span class="pre">vectorout</span></code></a> the <a class="reference internal" href="#_CPPv2N7shift_m8vectorinE" title="shift_m::vectorin"><code class="xref cpp cpp-member docutils literal"><span class="pre">vectorin</span></code></a> moved forward by <a class="reference internal" href="#_CPPv2N7shift_m1mE" title="shift_m::m"><code class="xref cpp cpp-member docutils literal"><span class="pre">m</span></code></a> samples.</p>
 <p><strong>Members/Variables</strong></p>
+<p>int <strong>m</strong></p>
+<blockquote>
+<div>Advance in samples</div></blockquote>
+<p>gsl_vector* <strong>vectorin</strong></p>
+<blockquote>
+<div>GSL vector with input vector</div></blockquote>
+<p>gsl_vector* <strong>vectorout</strong></p>
+<blockquote>
+<div>GSL with input vector (<a class="reference internal" href="#_CPPv2N7shift_m8vectorinE" title="shift_m::vectorin"><code class="xref cpp cpp-member docutils literal"><span class="pre">vectorin</span></code></a>) moved forward <a class="reference internal" href="#_CPPv2N7shift_m1mE" title="shift_m::m"><code class="xref cpp cpp-member docutils literal"><span class="pre">m</span></code></a> samples</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N7shift_m1mE">
 <span id="shift_m::m__i"></span>int <code class="descclassname"></code><code class="descname">m</code><a class="headerlink" href="#_CPPv2N7shift_m1mE" title="Permalink to this definition">¶</a><br /></dt>
@@ -4370,6 +5751,24 @@ It only runs in RECONSTRUCTION mode (<a class="reference internal" href="SIRENAc
 <dd><p>Located in file: <em>inoututils.cpp</em></p>
 <p>The function puts the values of the input buffer into an output GSL matrix. Columns and rows are input parameters.</p>
 <p><strong>Members/Variables</strong></p>
+<p>void** <strong>buffer</strong></p>
+<blockquote>
+<div>Input buffer with data</div></blockquote>
+<p>gsl_matrix** <strong>matrix</strong></p>
+<blockquote>
+<div>Output GSL matrix</div></blockquote>
+<p>long <strong>numCol</strong></p>
+<blockquote>
+<div>Number of columns</div></blockquote>
+<p>int <strong>numRow</strong></p>
+<blockquote>
+<div>Number of rows</div></blockquote>
+<p>int <strong>type</strong></p>
+<blockquote>
+<div>FITS type (TINT, TSHORT, TDOUBLE, etc.)</div></blockquote>
+<p>int <strong>eventini</strong></p>
+<blockquote>
+<div>Initial event to start writing</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N11toGslMatrix6bufferE">
 <span id="toGslMatrix::buffer__voidPP"></span>void **<code class="descclassname"></code><code class="descname">buffer</code><a class="headerlink" href="#_CPPv2N11toGslMatrix6bufferE" title="Permalink to this definition">¶</a><br /></dt>
@@ -4414,6 +5813,21 @@ It only runs in RECONSTRUCTION mode (<a class="reference internal" href="SIRENAc
 <dd><p>Located in file: <em>inoututils.cpp</em></p>
 <p>The function puts the values of the input buffer into an output GSL vector.</p>
 <p><strong>Members/Variables</strong></p>
+<p>void** <strong>buffer</strong></p>
+<blockquote>
+<div>Input buffer with data</div></blockquote>
+<p>gsl_vector** <strong>array</strong></p>
+<blockquote>
+<div>Output GSL vector</div></blockquote>
+<p>long <strong>nevent</strong></p>
+<blockquote>
+<div>Number of elements to store</div></blockquote>
+<p>int <strong>eventini</strong></p>
+<blockquote>
+<div>Initial element number</div></blockquote>
+<p>int <strong>type</strong></p>
+<blockquote>
+<div>FITS type (TINT, TSHORT, TDOUBLE, etc.)</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N11toGslVector6bufferE">
 <span id="toGslVector::buffer__voidPP"></span>void **<code class="descclassname"></code><code class="descname">buffer</code><a class="headerlink" href="#_CPPv2N11toGslVector6bufferE" title="Permalink to this definition">¶</a><br /></dt>
@@ -4452,6 +5866,12 @@ It only runs in RECONSTRUCTION mode (<a class="reference internal" href="SIRENAc
 <dd><p>Located in file: <em>tasksSIRENA.cpp</em></p>
 <p>This function converts an input <img class="math" src="_images/math/b3f3eaa34b1d5ebe3808600684699430c83cee7f.png" alt="n^2"/> vector into an output square matrix <img class="math" src="_images/math/ad8aa55157284eecb46d368d254fbcbcc1808f57.png" alt="[n \times n]"/>. It puts the first <img class="math" src="_images/math/e11f2701c4a39c7fe543a6c4150b421d50f1c159.png" alt="n"/> elements of the vector in the first row of the matrix, the second group of <img class="math" src="_images/math/e11f2701c4a39c7fe543a6c4150b421d50f1c159.png" alt="n"/> elements (from <img class="math" src="_images/math/e11f2701c4a39c7fe543a6c4150b421d50f1c159.png" alt="n"/> to <img class="math" src="_images/math/7883ee481d56b9b7196947b5f8d19809c42a2a89.png" alt="2n-1"/>) of the vector in the second row and so on.</p>
 <p><strong>Members/Variables</strong></p>
+<p>gsl_vector** <strong>vectorin</strong></p>
+<blockquote>
+<div>GSL input vector whose length is <img class="math" src="_images/math/b3f3eaa34b1d5ebe3808600684699430c83cee7f.png" alt="n^2"/></div></blockquote>
+<p>gsl_matrix* <strong>matrixout</strong></p>
+<blockquote>
+<div>GSL output square matrix <img class="math" src="_images/math/ad8aa55157284eecb46d368d254fbcbcc1808f57.png" alt="[n \times n]"/></div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N13vector2matrix8vectorinE">
 <span id="vector2matrix::vectorin__gsl_vectorPP"></span>gsl_vector **<code class="descclassname"></code><code class="descname">vectorin</code><a class="headerlink" href="#_CPPv2N13vector2matrix8vectorinE" title="Permalink to this definition">¶</a><br /></dt>
@@ -4508,6 +5928,33 @@ It only runs in RECONSTRUCTION mode (<a class="reference internal" href="SIRENAc
 </ul>
 </div></blockquote>
 <p><strong>Members/Variables</strong></p>
+<p>ReconstructInitSIRENA** <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values)</div></blockquote>
+<p>bool <strong>saturatedPulses</strong></p>
+<blockquote>
+<div>If <em>true</em>, all the pulses ( <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-opmode"><code class="xref std std-option docutils literal"><span class="pre">opmode</span></code></a> = 0 <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> all the pulses have the same energy) are saturated</div></blockquote>
+<p>PulsesCollection* <strong>pulsesAll</strong></p>
+<blockquote>
+<div>Collection of pulses found in the previous records</div></blockquote>
+<p>PulsesCollection* <strong>pulsesInRecord</strong></p>
+<blockquote>
+<div>Collection of pulses found in the current record</div></blockquote>
+<p>long <strong>nonpileupPulses</strong></p>
+<blockquote>
+<div>Number of non piled-up pulses</div></blockquote>
+<p>gsl_vector* <strong>nonpileup</strong></p>
+<blockquote>
+<div>GSL vector containing info about all the pulses informing if they are piled-up or not</div></blockquote>
+<p>gsl_vector** <strong>pulseaverage</strong></p>
+<blockquote>
+<div>GSL vector with the pulseaverage (= template = model) of the non piled-up pulses</div></blockquote>
+<p>gsl_matrix** <strong>covariance</strong></p>
+<blockquote>
+<div>GSL matrix with covariance matrix</div></blockquote>
+<p>gsl_matrix** <strong>weight</strong></p>
+<blockquote>
+<div>GSL matrix with weight matrix</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N12weightMatrix16reconstruct_initE">
 <span id="weightMatrix::reconstruct_init__ReconstructInitSIRENAPP"></span>ReconstructInitSIRENA **<code class="descclassname"></code><code class="descname">reconstruct_init</code><a class="headerlink" href="#_CPPv2N12weightMatrix16reconstruct_initE" title="Permalink to this definition">¶</a><br /></dt>
@@ -4536,6 +5983,12 @@ It only runs in RECONSTRUCTION mode (<a class="reference internal" href="SIRENAc
 <dt id="_CPPv2N12weightMatrix15nonpileupPulsesE">
 <span id="weightMatrix::nonpileupPulses__l"></span>long <code class="descclassname"></code><code class="descname">nonpileupPulses</code><a class="headerlink" href="#_CPPv2N12weightMatrix15nonpileupPulsesE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Number of non piled-up pulses</p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv2N12weightMatrix9nonpileupE">
+<span id="weightMatrix::nonpileup__gsl_vectorP"></span>gsl_vector *<code class="descclassname"></code><code class="descname">nonpileup</code><a class="headerlink" href="#_CPPv2N12weightMatrix9nonpileupE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>GSL vector containing info about all the pulses informing if they are piled-up or not</p>
 </dd></dl>
 
 <dl class="member">
@@ -4581,6 +6034,27 @@ if <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-inte
 <li>Free memory</li>
 </ul>
 <p><strong>Members/Variables</strong></p>
+<p>ReconstructInitSIRENA** <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values).</div></blockquote>
+<p>int <strong>pulse_index</strong></p>
+<blockquote>
+<div>Index of the pulse whose info is going to be written (to know if it is the first pulse)</div></blockquote>
+<p>double <strong>energy</strong></p>
+<blockquote>
+<div>Estimated energy (eV)</div></blockquote>
+<p>gsl_vector* <strong>optimalfilter</strong></p>
+<blockquote>
+<div>Optimal filter in time domain</div></blockquote>
+<p>gsl_vector* <strong>optimalfilter_f</strong></p>
+<blockquote>
+<div>Frequency axis of the optimal filter spectrum</div></blockquote>
+<p>gsl_vector* <strong>optimalfilter_FFT</strong></p>
+<blockquote>
+<div>Optimal filter spectrum</div></blockquote>
+<p>fitsfile** <strong>dtcObject</strong></p>
+<blockquote>
+<div>Fitsfile object for intermeadiate file name</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N14writeFilterHDU16reconstruct_initE">
 <span id="writeFilterHDU::reconstruct_init__ReconstructInitSIRENAPP"></span>ReconstructInitSIRENA **<code class="descclassname"></code><code class="descname">reconstruct_init</code><a class="headerlink" href="#_CPPv2N14writeFilterHDU16reconstruct_initE" title="Permalink to this definition">¶</a><br /></dt>
@@ -4631,6 +6105,12 @@ if <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-inte
 <dd><p>Located in file: <em>inoututils.cpp</em></p>
 <p>This function reads values of a GSL matrix. After that, the function puts them into a complex column of the output FITS file.</p>
 <p><strong>Members/Variables</strong></p>
+<p>IOData <strong>obj</strong></p>
+<blockquote>
+<div>Object for FITS column to be written</div></blockquote>
+<p>gsl_matrix* <strong>matrix</strong></p>
+<blockquote>
+<div>Input GSL matrix with data</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N16writeFitsComplex3objE">
 <span id="writeFitsComplex::obj__IOData"></span>IOData <code class="descclassname"></code><code class="descname">obj</code><a class="headerlink" href="#_CPPv2N16writeFitsComplex3objE" title="Permalink to this definition">¶</a><br /></dt>
@@ -4651,6 +6131,12 @@ if <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-inte
 <dd><p>Located  in file: <em>inoututils.cpp</em></p>
 <p>This function reads values of a GSL vector. After that, the function puts them into a column of the output FITS file.</p>
 <p><strong>Members/Variables</strong></p>
+<p>IOData <strong>obj</strong></p>
+<blockquote>
+<div>Object for FITS column to be written</div></blockquote>
+<p>gsl_vector* <strong>vector</strong></p>
+<blockquote>
+<div>Input GSL vector with data</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N15writeFitsSimple3objE">
 <span id="writeFitsSimple::obj__IOData"></span>IOData <code class="descclassname"></code><code class="descname">obj</code><a class="headerlink" href="#_CPPv2N15writeFitsSimple3objE" title="Permalink to this definition">¶</a><br /></dt>
@@ -4678,6 +6164,33 @@ if <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-inte
 </ul>
 </div></blockquote>
 <p><strong>Members/Variables</strong></p>
+<p>ReconstructInitSIRENA** <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values)</div></blockquote>
+<p>double <strong>samprate</strong></p>
+<blockquote>
+<div>Sampling rate</div></blockquote>
+<p>double <strong>estenergy</strong></p>
+<blockquote>
+<div>Pulse height of the template whose energy is going to be added to the library</div></blockquote>
+<p>gsl_vector* <strong>pulsetemplate</strong></p>
+<blockquote>
+<div>GSL vector with the pulse template whose energy is going to be added to the library</div></blockquote>
+<p>gsl_matrix** <strong>covariance</strong></p>
+<blockquote>
+<div>GSL matrix with covariance matrix</div></blockquote>
+<p>gsl_matrix** <strong>weight</strong></p>
+<blockquote>
+<div>GSL matrix with weight matrix</div></blockquote>
+<p>bool <strong>appendToLibrary</strong></p>
+<blockquote>
+<div><em>true</em> if adding a new row to the library and <em>false</em> if it is the first row to be added</div></blockquote>
+<p>fitsfile** <strong>inLibObject</strong></p>
+<blockquote>
+<div>FITS object containing information of the library FITS file</div></blockquote>
+<p>gsl_vector* <strong>pulsetemplateMaxLengthFixedFilter</strong></p>
+<blockquote>
+<div>GSL vector with the <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-largefilter"><code class="xref std std-option docutils literal"><span class="pre">largeFilter</span></code></a>-length pulse template whose energy is going to be added to the library</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N12writeLibrary16reconstruct_initE">
 <span id="writeLibrary::reconstruct_init__ReconstructInitSIRENAPP"></span>ReconstructInitSIRENA **<code class="descclassname"></code><code class="descname">reconstruct_init</code><a class="headerlink" href="#_CPPv2N12writeLibrary16reconstruct_initE" title="Permalink to this definition">¶</a><br /></dt>
@@ -4748,6 +6261,20 @@ if <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-inte
 </ul>
 </div></blockquote>
 <p><strong>Members/Variables</strong></p>
+<p>FILE* <strong>fileRef</strong></p>
+<blockquote>
+<div>File reference to log file</div></blockquote>
+<p>string <strong>type</strong></p>
+<blockquote>
+<div><blockquote>
+<div>String to indicate error type “Error”, “Warning”, “Alert”,”Log” or “OK”</div></blockquote>
+<p>int <strong>verbosity</strong></p>
+<blockquote>
+<div>Integer value for verbosity</div></blockquote>
+<p>string <strong>message</strong></p>
+<blockquote>
+<div>String message to print</div></blockquote>
+</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N8writeLog7fileRefE">
 <span id="writeLog::fileRef__FILEP"></span>FILE *<code class="descclassname"></code><code class="descname">fileRef</code><a class="headerlink" href="#_CPPv2N8writeLog7fileRefE" title="Permalink to this definition">¶</a><br /></dt>
@@ -4780,6 +6307,45 @@ if <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-inte
 <dd><p>Located in file: <em>tasksSIRENA.cpp</em></p>
 <p>This function writes the data of the pulses found in the record in the intermediate FITS file (in the <em>PULSES</em> HDU). The pulses info given is: <strong>TSTART</strong>, <strong>I0</strong> (the pulse itself), <strong>TEND</strong>, <strong>TAURISE</strong>, <strong>TAUFALL</strong> and <strong>QUALITY</strong>.</p>
 <p><strong>Members/Variables</strong></p>
+<p>ReconstructInitSIRENA** <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values).</div></blockquote>
+<p>double <strong>samprate</strong></p>
+<blockquote>
+<div>Sampling rate (to convert samples to seconds)</div></blockquote>
+<p>double <strong>initialtime</strong></p>
+<blockquote>
+<div>Starting time of the record (in order to calculate absolute times)</div></blockquote>
+<p>gsl_vector* <strong>invectorNOTFIL</strong></p>
+<blockquote>
+<div>GSL vector with the original record (neither low-pass filtered nor differentiated)</div></blockquote>
+<p>int <strong>numPulsesRecord</strong></p>
+<blockquote>
+<div>Number of pulses found in the record</div></blockquote>
+<p>gsl_vector* <strong>tstart</strong></p>
+<blockquote>
+<div>GSL vector with the start times of the found pulses</div></blockquote>
+<p>gsl_vector* <strong>tend</strong></p>
+<blockquote>
+<div>GSL vector with the end times of the found pulses</div></blockquote>
+<p>gsl_vector* <strong>quality</strong></p>
+<blockquote>
+<div><p>GSL vector with the quality of the found pulses</p>
+<p>0 <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> Standard (good) pulses</p>
+<p>1 <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> Truncated pulses at the beginning</p>
+<p>2 <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> Truncated pulses at the end</p>
+<p>10 <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> Saturated pulses</p>
+<p>11 <img class="math" src="_images/math/97e58c1e7a742a4105ca9408b7e8a9bf45658360.png" alt="\Rightarrow"/> Truncated and saturated pulses</p>
+</div></blockquote>
+<p>gsl_vector* <strong>taurise</strong></p>
+<blockquote>
+<div>GSL vector with the rise time constants of the found pulses (to be done)</div></blockquote>
+<p>gsl_vector* <strong>taufall</strong></p>
+<blockquote>
+<div>GSL vector with the fall time constants of the found pulses (to be done)</div></blockquote>
+<p>fitsfile* <strong>dtcObject</strong></p>
+<blockquote>
+<div>Object which contains information of the intermediate FITS file</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N11writePulses16reconstruct_initE">
 <span id="writePulses::reconstruct_init__ReconstructInitSIRENAPP"></span>ReconstructInitSIRENA **<code class="descclassname"></code><code class="descname">reconstruct_init</code><a class="headerlink" href="#_CPPv2N11writePulses16reconstruct_initE" title="Permalink to this definition">¶</a><br /></dt>
@@ -4859,6 +6425,18 @@ if <a class="reference internal" href="SIRENAcommandline.html#cmdoption-arg-inte
 <dd><p>Located in file: <em>tasksSIRENA.cpp</em></p>
 <p>This function writes the <em>TESTINFO</em> HDU in the intermediate FITS file. The written columns are <strong>FILDER</strong> (low-pass filtered and differentiated record) and <strong>THRESHOLD</strong>.</p>
 <p><strong>Members/Variables</strong></p>
+<p>ReconstructInitSIRENA** <strong>reconstruct_init</strong></p>
+<blockquote>
+<div>Member of <em>ReconstructInitSIRENA</em> structure to initialize the reconstruction parameters (pointer and values)</div></blockquote>
+<p>gsl_vector* <strong>recordDERIVATIVE</strong></p>
+<blockquote>
+<div>GSL vector with input record (low-pass filtered and) differentiated</div></blockquote>
+<p>double <strong>threshold</strong></p>
+<blockquote>
+<div>Threshold value used to find pulses</div></blockquote>
+<p>fitsfile <strong>dtcObject</strong></p>
+<blockquote>
+<div>Object which contains information of the intermediate FITS file</div></blockquote>
 <dl class="member">
 <dt id="_CPPv2N13writeTestInfo16reconstruct_initE">
 <span id="writeTestInfo::reconstruct_init__ReconstructInitSIRENAPP"></span>ReconstructInitSIRENA **<code class="descclassname"></code><code class="descname">reconstruct_init</code><a class="headerlink" href="#_CPPv2N13writeTestInfo16reconstruct_initE" title="Permalink to this definition">¶</a><br /></dt>

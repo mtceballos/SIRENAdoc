@@ -3940,6 +3940,14 @@ Search functions by name at :ref:`genindex`.
 
     **Members/Variables**
     
+    gsl_matrix* **matrixin**
+
+        GSL input square matrix :math:`[n \times n]`
+    
+    gsl_vector** **vectorout**
+
+        GSL output vector whose length is :math:`n^2`
+        
     .. cpp:member:: gsl_matrix* matrixin
 
         GSL input square matrix :math:`[n \times n]`
@@ -3970,6 +3978,30 @@ Search functions by name at :ref:`genindex`.
     
     **Members/Variables**
     
+    gsl_vector* **invector**
+         
+        First derivative of the (filtered) record
+        
+    double **kappa**
+         
+        Value to establish the range around of the mean
+        
+    double **stopCriteria**
+         
+        It is given in %
+        
+    double **nSigmas**
+         
+        Times sigma to calculate threshold as :math:`mean+nSigmas \cdot sigma`
+        
+    int **boxLPF**
+         
+        Length of the low-pass filtering box-car
+        
+    double* **threshold**
+         
+        Calculated threshold
+        
     .. cpp:member:: gsl_vector* invector
          
         First derivative of the (filtered) record
@@ -3993,6 +4025,7 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: double* threshold
          
         Calculated threshold
+        
 
 .. _N:
 
@@ -4004,6 +4037,10 @@ Search functions by name at :ref:`genindex`.
     
     **Members/Variables**
     
+    int* const **status**
+
+        Input/output status
+        
     .. cpp:member:: int* const status
 
         Input/output status
@@ -4017,10 +4054,13 @@ Search functions by name at :ref:`genindex`.
     
     **Members/Variables**
     
-    .. cpp:member:: int* const status
+    int* const **status**
         
         Input/output status
+
+    .. cpp:member:: int* const status
         
+        Input/output status    
         
 .. cpp:function:: extern_C_ReconstructInitSIRENA* newReconstructInitSIRENA(int* const status)
     
@@ -4030,6 +4070,10 @@ Search functions by name at :ref:`genindex`.
     
     **Members/Variables**
     
+    int* const **status**
+        
+        Input/output status
+        
     .. cpp:member:: int* const status
         
         Input/output status
@@ -4044,7 +4088,35 @@ Search functions by name at :ref:`genindex`.
        
     **Members/Variables**
     
-    .. cpp:member:: gsl_vector *der
+    gsl_vector* **der**
+    
+        First derivative of the (low-pass filtered) record
+
+    ReconstructInitSIRENA* **reconstruct_init**
+        
+        Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values)
+    
+    int* **numberPulses**
+        
+        Number of events
+    
+    gsl_vector** **tstartgsl**
+        
+        Starting time of the events (in samples)
+    
+    gsl_vector** **flagTruncated**
+        
+        Flag indicating if the event is truncated (inside this function only initial truncated pulses are classified)
+        
+    gsl_vector** **maxDERgsl**
+        
+        Maximum of the derivative of the event 
+        
+    gsl_vector** **samp1DERgsl**
+        
+        Average of the first 4 samples of the derivative of the event
+        
+    .. cpp:member:: gsl_vector* der
     
         First derivative of the (low-pass filtered) record
 
@@ -4086,23 +4158,43 @@ Search functions by name at :ref:`genindex`.
        
     **Members/Variables**
     
-    .. cpp:member:: gsl_vector *x
+    gsl_vector* **x**
     
         Input GSL with *x* vector
         
-    .. cpp:member:: gsl_vector *y
+    gsl_vector* **y**
     
         Input GSL with *y* vector
         
-    .. cpp:member:: double *a
+    double* **a**
     
         Fit coefficient of the quadratic term
         
-    .. cpp:member:: double *b
+    double* **b**
     
         Fit coefficient of the linear term    
         
-    .. cpp:member:: double *c
+    double* **c**
+    
+        Fit coefficient (independent term)
+        
+    .. cpp:member:: gsl_vector* x
+    
+        Input GSL with *x* vector
+        
+    .. cpp:member:: gsl_vector* y
+    
+        Input GSL with *y* vector
+        
+    .. cpp:member:: double* a
+    
+        Fit coefficient of the quadratic term
+        
+    .. cpp:member:: double* b
+    
+        Fit coefficient of the linear term    
+        
+    .. cpp:member:: double* c
     
         Fit coefficient (independent term)
         
@@ -4141,27 +4233,47 @@ Search functions by name at :ref:`genindex`.
        
     **Members/Variables**
     
-    .. cpp:member:: gsl_vector *x_fit
+    gsl_vector* **x_fit**
     
         Input GSL with *x* vector
         
-    .. cpp:member:: gsl_vector *y_fit
+    gsl_vector* **y_fit**
     
         Input GSL with *y* vector
         
-    .. cpp:member:: double *a
+    double* **a**
     
         Fit coefficient of the quadratic term
         
-    .. cpp:member:: double *b
+    double* **b**
     
         Fit coefficient of the linear term    
         
-    .. cpp:member:: double *c
+    double* **c**
     
         Fit coefficient (independent term)
         
+    .. cpp:member:: gsl_vector* x_fit
+    
+        Input GSL with *x* vector
         
+    .. cpp:member:: gsl_vector* y_fit
+    
+        Input GSL with *y* vector
+        
+    .. cpp:member:: double* a
+    
+        Fit coefficient of the quadratic term
+        
+    .. cpp:member:: double* b
+    
+        Fit coefficient of the linear term    
+        
+    .. cpp:member:: double* c
+    
+        Fit coefficient (independent term)
+    
+    
 .. cpp:function:: int polyFitLinear(gsl_vector *x_fit, gsl_vector *y_fit, double *a, double *b)
     
     Located in file: *genutils.cpp*
@@ -4185,19 +4297,35 @@ Search functions by name at :ref:`genindex`.
        
     **Members/Variables**
     
-    .. cpp:member:: gsl_vector *x_fit
+    gsl_vector* **x_fit**
     
         Input GSL with *x* vector
         
-    .. cpp:member:: gsl_vector *y_fit
+    gsl_vector* **y_fit**
     
         Input GSL with *y* vector
         
-    .. cpp:member:: double *a
+    double* **a**
     
         Fit coefficient of the linear term
         
-    .. cpp:member:: double *b
+    double* **b**
+    
+        Fit coefficient (independent term)    
+        
+    .. cpp:member:: gsl_vector* x_fit
+    
+        Input GSL with *x* vector
+        
+    .. cpp:member:: gsl_vector* y_fit
+    
+        Input GSL with *y* vector
+        
+    .. cpp:member:: double* a
+    
+        Fit coefficient of the linear term
+        
+    .. cpp:member:: double* b
     
         Fit coefficient (independent term)    
 
@@ -4210,6 +4338,18 @@ Search functions by name at :ref:`genindex`.
 
     **Members/Variables**
     
+    const char* const **func**
+    
+        Function name whose error is printed 
+        
+    string **msg**
+    
+        Error message to be printed 
+
+    int **status**
+        
+        Status
+        
     .. cpp:member:: const char* const func
     
         Function name whose error is printed 
@@ -4218,7 +4358,7 @@ Search functions by name at :ref:`genindex`.
     
         Error message to be printed 
 
-    .. cpp:member::  int status
+    .. cpp:member:: int status
         
         Status
 
@@ -4262,6 +4402,46 @@ Search functions by name at :ref:`genindex`.
     11) Free allocated GSL vectors
 
     **Members/Variables**
+    
+    ReconstructInitSIRENA** **reconstruct_init**
+
+        Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values)
+
+    double **tstartRecord** 
+
+        Starting time of the record (in order to calculate absolute times)
+
+    double **samprate** 
+
+        Sampling rate (in order to low-pass filter)
+
+    fitsfile* **dtcObject**
+
+        Object which contains information of the intermediate FITS file (to be written if :option:`intermediate` = 1)
+
+    gsl_vector* **record**
+
+        GSL vector with signal values of input record
+
+    gsl_vector* **recordWithoutConvert2R**
+
+        GSL vector with original signal values of input record (without being converted to R space)
+        
+    PulsesCollection* **foundPulses** 
+
+        Input/output structure where the info about found pulses is stored
+        
+    long **num_previousDetectedPulses** 
+
+        Number of previous detected pulses (to know the index to get the proper element from *tstartPulse1_i* in case :option:`tstartPulse1` was a file name)
+        
+    int **pixid** 
+
+        Pixel ID (from the input file) to be propagated
+    
+    int **phid**
+
+        Photon ID (from the input file) to be propagated
     
     .. cpp:member:: ReconstructInitSIRENA** reconstruct_init
 
@@ -4312,6 +4492,30 @@ Search functions by name at :ref:`genindex`.
 
     **Members/Variables**
     
+    ReconstructInitSIRENA** **reconstruct_init**
+
+        Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values).
+     
+    int **grade1**
+     
+        Pulse duration (length of optimal filter applied)
+     
+    int **grade2**
+    
+        Difference between the start time of the pulse and the start time of the previous pulse
+        
+    int **OFlength_strategy**
+     
+        Same as :option:`OFStrategy` (input)
+        
+    int* **pulseGrade**
+    
+        Pulse grade (output)
+    
+    long* **OFlength**
+    
+        Optimal filter length (= :option:`OFLength` only if :option:`OFStrategy` = **FIXED** and :option:`OFLength` <= grade1) (output)
+        
     .. cpp:member:: ReconstructInitSIRENA** reconstruct_init
 
         Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values).
@@ -4358,6 +4562,42 @@ Search functions by name at :ref:`genindex`.
     
     **Members/Variables**
     
+    ReconstructInitSIRENA** **reconstruct_init**
+
+        Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values). 
+     
+    fitsfile** **inLibObject**
+
+        FITS object containing information of the library FITS file  
+        
+    double **samprate**
+
+        Sampling rate
+
+    int **eventcntLib** 
+
+        Number of templates in the library
+        
+    double **estenergy** 
+
+        Pulse height of the template whose energy is going to be added to the library
+        
+    gsl_vector* **pulsetemplate**
+
+        GSL vector with the pulse template whose energy is going to be added to the library
+        
+    gsl_matrix* **covariance**
+
+        GSL matrix with covariance matrix of the energy which is going to be added to the library
+    
+    gsl_matrix* **weight**
+
+        GSL matrix with weight matrix of the energy which is going to be added to the library
+	
+    gsl_vector* **pulsetemplateMaxLengthFixedFilter**
+
+        GSL vector with the :option:`largeFilter`-length template whose energy is going to be added to the library
+        
     .. cpp:member:: ReconstructInitSIRENA** reconstruct_init
 
         Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values). 
@@ -4403,6 +4643,14 @@ Search functions by name at :ref:`genindex`.
     
     **Members/Variables**
     
+    IOData **obj**
+    
+        Input object for complex FITS column
+    
+    gsl_matrix** **result**
+    
+        Output GSL matrix
+        
     .. cpp:member:: IOData obj
     
         Input object for complex FITS column
@@ -4420,6 +4668,14 @@ Search functions by name at :ref:`genindex`.
     
     **Members/Variables**
     
+    IOData **obj**
+    
+        Input object for simple FITS column
+    
+    gsl_vector** **result**
+    
+        Output GSL vector
+
     .. cpp:member:: IOData obj
     
         Input object for simple FITS column
@@ -4427,7 +4683,6 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: gsl_vector** result
     
         Output GSL vector
-        
     
 .. cpp:function:: extern_C_void reconstructRecordSIRENA(TesRecord* record, TesEventList* event_list, ReconstructInitSIRENA* reconstruct_init,  int lastRecord, int nRecord, PulsesCollection **pulsesAll, OptimalFilterSIRENA **optimalFilter, int* const status)
     
@@ -4447,6 +4702,42 @@ Search functions by name at :ref:`genindex`.
     
     **Members/Variables**
     
+    TesRecord* **record** 
+
+        Instance of *TesRecord* structure that contains the input record 
+        
+    int **trig_reclength**
+    
+        Record size (just in case threading and input files with different **ADC** lengths but the same record size indeed)
+    
+    TesEventList* **event_list**
+        
+        Instance of *TesEventList* structure that contains the information of the reconstructed pulses
+        
+    ReconstructInitSIRENA* **reconstruct_init**
+    
+        Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values)
+    
+    int **lastRecord**
+    
+        If record being analyzed is the last one, :cpp:member:`lastRecord` = 1. Otherwise it is equal to 0
+        
+    int **nRecord**
+    
+        Input record number
+    
+    PulsesCollection** **pulsesAll**
+    
+        Member of *PulsesCollection* structure to successively store all the pulses used to create the library. Re-populated after each processed record.
+    
+    OptimalFilterSIRENA** **optimalFilter**
+    
+        Optimal filters used in reconstruction
+    
+    int* const **status**
+    
+        Input/output status
+        
     .. cpp:member:: TesRecord* record 
 
         Instance of *TesRecord* structure that contains the input record 
@@ -4501,6 +4792,26 @@ Search functions by name at :ref:`genindex`.
        
     **Members/Variables**
     
+    gsl_vector* **vector**
+
+        Not filtered pulse (extracted from the record in :cpp:func:`getPulseHeight`)
+        
+    double **lrs**
+
+        Running sum length (samples)
+        
+    double **lb**
+
+        Baseline averaging length (samples)
+        
+    double **B**
+
+        In general, sum of the :cpp:member:`lb` digitized data samples of a pulse-free interval immediately before the current pulse
+        
+    double* **pulseheight**
+
+        Pulseheight of the input pulse    
+        
     .. cpp:member:: gsl_vector* vector
 
         Not filtered pulse (extracted from the record in :cpp:func:`getPulseHeight`)
@@ -4584,6 +4895,30 @@ Search functions by name at :ref:`genindex`.
 
     **Members/Variables**
 
+    TesRecord* **record** 
+
+        Member of *TesRecord* structure that contains the input record 
+        
+    int **trig_reclength** 
+
+        Record size (just in case threading and input files with different **ADC** lengths but the same record size indeed)
+
+    int **lastRecord**
+
+        Integer to verify whether *record* is the last one (=1) to be read (and thus if library file will be created)
+        
+    PulsesCollection* **pulsesAll**
+
+        Member of *PulsesCollection* structure to successively store all the pulses used to create the library. Re-populated after each processed record
+        
+    ReconstructInitSIRENA** **reconstruct_init**
+
+        Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values)
+
+    PulsesCollection** **pulsesInRecord**
+
+        Member of *PulsesCollection* structure to store all the pulses found in the input record
+        
     .. cpp:member:: TesRecord* record 
 
         Member of *TesRecord* structure that contains the input record 
@@ -4665,6 +5000,30 @@ Search functions by name at :ref:`genindex`.
 
     **Members/Variables**
 
+    TesRecord** **record**
+
+        Structure that contains the input ADC record
+        
+    int **trig_reclength** 
+
+        Record size (just in case threading and input files with different **ADC** lengths but the same record size indeed)
+        
+    ReconstructInitSIRENA** **reconstruct_init**
+
+        Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values)
+    
+    PulsesCollection* **pulsesInRecord**
+
+        Collection of pulses found in the current record
+        
+    OptimalFilterSIRENA** **optimalFilter**
+    
+        Optimal filters used in reconstruction
+        
+     PulsesCollection* **pulsesAll**
+    
+        Member of *PulsesCollection* structure to store all the pulses found in the input FITS file. To know the index to get the proper element from *tstartPulse1_i* in case :option:`tstartPulse1` was a file name
+        
     .. cpp:member:: TesRecord** record
 
         Structure that contains the input ADC record
@@ -4681,13 +5040,14 @@ Search functions by name at :ref:`genindex`.
 
         Collection of pulses found in the current record
         
-    .. cpp:member:: OptimalFilterSIRENA **optimalFilter
+    .. cpp:member:: OptimalFilterSIRENA** optimalFilter
     
         Optimal filters used in reconstruction
         
-    .. cpp:member::  PulsesCollection *pulsesAll
+    .. cpp:member::  PulsesCollection* pulsesAll
     
         Member of *PulsesCollection* structure to store all the pulses found in the input FITS file. To know the index to get the proper element from *tstartPulse1_i* in case :option:`tstartPulse1` was a file name
+        
         
 .. cpp:function:: void th_runEnergy(TesRecord* record, int trig_reclength, ReconstructInitSIRENA** reconstruct_init, PulsesCollection** pulsesInRecord, OptimalFilterSIRENA **optimalFilter)
     
@@ -4705,6 +5065,18 @@ Search functions by name at :ref:`genindex`.
     This function returns as :cpp:member:`vectorout` the :cpp:member:`vectorin` delayed :cpp:member:`m` samples.
 
     **Members/Variables**
+
+    int **m**
+
+        Delay in samples
+
+    gsl_vector* **vectorin**
+
+        GSL vector with input vector
+        
+    gsl_vector* **vectorout** 
+
+        GSL with input vector (:cpp:member:`vectorin`) delayed :cpp:member:`m` samples
 
     .. cpp:member:: int m
 
@@ -4727,6 +5099,18 @@ Search functions by name at :ref:`genindex`.
     
     **Members/Variables**
     
+    int **m**
+
+        Advance in samples
+
+    gsl_vector* **vectorin**
+
+        GSL vector with input vector
+
+    gsl_vector* **vectorout** 
+
+        GSL with input vector (:cpp:member:`vectorin`) moved forward :cpp:member:`m` samples
+        
     .. cpp:member:: int m
 
         Advance in samples
@@ -4738,6 +5122,7 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: gsl_vector* vectorout 
 
         GSL with input vector (:cpp:member:`vectorin`) moved forward :cpp:member:`m` samples
+        
             
 .. _T:
 
@@ -4755,6 +5140,30 @@ Search functions by name at :ref:`genindex`.
     
     **Members/Variables**
     
+    void** **buffer**
+    
+        Input buffer with data
+        
+    gsl_matrix** **matrix**
+    
+        Output GSL matrix 
+        
+    long **numCol**
+    
+        Number of columns
+        
+    int **numRow**
+    
+        Number of rows
+        
+    int **type**
+    
+        FITS type (TINT, TSHORT, TDOUBLE, etc.)
+    
+    int **eventini**
+    
+        Initial event to start writing
+        
     .. cpp:member:: void** buffer
     
         Input buffer with data
@@ -4788,6 +5197,26 @@ Search functions by name at :ref:`genindex`.
     
     **Members/Variables**
     
+    void** **buffer**
+    
+        Input buffer with data
+        
+    gsl_vector** **array**
+    
+        Output GSL vector
+        
+    long **nevent**
+    
+        Number of elements to store
+        
+    int **eventini**
+    
+        Initial element number
+        
+    int **type**
+
+        FITS type (TINT, TSHORT, TDOUBLE, etc.)
+        
     .. cpp:member:: void** buffer
     
         Input buffer with data
@@ -4807,6 +5236,7 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: int type
 
         FITS type (TINT, TSHORT, TDOUBLE, etc.)
+        
     
 .. _U:
 
@@ -4820,6 +5250,14 @@ Search functions by name at :ref:`genindex`.
     
     **Members/Variables**
     
+    gsl_vector** **vectorin**
+
+        GSL input vector whose length is :math:`n^2`
+        
+    gsl_matrix* **matrixout**
+
+        GSL output square matrix :math:`[n \times n]`
+        
     .. cpp:member:: gsl_vector** vectorin
 
         GSL input vector whose length is :math:`n^2`
@@ -4827,6 +5265,7 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: gsl_matrix* matrixout
 
         GSL output square matrix :math:`[n \times n]`
+        
     
 .. _W:
 
@@ -4878,6 +5317,42 @@ Search functions by name at :ref:`genindex`.
 
     **Members/Variables**
     
+    ReconstructInitSIRENA** **reconstruct_init**
+
+        Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values)
+        
+    bool **saturatedPulses**
+
+        If *true*, all the pulses ( :option:`opmode` = 0 :math:`\Rightarrow` all the pulses have the same energy) are saturated
+        
+    PulsesCollection* **pulsesAll** 
+
+        Collection of pulses found in the previous records
+        
+    PulsesCollection* **pulsesInRecord**
+
+        Collection of pulses found in the current record
+        
+    long **nonpileupPulses**
+
+        Number of non piled-up pulses
+        
+    gsl_vector* **nonpileup**
+
+        GSL vector containing info about all the pulses informing if they are piled-up or not
+        
+    gsl_vector** **pulseaverage**
+
+        GSL vector with the pulseaverage (= template = model) of the non piled-up pulses
+
+    gsl_matrix** **covariance**
+
+        GSL matrix with covariance matrix
+        
+    gsl_matrix** **weight**
+
+        GSL matrix with weight matrix
+        
     .. cpp:member:: ReconstructInitSIRENA** reconstruct_init
 
         Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values)
@@ -4898,7 +5373,7 @@ Search functions by name at :ref:`genindex`.
 
         Number of non piled-up pulses
         
-    .. cpp:member: gsl_vector* nonpileup
+    .. cpp:member:: gsl_vector* nonpileup
 
         GSL vector containing info about all the pulses informing if they are piled-up or not
         
@@ -4943,6 +5418,34 @@ Search functions by name at :ref:`genindex`.
 
     **Members/Variables**
     
+    ReconstructInitSIRENA** **reconstruct_init**
+
+        Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values). 
+        
+    int **pulse_index**
+    
+        Index of the pulse whose info is going to be written (to know if it is the first pulse)
+        
+    double **energy**
+    
+        Estimated energy (eV)
+        
+    gsl_vector* **optimalfilter** 
+    
+        Optimal filter in time domain
+        
+    gsl_vector* **optimalfilter_f**
+    
+        Frequency axis of the optimal filter spectrum
+        
+    gsl_vector* **optimalfilter_FFT**
+    
+        Optimal filter spectrum
+        
+    fitsfile** **dtcObject** 
+    
+        Fitsfile object for intermeadiate file name
+        
     .. cpp:member:: ReconstructInitSIRENA** reconstruct_init
 
         Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values). 
@@ -4980,6 +5483,14 @@ Search functions by name at :ref:`genindex`.
     
     **Members/Variables**
     
+    IOData **obj**
+    
+        Object for FITS column to be written
+        
+    gsl_matrix* **matrix**
+    
+        Input GSL matrix with data
+        
     .. cpp:member:: IOData obj
     
         Object for FITS column to be written
@@ -4997,6 +5508,14 @@ Search functions by name at :ref:`genindex`.
     
     **Members/Variables** 
     
+    IOData **obj**
+        
+        Object for FITS column to be written
+        
+    gsl_vector* **vector**
+        
+        Input GSL vector with data
+        
     .. cpp:member:: IOData obj
         
         Object for FITS column to be written
@@ -5004,6 +5523,7 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: gsl_vector* vector
         
         Input GSL vector with data
+        
         
 .. cpp:function:: int writeLibrary(ReconstructInitSIRENA *reconstruct_init, double samprate, double estenergy, gsl_vector *pulsetemplate, gsl_matrix *covariance, gsl_matrix *weight, bool appendToLibrary, fitsfile **inLibObject, gsl_vector *pulsetemplateMaxLengthFixedFilter)
     
@@ -5018,6 +5538,42 @@ Search functions by name at :ref:`genindex`.
 
     **Members/Variables**
     
+    ReconstructInitSIRENA** **reconstruct_init**
+
+        Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values) 
+        
+    double **samprate**
+
+        Sampling rate
+        
+    double **estenergy**
+
+        Pulse height of the template whose energy is going to be added to the library
+        
+    gsl_vector* **pulsetemplate**
+
+        GSL vector with the pulse template whose energy is going to be added to the library
+    
+    gsl_matrix** **covariance**
+
+        GSL matrix with covariance matrix
+        
+    gsl_matrix** **weight**
+
+        GSL matrix with weight matrix
+        
+    bool **appendToLibrary**
+
+        *true* if adding a new row to the library and *false* if it is the first row to be added
+        
+    fitsfile** **inLibObject**
+
+        FITS object containing information of the library FITS file 
+	
+    gsl_vector* **pulsetemplateMaxLengthFixedFilter**
+
+        GSL vector with the :option:`largeFilter`-length pulse template whose energy is going to be added to the library
+        
     .. cpp:member:: ReconstructInitSIRENA** reconstruct_init
 
         Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values) 
@@ -5068,6 +5624,22 @@ Search functions by name at :ref:`genindex`.
 
     **Members/Variables**
     
+    FILE* **fileRef**
+    
+        File reference to log file 
+        
+    string **type**
+    
+        String to indicate error type "Error", "Warning", "Alert","Log" or "OK" 
+
+     int **verbosity**
+        
+        Integer value for verbosity
+        
+     string **message**
+        
+        String message to print 
+        
     .. cpp:member:: FILE* fileRef
     
         File reference to log file 
@@ -5092,6 +5664,60 @@ Search functions by name at :ref:`genindex`.
     This function writes the data of the pulses found in the record in the intermediate FITS file (in the *PULSES* HDU). The pulses info given is: **TSTART**, **I0** (the pulse itself), **TEND**, **TAURISE**, **TAUFALL** and **QUALITY**.
     
     **Members/Variables**
+    
+    ReconstructInitSIRENA** **reconstruct_init**
+
+        Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values). 
+        
+    double **samprate** 
+
+        Sampling rate (to convert samples to seconds)
+
+    double **initialtime**
+
+        Starting time of the record (in order to calculate absolute times)
+
+    gsl_vector* **invectorNOTFIL**
+
+        GSL vector with the original record (neither low-pass filtered nor differentiated)
+
+    int **numPulsesRecord**
+
+        Number of pulses found in the record
+
+    gsl_vector* **tstart**
+
+        GSL vector with the start times of the found pulses
+
+    gsl_vector* **tend**
+
+        GSL vector with the end times of the found pulses
+    
+    gsl_vector* **quality** 
+
+        GSL vector with the quality of the found pulses
+        
+        0 :math:`\Rightarrow` Standard (good) pulses
+        
+        1 :math:`\Rightarrow` Truncated pulses at the beginning
+        
+        2 :math:`\Rightarrow` Truncated pulses at the end
+        
+        10 :math:`\Rightarrow` Saturated pulses
+        
+        11 :math:`\Rightarrow` Truncated and saturated pulses
+
+    gsl_vector* **taurise**
+
+        GSL vector with the rise time constants of the found pulses (to be done)
+
+    gsl_vector* **taufall**
+
+        GSL vector with the fall time constants of the found pulses (to be done)
+
+    fitsfile* **dtcObject**
+
+        Object which contains information of the intermediate FITS file
     
     .. cpp:member:: ReconstructInitSIRENA** reconstruct_init
 
@@ -5146,7 +5772,7 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: fitsfile* dtcObject
 
         Object which contains information of the intermediate FITS file
-    
+
     
 .. cpp:function:: int writeTestInfo(ReconstructInitSIRENA* reconstruct_init, gsl_vector *recordDERIVATIVE, double threshold, fitsfile *dtcObject)    
     
@@ -5156,6 +5782,22 @@ Search functions by name at :ref:`genindex`.
 
     **Members/Variables**
 
+    ReconstructInitSIRENA** **reconstruct_init**
+
+        Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values)
+        
+    gsl_vector* **recordDERIVATIVE** 
+
+        GSL vector with input record (low-pass filtered and) differentiated
+        
+    double **threshold**
+
+        Threshold value used to find pulses
+        
+    fitsfile **dtcObject**
+
+        Object which contains information of the intermediate FITS file
+        
     .. cpp:member:: ReconstructInitSIRENA** reconstruct_init
 
         Member of *ReconstructInitSIRENA* structure to initialize the reconstruction parameters (pointer and values)
@@ -5171,6 +5813,7 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: fitsfile dtcObject
 
         Object which contains information of the intermediate FITS file
+   
    
 .. _X:
 
