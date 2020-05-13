@@ -1279,7 +1279,7 @@ Search functions by name at :ref:`genindex`.
     
         Output GSL complex vector with the FFT of :cpp:member:`invector`
 
-     double **STD**
+    double **STD**
         
         SelectedTimeDuration = (Size of :cpp:member:`invector`)/*samprate*
         
@@ -3932,7 +3932,7 @@ Search functions by name at :ref:`genindex`.
             
 .. _M:
 
-.. cpp:function::  int matrix2vector(gsl_matrix *matrixin, gsl_vector **vectorout)
+.. cpp:function:: int matrix2vector(gsl_matrix *matrixin, gsl_vector **vectorout)
     
     Located in file: *tasksSIRENA.cpp*
     
