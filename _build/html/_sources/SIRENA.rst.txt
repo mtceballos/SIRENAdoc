@@ -88,16 +88,16 @@ The second step is simulating the noise stream. This can be done by choosing eit
    
 **2) Noise spectrum and weight matrices generation**
 
-In :ref:`gennoisespec`, the data is analysed record by record: if there are events present, this tool :ref:`finds <detect>` and rejects them, keeping only the pulse-free intervals of a size given by the input parameter :option:`--intervalMinSamples`. If no events are present, the record is divided into pulse-free intervals sized also by this parameter.
+In :ref:`gennoisespec`, the data is analysed record by record: if there are events present, this tool :ref:`finds <detect>` and rejects them, keeping only the pulse-free intervals of a size given by the input parameter :option:`intervalMinSamples`. If no events are present, the record is divided into pulse-free intervals sized also by this parameter.
 
 Once the pulse-free intervals have been defined, a long noise interval is built by putting together these pulse-free intervals in order to calculate the noise baseline. Moreover, the noise intervals whose standard deviation is too high are discarded.
 
-On one hand, the tool calculates the FFT of the non-discarded pulse-free intervals (over the unfiltered data) and averages them. Only a specific number of intervals (input parameter :option:`--nintervals`) will be used. The noise spectrum density is stored in the *NOISE* and *NOISEALL* HDUs in the *noise data* file.
+On one hand, the tool calculates the FFT of the non-discarded pulse-free intervals (over the unfiltered data) and averages them. Only a specific number of intervals (input parameter :option:`nintervals`) will be used. The noise spectrum density is stored in the *NOISE* and *NOISEALL* HDUs in the *noise data* file.
 
 ::
     
-    > gennoisespec --inFile=noise.fits --outFile=noiseSpec.fits --intervalMinSamples=pulseLength \
-    --nintervals=1000 --pulse_length=pulseLength 
+    > gennoisespec inFile=noise.fits outFile=noiseSpec.fits intervalMinSamples=pulseLength \
+    nintervals=1000 pulse_length=pulseLength 
                 
 .. _noiseSpec:
 
@@ -107,13 +107,13 @@ On one hand, the tool calculates the FFT of the non-discarded pulse-free interva
    
    Noise spectrum (see noise file :ref:`description <outNoise>`)
 
-On the other hand, if :option:`--weightMS` = *yes* the tool calculates the covariance matrix of the noise, :math:`V`, whose elements are expectation values (:math:`E[·]`) of two-point products for a pulse-free data sequence :math:`{di}` (over the unfiltered data) (:cite:`Fowler2015`)
+On the other hand, if :option:`weightMS` = *yes* the tool calculates the covariance matrix of the noise, :math:`V`, whose elements are expectation values (:math:`E[·]`) of two-point products for a pulse-free data sequence :math:`{di}` (over the unfiltered data) (:cite:`Fowler2015`)
 
 .. math::
 
 	V_{ij}=E[d_i d_j]-E[d_i]E[d_j]
 	
-The weight matrix is the inverse of the covariance matrix, :math:`V^{-1}`. The weight matrixes, **Wx**, for different lenghts are stored in the *WEIGHTMS* HDU in the *noise data* file. The lengths x will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the :option:`--intervalMinSamples` decreasing until 2.
+The weight matrix is the inverse of the covariance matrix, :math:`V^{-1}`. The weight matrixes, **Wx**, for different lenghts are stored in the *WEIGHTMS* HDU in the *noise data* file. The lengths x will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the :option:`intervalMinSamples` decreasing until 2.
 
 .. _noiseSpec2:
 
@@ -125,7 +125,7 @@ The weight matrix is the inverse of the covariance matrix, :math:`V^{-1}`. The w
 
 :ref:`gennoisespec` also adds the ``BSLN0`` and ``NOISESTD`` keywords to the *NOISE* HDU in the *noise data* file. They store the mean and the standard deviation of the noise (by working with the long noise interval).
 
-If the noise spectrum or the weight matrixes are to be created from a data stream containing pulses, care should be taken with the parameters :option:`--scaleFactor`, :option:`--samplesUp` and :option:`--nSgms` responsible of the detection process.
+If the noise spectrum or the weight matrixes are to be created from a data stream containing pulses, care should be taken with the parameters :ref:`scaleFactor <scaleFactor_gennoisespec>`, :ref:`samplesUp <samplesUp_gennoisespec>` and :ref:`nSgms <nSgms_gennoisespec>` responsible of the detection process.
 
       
 .. _library:

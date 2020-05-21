@@ -95,7 +95,7 @@ Search functions by name at :ref:`genindex`.
     gsl_matrix* **WEIGHT**
     
         Weight matrix associated to the first energy to be included in the library
-	
+
     gsl_matrix* **PULSEMaxLengthFixedFilter**
 
         Pulse template whose length is :option:`largeFilter` associated to the first energy to be included in the library
@@ -650,7 +650,7 @@ Search functions by name at :ref:`genindex`.
     int **inputPulseLength**
 
         :option:`PulseLength` input parameter
-	
+    
     gsl_vector** **pulseaverageMaxLengthFixedFilter**
 
         GSL vector with the pulseaverage (template) whose length is :option:`largeFilter` of the non piled-up pulses
@@ -1007,7 +1007,7 @@ Search functions by name at :ref:`genindex`.
     fitsfile **dtcObject**
         
         Object which contains information of the intermediate FITS file (used also by :cpp:func:`writeTestInfo` and :cpp:func:`writePulses`).
-	
+
     int **inputPulseLength**
         
         :option:`PulseLength` input parameter
@@ -1135,7 +1135,19 @@ Search functions by name at :ref:`genindex`.
         
         :option:`PulseLength` input parameter
         
-        
+.. cpp:function:: int createTPSreprFile ()
+
+    Located in file: *gennoisespec.cpp*
+
+    This function creates the gennoisespec output FITS file.
+    
+    Steps:
+    
+    - Create the noise representation file (if it does not exist already)
+    - Create the extensions *NOISE*, *NOISEALL* and *WEIGHTMS*
+    - Write keywords
+    
+    
 .. _D:
 
 .. cpp:function:: int differentiate(gsl_vector **invector, int szVct)
@@ -1433,6 +1445,138 @@ Search functions by name at :ref:`genindex`.
         In order to control the times to be executed
         
         
+.. cpp:function:: int findInterval(int tail_duration, gsl_vector *invector, gsl_vector *startpulse, int npin, int pulse_length, int nPF, int interval, int *ni, gsl_vector **startinterval)
+
+    Located in file: *gennoisespec.cpp*
+    
+    This function finds the pulse-free intervals when the input vector has pulses.
+    The pulse-free intervals must have a minimum length (*intervalMinBins*).
+    The interval with pulse is :math:`Tstart,Tend+nPF*pulse \_ length` (being :math:`Tend=n*pulse \_ length`).
+
+    Steps:
+    
+    - Declare variables
+    - Processing if the input vector has more pulses
+        - It looks for pulse-free intervals between pulses
+    - Processing if there are no more pulses in the input vector
+        - It looks for pulse-free intervals at the end of the event and the search for more pulse-free intervals is finished
+
+    **Members/Variables**
+    
+    int **tail_duration** 
+    
+        Length of the tail of a previous pulse
+        
+    gsl_vector* **invector**
+    
+        Input vector WITH pulses
+        
+    gsl_vector* **startpulse** 
+    
+        Vector with the Tstart of all the pulses of the input vector (samples)
+        
+    int **npin** 
+    
+        Number of pulses in the input vector
+        
+    int **pulse_length** 
+    
+        Pulse length (samples)
+        
+    int **nPF** 
+    
+        Number of pulse lengths after ending the pulse to start the pulse-free interval
+        
+    int **interval** 
+    
+        Minimum length of the interval (samples)
+        
+    int **ni** 
+    
+        Number of pulse-free intervals in the input vector
+        
+    gsl_vector** **startinterval** 
+    
+        Vector with the starting time of each pulse-free interval (samples)
+        
+    .. cpp:member:: int tail_duration 
+    
+        Length of the tail of a previous pulse
+        
+    .. cpp:member:: gsl_vector* invector
+    
+        Input vector WITH pulses
+        
+    .. cpp:member:: gsl_vector* startpulse 
+    
+        Vector with the Tstart of all the pulses of the input vector (samples)
+        
+    .. cpp:member:: int npin
+    
+        Number of pulses in the input vector
+        
+    .. cpp:member:: int pulse_length 
+    
+        Pulse length (samples)
+        
+    .. cpp:member:: int nPF
+    
+        Number of pulse lengths after ending the pulse to start the pulse-free interval
+        
+    .. cpp:member:: int interval 
+    
+        Minimum length of the interval (samples)
+        
+    .. cpp:member:: int ni 
+    
+        Number of pulse-free intervals in the input vector
+        
+    .. cpp:member:: gsl_vector** startinterval 
+    
+        Vector with the starting time of each pulse-free interval (samples)
+        
+.. cpp:function:: int findIntervalN (gsl_vector *invector, int interval, int *ni, gsl_vector **startinterval)
+
+    Located in file: *gennoisespec.cpp*
+    
+    This function finds the pulse-free intervals when the input vector has NO pulses.
+    The pulse-free intervals must have a minimum length (*intervalMinBins*).
+
+    **Members/Variables**
+    
+    gsl_vector* **invector** 
+    
+        Input vector WITHOUT pulses
+        
+    int **interval** 
+    
+        Minimum length of the interval (samples)
+        
+    int* **ni** 
+    
+        Number of pulse-free intervals in the input vector
+        
+    gsl_vector** **startinterval** 
+    
+        Vector with the starting time of each pulse-free interval (samples)
+        
+    .. cpp:member:: gsl_vector* invector
+    
+        Input vector WITHOUT pulses
+        
+    .. cpp:member:: int interval 
+    
+        Minimum length of the interval (samples)
+        
+    .. cpp:member:: int* ni 
+    
+        Number of pulse-free intervals in the input vector
+        
+    .. cpp:member:: gsl_vector** startinterval
+    
+        Vector with the starting time of each pulse-free interval (samples)   
+        
+        
 .. cpp:function:: int findMeanSigma(gsl_vector *invector, double *mean, double *sigma)
     
     Located in file: *pulseprocess.cpp*
@@ -1620,6 +1764,144 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: double kappamkc
         
         Used in :cpp:func:`medianKappaClipping`
+        
+        
+.. cpp:function:: int findPulsesNoise(gsl_vector *vectorin, gsl_vector *vectorinDER, gsl_vector **tstart, gsl_vector **quality, gsl_vector **energy, int *nPulses, double *threshold, double scalefactor, int sizepulsebins, double samplingRate, int samplesup, double nsgms, double lb, double lrs, double stopcriteriamkc, double kappamkc)
+
+    Located in file: *gennoisespec.cpp*
+    
+    This function is going to find the pulses in a record by using the function :cpp:func:`findTstartNoise`
+    
+    Steps:
+    
+    - Declare variables
+    - Establish the threshold (call :cpp:func:`medianKappaClipping`)
+    - Find pulses (call :cpp:func:`findTstartNoise`)
+    - If at least a pulse is found
+        - Get the *pulseheight* of each found pulse
+    - Free allocated GSL vectors
+    
+    **Members/Variables**
+    
+    gsl_vector* **vectorin**
+    
+        Not filtered record
+        
+    gsl_vector* **vectorinDER** 
+    
+        Derivative of the low-pass filtered :cpp:member:`vectorin`
+        
+    gsl_vector** **tstart**
+    
+        Starting time of the found pulses into the record (samples)
+    
+    gsl_vector** **quality**
+    
+        Quality of the found pulses into the record
+        
+    int* **nPulses**
+    
+        Number of found pulses
+        
+    double* **threshold**
+    
+        Threshold used to find the pulses (output parameter because it is necessary out of the function)
+        
+    double **scalefactor**
+    
+        Scale factor to calculate the LPF box-car length
+        
+    int **sizepulsebins**
+    
+        Size of the pulse (samples)
+    
+    double **samplingRate**
+    
+        Sampling rate
+
+    int **samplesup**
+    
+        Number of consecutive samples over the threshold to locate a pulse
+        
+    double **nsgms**
+    
+        Number of Sigmas to establish the threshold
+
+    double **lb**
+    
+        Vector containing the baseline averaging length used for each pulse
+        
+    double **lrs**
+    
+        Running sum length
+        
+    double **stopCriteriamkc**
+    
+        Used in :cpp:func:`medianKappaClipping_noiseSigma` (%)
+
+    double **kappamkc**
+    
+        Used in :cpp:func:`medianKappaClipping_noiseSigma`
+        
+    .. cpp:member:: gsl_vector* vectorin
+    
+        Not filtered record
+        
+    .. cpp:member:: gsl_vector* vectorinDER 
+    
+        Derivative of the low-pass filtered 'vectorin'
+        
+    .. cpp:member:: gsl_vector** tstart
+    
+        Starting time of the found pulses into the record (samples)
+    
+    .. cpp:member:: gsl_vector** quality
+    
+        Quality of the found pulses into the record
+        
+    .. cpp:member:: int* nPulses
+    
+        Number of found pulses
+        
+    .. cpp:member:: double* threshold
+    
+        Threshold used to find the pulses (output parameter because it is necessary out of the function)
+        
+    .. cpp:member:: double scalefactor
+    
+        Scale factor to calculate the LPF box-car length
+        
+    .. cpp:member:: int sizepulsebins
+    
+        Size of the pulse (samples)
+    
+    .. cpp:member:: double samplingRate
+    
+        Sampling rate
+  
+    .. cpp:member:: int samplesup
+        
+        Number of consecutive samples over the threshold to locate a pulse (*samplesUp*)
+        
+    .. cpp:member:: double nsgms
+    
+        Number of Sigmas to establish the threshold
+  
+    .. cpp:member:: double lb
+    
+        Vector containing the baseline averaging length used for each pulse
+        
+    .. cpp:member:: double lrs
+    
+        Running sum length (equal to the *Lrs* input parameter)
+  
+    .. cpp:member:: double stopCriteriamkc
+    
+        Used in :cpp:func:`medianKappaClipping_noiseSigma` (%)
+  
+    .. cpp:member:: double kappamkc
+    
+        Used in :cpp:func:`medianKappaClipping_noiseSigma`
         
   
 .. cpp:function:: int FindSecondaries(int maxPulsesPerRecord, gsl_vector *adjustedDerivative, double adaptativethreshold, ReconstructInitSIRENA *reconstruct_init, int tstartFirstEvent, int *numberPulses, gsl_vector **tstartgsl, gsl_vector **flagTruncated, gsl_vector **maxDERgsl, gsl_vector **lagsgsl)
@@ -1997,6 +2279,94 @@ Search functions by name at :ref:`genindex`.
         Maximum of the first derivative of the (low-pass filtered) record inside each found pulse
         
         
+.. cpp:function:: int findTstartNoise(int maxPulsesPerRecord, gsl_vector *der, double adaptativethreshold, int nSamplesUp, int *numberPulses, gsl_vector **tstartgsl, gsl_vector **flagTruncated, gsl_vector **maxDERgsl)
+    
+    Located in file: *gennoisespec.cpp*.
+    
+    This function finds the pulses tstarts in the input vector (first derivative of the filtered record).
+
+    This function scans all values the derivative of the (low-pass filtered) record until it finds *nSamplesUp* consecutive values (due to the noise more than 1 value is 
+    required) over the threshold. To look for more pulses, it finds *nSamplesUp* consecutive values (due to the noise) under the threshold and then, it starts to scan again.
+
+    Steps: 
+    
+    - Declare variables
+    - Allocate GSL vectors
+    - Obtain tstart of each pulse in the derivative:
+        - If :math:`der_i > threshold` and *foundPulse=false*, it looks for *nSamplesUp* consecutive samples over the threshold
+            - If not, it looks again for a pulse crossing over the threshold
+            - If yes, a pulse is found (truncated if it is at the beginning)
+        - If :math:`der_i > threshold` and *foundPulse=true*, it looks for a sample under the threshold
+            - If not, it looks again for a sample under the threshold
+            - If yes, it looks for *nSamplesUp* consecutive samples under the threshold and again it starts to look for a pulse
+
+    **Members/Variables**
+    
+    int **maxPulsesPerRecord**
+    
+        Expected maximum number of pulses per record in order to not allocate the GSL variables with the size of the input vector
+        
+    gsl_vector* **der**
+    
+        First derivative of the (low-pass filtered) record
+        
+    double **adaptativethreshold**
+    
+        Threshold
+        
+    int **nSamplesUp**
+    
+        Number of consecutive samples over the threshold to 'find' a pulse
+        
+    int* **numberPulses**
+    
+        Number of found pulses
+        
+    gsl_vector** **tstartgsl** 
+        
+        Pulses tstart (samples)
+        
+    gsl_vector** **flagTruncated**
+    
+        Flag indicating if the pulse is truncated (inside this function only initial truncated pulses are classified)
+        
+    gsl_vector** **maxDERgsl** 
+    
+        Maximum of the first derivative of the (low-pass filtered) record inside each found pulse
+        
+    .. cpp:member:: int maxPulsesPerRecord
+    
+        Expected maximum number of pulses per record in order to not allocate the GSL variables with the size of the input vector
+        
+    .. cpp:member:: gsl_vector* der
+    
+        First derivative of the (low-pass filtered) record
+        
+    .. cpp:member:: double adaptativethreshold
+    
+        Threshold
+        
+    .. cpp:member:: int nSamplesUp
+    
+        Number of consecutive samples over the threshold to 'find' a pulse
+        
+    .. cpp:member:: int* numberPulses
+    
+        Number of found pulses
+        
+    .. cpp:member:: gsl_vector** tstartgsl 
+        
+        Pulses tstart (samples)
+        
+    .. cpp:member:: gsl_vector** flagTruncated
+    
+        Flag indicating if the pulse is truncated (inside this function only initial truncated pulses are classified)
+        
+    .. cpp:member:: gsl_vector** maxDERgsl 
+    
+        Maximum of the first derivative of the (low-pass filtered) record inside each found pulse
+
+ 
 .. cpp:function:: int find_Esboundary(double maxDER, gsl_vector *maxDERs, ReconstructInitSIRENA *reconstruct_init, int *indexEalpha, int *indexEbeta, double *Ealpha, double *Ebeta)
     
     Located in file: *tasksSIRENA.cpp*.
@@ -2599,6 +2969,115 @@ Search functions by name at :ref:`genindex`.
     
 .. _G:
 
+.. cpp:function:: int gennoisespec_main()
+
+    Located in file: *gennoisespec.cpp*
+    
+    This function calculates the current noise spectral density.
+    If there are pulses in a record, the pulses are rejected and it is going to look for pulse-free intervals of a given size (*intervalMinBins*).
+    If there are no pulses in a record, the event is divided into pulse-free intervals of a given size (*intervalMinBins*).
+    It is going to look for pulse-free intervals, calculate their FFT(not filtered data) and average them.
+    
+    Another facillity is calculate the weight matrix of the noise (in fact, weight matrixes of the noise of different lengths).
+    
+    The output FITS file (_noisespec) contains three columns in two extensions, *NOISE* and *NOISEALL*:
+        - **FREQ**: Frequency
+        - **CSD**: Current noise spectral density: Amount of current per unit (density) of frequency (spectral), as a function of the frequency
+        - **SIGMACSD**: Standard error of the mean (filled out with 0's at the moment)
+        
+    There is also other extension, *WEIGHTMS*, where the weight matrices of the noise are stored.
+    
+    Steps: 
+    
+    - Reading all programm parameters by using PIL
+    - Open input FITS file
+    - Read ``IMIN`` and ``IMAX`` to calculate ADUCNV
+    - Read keywords to transform to resistance space
+    - Read and check other input keywords
+    - Get structure of input FITS file columns
+    - Initialize variables and transform from seconds to samples
+    - Declare variables
+    - Create structure to run Iteration
+    - Read columns (**TIME** and **ADC**)
+        - Called iteration function: :cpp:func:`inDataIterator`
+    - Close input FITS file
+    - Generate CSD representation
+        - Applying :cpp:func:`medianKappaClipping_noiseSigma` in order to remove the noise intervals with a high sigma
+        - FFT calculus (EventSamplesFFT)
+        - Add to mean FFT samples
+        - Current noise spectral density
+        - Extra normalization (further than the FFT normalization factor,1/n) in order to get the apropriate noise level provided by Peille (54 pA/rHz)
+    - Load in noiseIntervals only those intervals with a proper sigma and NumMeanSamples = cnt (in order not to change excesively the code when weightMS) 
+    - Generate WEIGHT representation
+    - Create output FITS File: GENNOISESPEC representation file 
+    - Write extensions *NOISE*, *NOISEALL* and *WEIGHTMS* (call :cpp:func:`writeTPSreprExten`)
+    - Free allocated GSL vectors
+    - Close output FITS file
+    - Free memory
+    - Finalize the task
+    
+    The parameters (*struct Parameters* **par**) read by :cpp:func:`getpar_noiseSpec` are:
+    
+    char **inFile** 
+    
+        Name of the input FITS file
+        
+    char **outFile** 
+    
+        Name of the output FITS file
+    
+    int **intervalMinSamples**
+    
+        Minimum length of a pulse-free interval to use (samples) = *intervalMinBins*
+    
+    int **nplPF**
+    
+        Number of pulse lengths after ending the pulse (Tend) to start the pulse-free interval
+    
+    int **nintervals**
+    
+        Number of pulse-free intervals to use to calculate the Noise Spectral Density
+        
+    double **scaleFactor**
+    
+        Scale factor to apply in order to calculate the LPF box-car length
+        
+    int **samplesUp**
+    
+        Consecutive samples over the threshold to locate a pulse
+        
+    double **nSgms**
+    
+        Number of Sigmas to establish the threshold
+        
+    int **pulse_length**
+    
+        Pulse length (samples)
+        
+    double **LrsT**
+    
+        Running sum length (seconds) 
+        
+    double **LbT**
+    
+        Baseline averaging length (seconds)
+        
+    char **weightMS**
+    
+        Calculate and write the weight matrixes if *weightMS=yes*
+        
+    char **I2R** 
+    
+        Transform to resistance space (I2R, I2RALL, I2RNOL, I2RFITTED) or not (I)
+        
+    char **clobber**
+    
+        Re-write output files if clobber=yes
+        
+    int **matrixSize**
+    
+        Size of noise matrix if only one to be created
+
 .. cpp:function:: int getB(gsl_vector *vectorin, gsl_vector *tstart, int nPulses, gsl_vector **lb, int sizepulse, gsl_vector **B, gsl_vector **rmsB)
     
     Located in file: *pulseprocess.cpp*
@@ -2894,9 +3373,42 @@ Search functions by name at :ref:`genindex`.
         Input/Output status
     
     
+.. cpp:function:: int getpar(struct Parameters* const par)
+
+    Located in file: *tesreconstruction.cpp*
+    
+    This function gets the input parameter from the command line or their default values from the *tesreconstruction.par* file
+    
+    **Members/Variables**
+    
+    struct Parameters* const **par**
+    
+        Structure containing the input parameters specified in *tesreconstruction.par*
+        
+    .. cpp:member:: struct Parameters* const par
+    
+        Structure containing the input parameters specified in *tesreconstruction.par*
+        
+        
+.. cpp:function:: int getpar_noiseSpec(struct Parameters* const par)
+
+    Located in file: *gennoisespec.cpp*
+    
+    This function gets the input parameter from the command line or their default values from the *gennoisespec.par* file
+    
+    **Members/Variables**
+    
+    struct Parameters* const **par**
+    
+        Structure containing the input parameters specified in *gennoisespec.par*
+        
+    .. cpp:member:: struct Parameters* const par
+    
+        Structure containing the input parameters specified in *gennoisespec.par*
+   
 .. cpp:function:: int getPulseHeight(gsl_vector *vectorin, double tstart, double tstartnext, int lastPulse, double lrs, double lb, double B, int sizepulse, double *pulseheight)
     
-    Located  in file: *pulseprocess.cpp*
+    Located in file: *pulseprocess.cpp*
     
     This function estimates the pulse height of a pulse by using a running sum filter. It extracts from the record, :cpp:member:`vectorin`, the pulse whose 
     pulse height is going to be estimated by using :cpp:func:`RS_filter`.
@@ -3131,7 +3643,90 @@ Search functions by name at :ref:`genindex`.
 
 .. _I:
 
-.. cpp:function:: extern_C_void initializeReconstructionSIRENA(ReconstructInitSIRENA* reconstruct_init, char* const record_file, fitsfile *fptr, char* const library_file, char* const event_file, int pulse_length, double scaleFactor, double samplesUp, double samplesDown, double nSgms, int detectSP, int opmode, char *detectionMode, double LrsT, double LbT, char* const noise_file, char* filter_domain, char* filter_method, char* energy_method, double filtEev, char *ofnoise, int lagsornot, int nLags, int Fitting35, int ofiter, char oflib, char *ofinterp, char* oflength_strategy, int oflength, int preBuffer, double monoenergy, char hduPRECALWN, char hduPRCLOFWM, int largeFilter, int interm, char* const detectFile, char* const filterFile, int errorT, int Sum0Filt, char clobber, int maxPulsesPerRecord, double SaturationValue, char* const tstartPulse1, int tstartPulse2, int tstartPulse3, double energyPCA1, double energyPCA2, char * const XMLFile, int* const status)
+.. cpp:function:: int inDataIterator(long totalrows, long offset, long firstrow, long nrows, int ncols, iteratorCol *cols, void *user_strct)
+
+    Located in file: *gennoisespec.cpp*
+    
+    This function takes the optimum number of rows to read the input FITS file and works iteratively
+
+    Steps:
+    
+    - Declare variables
+    - Allocate input GSL vectors
+    - Read iterator
+    - Processing each record
+        - Information has been read by blocks (with nrows per block)
+        - Just in case the last record has been filled out with 0's :math:`\Rightarrow` Last record discarded
+        - To avoid taking into account the pulse tails at the beginning of a record as part of a pulse-free interval
+        - Low-pass filtering
+   	- Differentiate 
+   	- Finding the pulses: Pulses tstarts are found (call :cpp:func:`findPulsesNoise`)
+        - Finding the pulse-free intervals in each record
+            - If there are pulses :math:`\Rightarrow` Call :cpp:func:`findInterval`
+            - No pulses :math:`\Rightarrow` The whole event is going to be used (DIVIDING into intervals of intervalMinBins size) :math:`\Rightarrow` Call :cpp:func:`findIntervalN`
+        - Calculating the mean and sigma of the intervals without pulses together :math:`\Rightarrow` *BSLN0* and *NOISESTD*
+    - Preparing the CSD calculus (not filtered data)
+    - Free allocated GSL vectors
+    
+    **Members/Variables**
+    
+    long **totalrows**
+    
+        Total number of rows processed
+    
+    long **offset**
+    
+        If positive, this number of rows at the beginning of the table (or pixels in the image) will be skipped and will not be passed to the work function
+    
+    long **firstrow**
+    
+        First row to read
+    
+    long **nrows**
+    
+        It specifies the number of table rows that are to be passed to the work function on each iteration. If *nrows = 0* then CFITSIO will calculate the optimum number for greatest efficiency. If *nrows* is negative, then all the rows or pixels will be passed at one time, and the work function will only be called once. If any variable length arrays are being processed, then the *nrows* value is ignored, and the iterator will always process one row of the table at a time
+    
+    int **ncols**
+    
+        Number of columns
+    
+    iteratorCol* **cols**
+    
+        Structure of iteration
+    
+    void* **user_strct**
+    
+        This is a user supplied pointer that can be used to pass ancillary information from the driver routine to the work function. It may point to a single number, an array, or to a structure containing an arbitrary set of parameters
+        
+    .. cpp:member:: long totalrows
+    
+        Total number of rows processed
+    
+    .. cpp:member:: long offset
+    
+        If positive, this number of rows at the beginning of the table (or pixels in the image) will be skipped and will not be passed to the work function
+    
+    .. cpp:member:: long firstrow
+    
+        First row to read
+    
+    .. cpp:member:: long nrows
+    
+        It specifies the number of table rows that are to be passed to the work function on each iteration. If *nrows = 0* then CFITSIO will calculate the optimum number for greatest efficiency. If *nrows* is negative, then all the rows or pixels will be passed at one time, and the work function will only be called once. If any variable length arrays are being processed, then the *nrows* value is ignored, and the iterator will always process one row of the table at a time
+    
+    .. cpp:member:: int ncols
+    
+        Number of columns
+    
+    .. cpp:member:: iteratorCol* cols
+    
+        Structure of iteration
+    
+    .. cpp:member:: void* user_strct
+    
+        This is a user supplied pointer that can be used to pass ancillary information from the driver routine to the work function. It may point to a single number, an array, or to a structure containing an arbitrary set of parameters
+
+.. cpp:function:: extern_C_void initializeReconstructionSIRENA(ReconstructInitSIRENA* reconstruct_init, char* const record_file, fitsfile *fptr, char* const library_file, char* const event_file, int pulse_length, double scaleFactor, int samplesUp, int samplesDown, double nSgms, int detectSP, int opmode, char *detectionMode, double LrsT, double LbT, char* const noise_file, char* filter_domain, char* filter_method, char* energy_method, double filtEev, char *ofnoise, int lagsornot, int nLags, int Fitting35, int ofiter, char oflib, char *ofinterp, char* oflength_strategy, int oflength, int preBuffer, double monoenergy, char hduPRECALWN, char hduPRCLOFWM, int largeFilter, int interm, char* const detectFile, char* const filterFile, int errorT, int Sum0Filt, char clobber, int maxPulsesPerRecord, double SaturationValue, char* const tstartPulse1, int tstartPulse2, int tstartPulse3, double energyPCA1, double energyPCA2, char * const XMLFile, int* const status)
     
     Located in file: *integraSIRENA.cpp*
     
@@ -3172,11 +3767,11 @@ Search functions by name at :ref:`genindex`.
     
         Detection scale factor for initial filtering, :option:`scaleFactor`
         
-    double **samplesUp**
+    int **samplesUp**
     
         Number of samples for threshold trespassing, :option:`samplesUp`
         
-    double **samplesDown**
+    int **samplesDown**
     
         Number of samples below the threshold to look for other pulse, :option:`samplesDown`
         
@@ -3369,11 +3964,11 @@ Search functions by name at :ref:`genindex`.
     
         Detection scale factor for initial filtering, :option:`scaleFactor`
         
-    .. cpp:member:: double samplesUp
+    .. cpp:member:: int samplesUp
     
         Number of samples for threshold trespassing, :option:`samplesUp`
         
-    .. cpp:member:: double samplesDown
+    .. cpp:member:: int samplesDown
     
         Number of samples below the threshold to look for other pulse, :option:`samplesDown`
         
@@ -4027,6 +4622,97 @@ Search functions by name at :ref:`genindex`.
         Calculated threshold
         
 
+.. cpp:function:: int medianKappaClipping_noiseSigma (gsl_vector *invector, double kappa, double stopCriteria, double nSigmas, double *mean, double *sigma)
+    
+    Located in file: *gennoisespec.cpp*
+    
+    
+    This function provides the mean and the sigma of an input vector (with noise sigmas) by using a Kappa-clipping 
+    method (replacing points beyond :math:`mean\pm kappa \cdot sigma` with the median).
+
+    First, mean and sigma are calculated and :cpp:member:`invector` values out of :math:`(mean+kappa \cdot sigma,mean-kappa \cdot sigma)` are replaced
+    with the median (it is trying to look for the baseline). And this process is iteratively repeated until there are
+    no points beyond :math:`mean \pm kappa \cdot sigma`. Finally, the mean and sigma of the resulting vector are provided.
+    
+    Steps: 
+    
+    - Declare variables
+    - Calculate the median
+    - Iterate until there are no points out of the maximum excursion ( :math:`kappa \cdot sigma`)
+    - Calculate mean and sigma
+    
+    **Members/Variables**
+    
+    gsl_vector* **invector**
+         
+        First derivative of the (filtered) record
+        
+    double **kappa**
+         
+        Value to establish the range around of the mean
+        
+    double **stopCriteria**
+         
+        It is given in %
+        
+    double **nSigmas**
+         
+        Times sigma to calculate threshold as :math:`mean+nSigmas \cdot sigma`
+        
+    double* **mean**
+         
+        Mean value of the :cpp:member:`invector` (no points beyond :math:`mean \pm kappa \cdot sigma`)
+        
+    double* **sigma**
+         
+        Sigma value of the :cpp:member:`invector` (no points beyond :math:`mean \pm kappa \cdot sigma`)
+        
+    .. cpp:member:: gsl_vector* invector
+         
+        First derivative of the (filtered) record
+        
+    .. cpp:member:: double kappa
+         
+        Value to establish the range around of the mean
+        
+    .. cpp:member:: double stopCriteria
+         
+        It is given in %
+        
+    .. cpp:member:: double nSigmas
+         
+        Times sigma to calculate threshold as :math:`mean+nSigmas \cdot sigma`
+        
+    .. cpp:member:: int boxLPF
+         
+        Length of the low-pass filtering box-car
+        
+    .. cpp:member:: double* mean
+         
+        Mean value of the :cpp:member:`invector` (no points beyond :math:`mean \pm kappa \cdot sigma`)
+        
+    .. cpp:member:: double* sigma
+         
+        Sigma value of the :cpp:member:`invector` (no points beyond :math:`mean \pm kappa \cdot sigma`)
+
+        
+.. cpp:function:: void MyAssert(int expr, char* msg)
+
+    Located in file: *tesreconstruction.c*
+
+    This function displays an error message if the condition in :cpp:member:`expr` is true.
+    
+    **Members/Variables**
+    
+    int **expr**
+    
+        Condition to be true in order to display the error message
+    
+    char* msg 
+    
+        Message to be displayed
+    
+
 .. _N:
 
 .. cpp:function:: extern_C_OptimalFilterSIRENA* newOptimalFilterSIRENA(int* const status)    
@@ -4593,7 +5279,7 @@ Search functions by name at :ref:`genindex`.
     gsl_matrix* **weight**
 
         GSL matrix with weight matrix of the energy which is going to be added to the library
-	
+        
     gsl_vector* **pulsetemplateMaxLengthFixedFilter**
 
         GSL vector with the :option:`largeFilter`-length template whose energy is going to be added to the library
@@ -5126,6 +5812,500 @@ Search functions by name at :ref:`genindex`.
             
 .. _T:
 
+.. cpp:function:: int tesreconstruction_main()
+
+    Located in file: *tesreconstruction.c*
+    
+    This function is mainly a wrapper to pass a data file to the SIRENA tasks in order to reconstruct the energy of the incoming X-ray photons after their detection.
+    
+    It can run the SIRENA tasks or the Philippe Peille's tasks depending on the 'Rcmethod' selected.
+    
+    Steps:
+    
+    - Register HEATOOL
+    - Reading all programm parameters by using PIL
+    - Read XML info 
+    - Obtain the samplig rate and the 'trig_reclength':
+        - If Rcmethod starts with '@' :math:`\Rightarrow` List of record input FITS files. For every FITS file:
+            - Open FITS file
+            - If it is a xifusim simulated file
+                - Obtain the sampling rate from the HISTORY block
+                - Obtain 'trig_reclength' from the HISTORY block
+            - If it is a tessim simulated file
+                - Read DELTAT keyword to obtain the sampling rate
+        - If Rcemethod doesn't start with '@' :math:`\Rightarrow` Single record input FITS file
+            - Open FITS file
+            - If it is a xifusim simulated file
+                - Obtain the sampling rate from the HISTORY block
+                - Obtain 'trig_reclength' from the HISTORY block
+            - If it is a tessim simulated file
+                - Read DELTAT keyword to obtain the sampling rate
+    - Sixt standard keywords structure
+    - Open output FITS file
+    - Initialize PP data structures needed for pulse filtering
+    - Initialize SIRENA data structures needed for pulse filtering
+    - Read the grading data from the XML file and store it in 'reconstruct_init_sirena->grading'
+    - Build up TesEventList to recover the results of the reconstruction
+    - Reconstruct the input record FITS file:
+        - If Rcmethod starts with '@' :math:`\Rightarrow` List of record input FITS files. For every FITS file:
+            - Open record file
+            - Initialize: initializeReconstruction or initializeReconstructionSIRENA
+            - Build up TesRecord to read the file
+            - Iterate of records and do the reconstruction
+                - Reconstruct: reconstructRecord or reconstructRecordSIRENA
+                - Save events to the event_list
+                - Copy trigger keywords to event file
+                - Close file
+        - If Rcemethod doesn't start with '@' :math:`\Rightarrow` Single record input FITS file
+            - Open record file
+            - Initialize: initializeReconstruction or initializeReconstructionSIRENA
+            - Build up TesRecord to read the file
+            - Iterate of records and do the reconstruction
+                - Reconstruct: reconstructRecord or reconstructRecordSIRENA
+                - Save events to the event_list
+                - Copy trigger keywords to event file
+                - Close file
+    - Save GTI extension to event file
+    - Free memory
+    
+    The user must supply the following input parameters (*tesreconstruction.par* file).
+    
+    Common parameters:
+
+    char **Rcmethod** 
+        
+        Reconstruction method (**PP** or **SIRENA**). If SIRENA :math:`\Rightarrow` If Rcmethod starts with '@' it provides a file text containing several record input FITS files
+        
+    char **RecordFile**
+    
+        Record FITS file
+        
+    char **TesEventFile**
+    
+        Output event list file
+        
+    int **PulseLength**
+    
+        Pulse length
+        
+    int **EventListSize**
+    
+        Default size of the event list
+        
+    char **clobber**
+    
+        Overwrite or not output files if exist (1/0)
+        
+    char **history**
+    
+        Write program parameters into output file
+        
+    PP parameters:
+    
+    double **SaturationValue**
+    
+        Saturation level of the ADC curves
+        
+    char **OptimalFilterFile**
+    
+        Optimal filters file
+        
+    char **PulseTemplateFile**
+    
+        Pulse template file
+        
+    double **Threshold**
+    
+        Threshold level
+    
+    double **Calfac**
+    
+        Calibration factor (should be read from the xml file)
+    
+    int **NormalExclusion**
+    
+        Minimal distance before using OFs after a misreconstruction
+    
+    int **DerivateExclusion**
+    
+        Minimal distance before reconstructing any event after a misreconstruction
+
+    SIRENA parameters:
+    
+    char **LibraryFile**
+    
+        File with calibration library
+        
+    double **scaleFactor**
+    
+        Detection scale factor for initial filtering
+        
+    int **samplesUp**
+    
+        Number of consecutive samples up for threshold trespassing (only used in calibration run, and in production run with **STC** detection mode)
+    
+    int **samplesDown**
+    
+        Number of consecutive samples below the threshold to look for other pulse (only used in production run with **STC** detection mode)
+    
+    double **nSgms**
+    
+        Number of quiescent-signal standard deviations to establish the threshold through the kappa-clipping algorithm
+        
+    int **detectSP**
+    
+        Detect secondary pulses (1) or not (0)
+    
+    double **LrsT**
+    
+        Running sum length for the RS raw energy estimation (seconds) (only for library creation)
+
+    double **LbT**
+    
+        Baseline averaging length (seconds)
+    
+    double **monoenergy**
+    
+        Monochromatic energy of the pulses in the input FITS file in eV (only for library creation)
+
+    char **hduPRECALWN**
+    
+        Add or not the PRECALWN HDU in the library file (1/0) (only for library creation)
+
+    char **hduPRCLOFWM**
+    
+        Add or not the PRCLOFWM HDU in the library file (1/0) (only for library creation)
+        
+    int **largeFilter**
+    
+        Length of the longest fixed filter (only for library creation)
+
+    int **opmode**
+    
+        Calibration run (0) or energy reconstruction run (1)
+        
+    char **detectionMode**
+    
+        Adjusted Derivative (**AD**) or Single Threshold Crossing (**STC**)
+
+    char **NoiseFile**
+    
+        Noise FITS file with noise spectrum
+        
+    char **FilterDomain**
+    
+        Filtering Domain: Time (**T**) or Frequency (**F**)
+        
+    char **FilterMethod** 
+    
+        Filtering Method: **F0** (deleting the zero frequency bin) or **B0** (deleting the baseline)
+        
+    char **EnergyMethod**
+    
+        Energy calculation Method: **OPTFILT**, **WEIGHT**, **WEIGHTN**, **I2R**, **I2RALL**, **I2RNOL**, **I2RFITTED** or **PCA**
+        
+    double **filtEeV**
+    
+        Energy of the filters of the library to be used to calculate energy (only for **OPTFILT**, **I2R**, **I2RALL**, **I2RNOL** and **I2RFITTED**)
+        
+    char **OFNoise**
+    
+        Noise to use with Optimal Filtering: **NSD** or **WEIGHTM**
+        
+    int **LagsOrNot**
+    
+        Lags or no lags (1/0)
+        
+    int **nLags**
+    
+        Number of lags (positive odd number)
+        
+    int **Fitting35**
+    
+        Number of lags to analytically calculate a parabola (3) or to fit a parabola (5)
+    
+    int **OFIter**
+    
+        Iterate or not iterate (1/0)
+    
+    int **OFLib**
+    
+        Work or not with a library with optimal filters (1/0)
+        
+    char **OFStrategy** 
+    
+        Optimal Filter length Strategy: **FREE**, **BYGRADE** or **FIXED**
+        
+    int **OFLength**
+    
+        Optimal Filter length (taken into account if :option:`OFStrategy` = **FIXED**)
+        
+    int **preBuffer**
+    
+        Some samples added before the starting time of a pulse
+        
+    int **intermediate**
+    
+        Write or not intermediate files (1/0)
+        
+    char **detectFile**
+    
+        Intermediate detections file (if intermediate*=1)
+        
+    char **filterFile**
+    
+        Intermediate filters file (if intermediate=1)
+        
+    int **errorT**
+    
+        Additional error (in samples) added to the detected time (Logically, it changes the reconstructed energies )
+        
+    int **Sum0Filt**
+    
+        0-padding: Subtract the sum of the filter (1) or not (0)
+        
+    char **tstartPulse1** 
+    
+        Integer number: Sample where the first pulse starts or nameFile: File where the tstart (seconds) of every pulse is
+    
+    int **tstartPulse2**
+    
+        Tstart (samples) of the second pulse
+        
+    int **tstartPulse3**
+    
+        Tstart (samples) of the third pulse (if 0 :math:`\Rightarrow` PAIRS, if not 0 :math:`\Rightarrow` TRIOS)
+        
+    double **energyPCA1**
+    
+        First energy (only for PCA)
+        
+    double **energyPCA2**
+    
+        Second energy (only for PCA)
+    
+    char **XMLFile**
+    
+        XML input FITS file with instrument definition
+        
+    .. cpp:member:: char Rcmethod
+        
+        Reconstruction method (**PP** or **SIRENA**)
+        SIRENA: If Rcmethod starts with '@' it provides a file text containing several record input FITS files
+        
+    .. cpp:member:: char RecordFile
+    
+        Record FITS file
+        
+    .. cpp:member:: char TesEventFile
+    
+        Output event list file
+        
+    .. cpp:member:: int PulseLength
+    
+        Pulse length
+        
+    .. cpp:member:: int EventListSize
+    
+        Default size of the event list
+        
+    .. cpp:member:: char clobber
+    
+        Overwrite or not output files if exist (1/0)
+        
+    .. cpp:member:: char history
+    
+        Write program parameters into output file
+        
+    PP parameters:
+    
+    .. cpp:member:: double SaturationValue
+    
+        Saturation level of the ADC curves
+        
+    .. cpp:member:: char OptimalFilterFile 
+    
+        Optimal filters file
+        
+    .. cpp:member:: char PulseTemplateFile
+    
+        Pulse template file
+        
+    .. cpp:member:: double Threshold
+    
+        Threshold level
+    
+    .. cpp:member:: double Calfac
+    
+        Calibration factor (should be read from the xml file)
+    
+    .. cpp:member:: int NormalExclusion
+    
+        Minimal distance before using OFs after a misreconstruction
+    
+    .. cpp:member:: int DerivateExclusion
+    
+        Minimal distance before reconstructing any event after a misreconstruction
+
+    SIRENA parameters:
+    
+    .. cpp:member:: char LibraryFile
+    
+        File with calibration library
+        
+    .. cpp:member:: double scaleFactor
+    
+        Detection scale factor for initial filtering
+        
+    .. cpp:member:: int samplesUp
+    
+        Number of consecutive samples up for threshold trespassing (only used in calibration run, and in production run with **STC** detection mode)
+    
+    .. cpp:member:: int samplesDown
+    
+        Number of consecutive samples below the threshold to look for other pulse (only used in production run with **STC** detection mode)
+    
+    .. cpp:member:: double nSgms
+    
+        Number of quiescent-signal standard deviations to establish the threshold through the kappa-clipping algorithm
+        
+    .. cpp:member:: int detectSP
+    
+        Detect secondary pulses (1) or not (0)
+    
+    .. cpp:member:: double LrsT
+    
+        Running sum length for the RS raw energy estimation (seconds) (only for library creation)
+
+    .. cpp:member:: double LbT
+    
+        Baseline averaging length (seconds)
+    
+    .. cpp:member:: double monoenergy
+    
+        Monochromatic energy of the pulses in the input FITS file in eV (only for library creation)
+
+    .. cpp:member:: char hduPRECALWN
+    
+        Add or not the PRECALWN HDU in the library file (1/0) (only for library creation)
+
+    .. cpp:member:: char hduPRCLOFWM
+    
+        Add or not the PRCLOFWM HDU in the library file (1/0) (only for library creation)
+        
+    .. cpp:member:: int largeFilter
+    
+        Length of the longest fixed filter (only for library creation)
+
+    .. cpp:member:: int opmode
+    
+        Calibration run (0) or energy reconstruction run (1)
+        
+    .. cpp:member:: char detectionMode
+    
+        Adjusted Derivative (**AD**) or Single Threshold Crossing (**STC**)
+
+    .. cpp:member:: char NoiseFile
+    
+        NoiseFile: Noise FITS file with noise spectrum
+        
+    .. cpp:member:: char FilterDomain
+    
+        Filtering Domain: Time (**T**) or Frequency (**F**)
+        
+    .. cpp:member:: char FilterMethod 
+    
+        Filtering Method: **F0** (deleting the zero frequency bin) or **B0** (deleting the baseline)
+        
+    .. cpp:member:: char EnergyMethod
+    
+        Energy calculation Method: **OPTFILT**, **WEIGHT**, **WEIGHTN**, **I2R**, **I2RALL**, **I2RNOL**, **I2RFITTED** or **PCA**
+        
+    .. cpp:member:: double filtEeV
+    
+        Energy of the filters of the library to be used to calculate energy (only for **OPTFILT**, **I2R**, **I2RALL**, **I2RNOL** and **I2RFITTED**)
+        
+    .. cpp:member:: char OFNoise
+    
+        Noise to use with Optimal Filtering: **NSD** or **WEIGHTM**
+        
+    .. cpp:member:: int LagsOrNot
+    
+        Lags or no lags (1/0)
+        
+    .. cpp:member:: int nLags
+    
+        Number of lags (positive odd number)
+        
+    .. cpp:member:: int Fitting35
+    
+        Number of lags to analytically calculate a parabola (3) or to fit a parabola (5)
+    
+    .. cpp:member:: int OFIter
+    
+        Iterate or not iterate (1/0)
+    
+    .. cpp:member:: int OFLib
+    
+        Work or not with a library with optimal filters (1/0)
+        
+    .. cpp:member:: char OFStrategy 
+    
+        Optimal Filter length Strategy: **FREE**, **BYGRADE** or **FIXED**
+        
+    .. cpp:member:: int OFLength
+    
+        Optimal Filter length (taken into account if :option:`OFStrategy` = **FIXED**)
+        
+    .. cpp:member:: int preBuffer
+    
+        Some samples added before the starting time of a pulse
+        
+    .. cpp:member:: int intermediate
+    
+        Write or not intermediate files (1/0)
+        
+    .. cpp:member:: char detectFile 
+    
+        Intermediate detections file (if intermediate*=1)
+        
+    .. cpp:member:: char filterFile
+    
+        Intermediate filters file (if intermediate=1)
+        
+    .. cpp:member:: int errorT
+    
+        Additional error (in samples) added to the detected time (Logically, it changes the reconstructed energies )
+        
+    .. cpp:member:: int Sum0Filt
+    
+        0-padding: Subtract the sum of the filter (1) or not (0)
+        
+    .. cpp:member:: char tstartPulse1 
+    
+        Integer number: Sample where the first pulse starts or nameFile: File where the tstart (seconds) of every pulse is
+    
+    .. cpp:member:: int tstartPulse2
+    
+        Tstart (samples) of the second pulse
+        
+    .. cpp:member:: int tstartPulse3
+    
+        Tstart (samples) of the third pulse (if 0 :math:`\Rightarrow` PAIRS, if not 0 :math:`\Rightarrow` TRIOS)
+        
+    .. cpp:member:: double energyPCA1
+    
+        First energy (only for PCA)
+        
+    .. cpp:member:: double energyPCA2
+    
+        Second energy (only for PCA)
+    
+    .. cpp:member:: char XMLFile
+    
+        XML input FITS file with instrument definition
+        
+    
 .. cpp:function:: int th_runDetect (TesRecord* record, int trig_reclength, int lastRecord, PulsesCollection *pulsesAll, ReconstructInitSIRENA** reconstruct_init, PulsesCollection** pulsesInRecord)
      
     Located in file: *tasksSIRENA.cpp*
@@ -5390,6 +6570,57 @@ Search functions by name at :ref:`genindex`.
         GSL matrix with weight matrix
     
     
+.. cpp:function:: int weightMatrixNoise (gsl_matrix *intervalMatrix, gsl_matrix **weight)
+
+    Located in file: *gennoisespec.cpp*
+    
+    This function calculates the weight matrix of the noise
+
+        :math:`D_i`: Pulse free interval
+        :math:`V`: Covariance matrix
+
+            :math:`V_{ij} = E[DiDj]-E[Di]E[Dj]` 
+
+        :math:`Di^p`: Value of the pth-sample of the pulse-free interval i
+        :math:`N`: Number of samples
+    
+        .. math::
+
+            & V_{ij} =  <D_iD_j> = E[D_iD_j] = (1/N)sum_{p=1}^{N}(Di^p)(Dj^p) \\
+            & V = \left[\begin{matrix} <D_1D_1> & <D_1D_2> & ... & <D_1D_n> \\
+            <D_2D_1> & <D_2D_2> & ... & <D_2D_n> \\
+            ....  &  ....  & ... &  ....  \\
+            <D_nD_1> & <D_nD_2> & ... & <D_nD_n>\end{matrix}\right]
+            
+        where *n* is the :option:`PulseLength` and thus :math:`V = [n \times n]`.
+        
+        The weight matrix :math:`W = 1/V`.
+        
+    Steps:
+
+    - Calculate the elements of the diagonal of the covariance matrix
+    - Calculate the elements out of the diagonal of the covariance matrix
+    - Calculate the weight matrix
+
+    **Members/Variables**
+    
+    gsl_matrix* **intervalMatrix**
+    
+        GSL matrix containing pulse-free intervals whose baseline is 0 (baseline previously subtracted) [nintervals x intervalMinSamples]
+        
+    gsl_matrix** **weight** 
+    
+        GSL matrix with weight matrix
+        
+    .. cpp:member:: gsl_matrix* intervalMatrix
+    
+        GSL matrix containing pulse-free intervals whose baseline is 0 (baseline previously subtracted) [nintervals x intervalMinSamples]
+        
+    .. cpp:member:: gsl_matrix** weight 
+    
+        GSL matrix with weight matrix
+    
+    
 .. cpp:function:: int writeFilterHDU(ReconstructInitSIRENA **reconstruct_init, int pulse_index, double energy, gsl_vector *optimalfilter, gsl_vector *optimalfilter_f, gsl_vector *optimalfilter_FFT, fitsfile **dtcObject)
     
     Located in file: *tasksSIRENA.cpp*
@@ -5569,7 +6800,7 @@ Search functions by name at :ref:`genindex`.
     fitsfile** **inLibObject**
 
         FITS object containing information of the library FITS file 
-	
+
     gsl_vector* **pulsetemplateMaxLengthFixedFilter**
 
         GSL vector with the :option:`largeFilter`-length pulse template whose energy is going to be added to the library
@@ -5813,6 +7044,21 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: fitsfile dtcObject
 
         Object which contains information of the intermediate FITS file
+   
+   
+.. cpp:function:: int writeTPSreprExten ()
+
+    Located in file: *gennoisespec.cpp*
+    
+    This function writes the noisespec output FITS file.
+
+    Steps:
+    
+    - Allocate GSL vectors
+    - Write the data in the output FITS file (print only half of FFT to prevent aliasing)
+    - *NOISE* HDU only contains positive frequencies (:math:`\Rightarrow` Multiply by 2 the amplitude)
+    - *NOISEALL* HDU contains negative and positive frequencies :math:`\Rightarrow` It is the HDU read to build the optimal filters
+    - *WEIGHTMS* HDU
    
    
 .. _X:

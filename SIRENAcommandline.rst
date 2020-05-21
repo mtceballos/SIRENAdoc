@@ -25,39 +25,41 @@ The user must supply the following input parameters:
 
 .. _gennoisePars:
 
-.. option:: --inFile=<str>
+.. option:: inFile=<str>
 
 	Name of the input FITS file (stream splitted into records).
 
 	Default: *a.fits*
 
-.. option:: --outFile=<str>
+.. option:: outFile=<str>
 
 	Name of the output FITS file with the current noise spectral density.
 
 	Default: *a_noisespec.fits*
 
-.. option:: --intervalMinSamples=<int>
+.. option:: intervalMinSamples=<int>
 
 	Minimum length (in samples) of a pulse-free interval to use. 
 	
-	It will be redefined as the base-2 system value closest-lower than or equal than :option:`--intervalMinSamples`.
+	It will be redefined as the base-2 system value closest-lower than or equal than :option:`intervalMinSamples`.
 	
 	Default: 8192
 
-.. option:: --nplPF=<real>
+.. option:: nplPF=<real>
 
 	Number of pulse lengths after the end of the pulse to start the pulse-free interval searching (only relevant if pulse detection in the stream has to be performed).
 
 	Default: 0
 
-.. option:: --nintervals=<int>
+.. option:: nintervals=<int>
 
 	Number of pulse-free intervals to use for the noise average.
 
 	Default: 1000
 
-.. option:: --scaleFactor=<real>
+.. _scaleFactor_gennoisespec:
+
+.. option:: scaleFactor=<real>
         
 	Scale factor to apply to make possible a variable cut-off frequency of the low-pass filter. In fact, the cut-off frequency of the filter is :math:`1/(\pi \cdot sF)` and therefore, the box-car length is :math:`\pi \cdot sF \cdot samprate` (see :ref:`Low-Pass filtering <lpf>`).
 	
@@ -65,61 +67,71 @@ The user must supply the following input parameters:
 	
 	Default: 0
 
-.. option:: --samplesUp=<int>
+.. _samplesUp_gennoisespec:
+
+.. option:: samplesUp=<int>
 
 	Consecutive samples that the signal must cross over the threshold to trigger a pulse detection (only relevant if pulse detection in the stream has to be performed).
 
 	Default: 3
 
-.. option:: --nSgms=<real> 
+.. _nSgms_gennoisespec:
+
+.. option:: nSgms=<real> 
 
 	Number of quiescent-signal standard deviations to establish the threshold through the *kappa-clipping* algorithm (only relevant if pulse detection in the stream has to be performed).
 
 	Default: 3.5
 
-.. option:: --pulse_length=<int> 
+.. option:: pulse_length=<int> 
 
 	Pulse length in samples. 
 
 	Default: 8192
 
-.. option:: --LrsT=<secs> 
+.. _LrsT_gennoisespec:
+
+.. option:: LrsT=<secs> 
 
 	Running sum (RS) length for the RS-filtering for raw energy estimation, in seconds. 
 
 	Default: 3.E-5
 
-.. option:: --LbT=<secs> 
+.. _LbT_gennoisespec:
+
+.. option:: LbT=<secs> 
 
 	Baseline averaging length for the RS-filtering for raw energy estimation, in seconds. 
 
 	Default: 1.E-3
 	
-.. option:: --weightMS=<yes|no> 
+.. option:: weightMS=<yes|no> 
 
 	Calculate and write the weight matrixes if *yes*.
 
 	Default: *no*
 	
-.. option:: --namelog=<str>
+.. option:: namelog=<str>
 
 	Output log file name. 
 
 	Default: *noise_log.txt*
 
-.. option:: --clobber=<yes|no> 
+.. _clobber_gennoisespec:
+
+.. option:: clobber=<yes|no> 
 	
 	Overwrite output files if they exist. 
 
 	Default: *no*
 
-.. option:: --verbosity=<1|2|3> 
+.. option:: verbosity=<1|2|3> 
 
 	Verbosity level of the output log file. 
 
 	Default: 3
 
-.. option:: --matrixSize=<int> 
+.. option:: matrixSize=<int> 
 
 	Size of noise matrix if only one to be calculated, in samples. 
 
@@ -131,8 +143,8 @@ A typical command line run of this tool would be:
 
 ::
 
-	> gennoisespec --inFile=noise.fits --outFile=noiseSpec.fits --intervalMinSamples=pulseLength \
-    		--pulse_length=pulseLength --nintervals=1000 
+	> gennoisespec inFile=noise.fits outFile=noiseSpec.fits intervalMinSamples=pulseLength \
+    		pulse_length=pulseLength nintervals=1000 
 
 .. _outNoise:
 
@@ -153,7 +165,7 @@ The *NOISE* HDU contains two keywords:
 
 The *NOISEALL* HDU contains **FREQ** and **CSD** columns for positive and negative frequencies.
 
-If :option:`--weightMS` = *yes*, the *WEIGHTMS* HDU contains **Wx** columns. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the :option:`--intervalMinSamples` decreasing until 2. If :option:`--matrixSize` is different from 0, only the **Wx** column being *x* equals to :option:`--matrixSize` is calculated (although the rest columns appear in the HDU, they are filled with 0's).
+If :option:`weightMS` = *yes*, the *WEIGHTMS* HDU contains **Wx** columns. The lengths *x* will be base-2 values and will vary from the base-2 system value closest-lower than or equal-to the :option:`intervalMinSamples` decreasing until 2. If :option:`matrixSize` is different from 0, only the **Wx** column being *x* equals to :option:`matrixSize` is calculated (although the rest columns appear in the HDU, they are filled with 0's).
 
 
 .. _tesreconstruction:
@@ -199,7 +211,7 @@ To run SIRENA implementation, the user must supply the following input parameter
 .. option::  EventListSize=<str> 
 
 	Default size of the event list. 
-
+ 
 	Default: 1000
 
 .. option::  LibraryFile=<str>
