@@ -2988,12 +2988,14 @@ Search functions by name at :ref:`genindex`.
     There is also other extension, *WEIGHTMS*, where the weight matrices of the noise are stored.
     
     Steps: 
-    
+       
     - Reading all programm parameters by using PIL
     - Open input FITS file
-    - Read ``IMIN`` and ``IMAX`` to calculate ADUCNV
+    - Check if input FITS file have been simulated with TESSIM or XIFUSIM
     - Read keywords to transform to resistance space
     - Read and check other input keywords
+    - Read the sampling rate from input FITS file (check its value with the samplinRate input parameter)
+    - Read other necessary keywords from ANY HDU
     - Get structure of input FITS file columns
     - Initialize variables and transform from seconds to samples
     - Declare variables
@@ -3077,6 +3079,10 @@ Search functions by name at :ref:`genindex`.
     int **matrixSize**
     
         Size of noise matrix if only one to be created
+        
+    double **samplingRate**
+    
+        Sampling rate (hertzs)
 
 .. cpp:function:: int getB(gsl_vector *vectorin, gsl_vector *tstart, int nPulses, gsl_vector **lb, int sizepulse, gsl_vector **B, gsl_vector **rmsB)
     
@@ -3231,7 +3237,7 @@ Search functions by name at :ref:`genindex`.
     char** **ofinterp**
     
         Optimal Filter by using the Matched Filter or the DAB as matched filter (*MF*/*DAB*)
-        It has been fixed in ':ref:`tesreconstruction` as *DAB* (but it would be possible to work with *MF*)
+        It has been fixed in :ref:`tesreconstruction` as *DAB* (but it would be possible to work with *MF*)
         
     double **filtEev**  
     
@@ -3288,7 +3294,7 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: char** ofinterp
     
         Optimal Filter by using the Matched Filter or the DAB as matched filter (*MF*/*DAB*)
-        It has been fixed in ':ref:`tesreconstruction` as *DAB* (but it would be possible to work with *MF*)
+        It has been fixed in :ref:`tesreconstruction` as *DAB* (but it would be possible to work with *MF*)
         
     .. cpp:member:: double filtEev  
     
@@ -5824,22 +5830,26 @@ Search functions by name at :ref:`genindex`.
     
     - Register HEATOOL
     - Reading all programm parameters by using PIL
-    - Read XML info 
-    - Obtain the samplig rate and the 'trig_reclength':
+    - Read XML info (including sampling rate)
+    - Obtain the samplig rate, and the 'trig_reclength' or the DELTAT:
         - If Rcmethod starts with '@' :math:`\Rightarrow` List of record input FITS files. For every FITS file:
             - Open FITS file
+            - Check if input FITS file have been simulated with TESSIM or XIFUSIM
+            - Obtain sampling rate in order to check with the value from the XML file
             - If it is a xifusim simulated file
-                - Obtain the sampling rate from the HISTORY block
+                - Obtain the sampling rate from the HISTORY block and check
                 - Obtain 'trig_reclength' from the HISTORY block
             - If it is a tessim simulated file
-                - Read DELTAT keyword to obtain the sampling rate
+                - Read DELTAT keyword to obtain the sampling rate and check
         - If Rcemethod doesn't start with '@' :math:`\Rightarrow` Single record input FITS file
             - Open FITS file
+            - Check if input FITS file have been simulated with TESSIM or XIFUSIM
+            - Obtain sampling rate in order to check with the value from the XML file
             - If it is a xifusim simulated file
-                - Obtain the sampling rate from the HISTORY block
+                - Obtain the sampling rate from the HISTORY block and check
                 - Obtain 'trig_reclength' from the HISTORY block
             - If it is a tessim simulated file
-                - Read DELTAT keyword to obtain the sampling rate
+                - Read DELTAT keyword to obtain the sampling rate and check
     - Sixt standard keywords structure
     - Open output FITS file
     - Initialize PP data structures needed for pulse filtering

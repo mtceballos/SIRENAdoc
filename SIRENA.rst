@@ -97,7 +97,7 @@ On one hand, the tool calculates the FFT of the non-discarded pulse-free interva
 ::
     
     > gennoisespec inFile=noise.fits outFile=noiseSpec.fits intervalMinSamples=pulseLength \
-    nintervals=1000 pulse_length=pulseLength 
+    nintervals=1000 pulse_length=pulseLength samplingRate=sampling_rate
                 
 .. _noiseSpec:
 
@@ -106,6 +106,8 @@ On one hand, the tool calculates the FFT of the non-discarded pulse-free interva
    :scale: 50%
    
    Noise spectrum (see noise file :ref:`description <outNoise>`)
+
+If :option:`samplingRate` is provided, it is tried to read it also from the input FITS file and both values are checked (from **HISTORY** in the case of ``xifusim`` and as the inverse of **DELTAT** in the case of ``tessim``). If :option:`samplingRate` is not provided, it is tried to read it from the input FITS file. 
 
 On the other hand, if :option:`weightMS` = *yes* the tool calculates the covariance matrix of the noise, :math:`V`, whose elements are expectation values (:math:`E[·]`) of two-point products for a pulse-free data sequence :math:`{di}` (over the unfiltered data) (:cite:`Fowler2015`)
 
@@ -126,7 +128,6 @@ The weight matrix is the inverse of the covariance matrix, :math:`V^{-1}`. The w
 :ref:`gennoisespec` also adds the ``BSLN0`` and ``NOISESTD`` keywords to the *NOISE* HDU in the *noise data* file. They store the mean and the standard deviation of the noise (by working with the long noise interval).
 
 If the noise spectrum or the weight matrixes are to be created from a data stream containing pulses, care should be taken with the parameters :ref:`scaleFactor <scaleFactor_gennoisespec>`, :ref:`samplesUp <samplesUp_gennoisespec>` and :ref:`nSgms <nSgms_gennoisespec>` responsible of the detection process.
-
       
 .. _library:
 
@@ -831,7 +832,7 @@ Examples
    samplesUp=3 nSgms=3.5 samplesDown=4 LibraryFile=libraryMultiE.fits\
    opmode=1 NoiseFile=noise8192samplesADC.fits FilterMethod=F0\
    clobber=yes intermediate=0 EnergyMethod=OPTFILT \
-   XMLFile=xifu_detector_lpa_75um_AR0.5_pixoffset_mux40_pitch275um.xml
+   XMLFile=xifu_detector_lpa_75um_AR0.5_pixoffset_mux40_pitch275um.xml 
 
 2) Energy reconstruction performed with the (F0) optimal filtering algorithm (filters extracted from the library) in the current space (known event position) for the detector described in the XMLFile:
 

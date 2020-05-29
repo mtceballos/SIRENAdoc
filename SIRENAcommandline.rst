@@ -136,16 +136,24 @@ The user must supply the following input parameters:
 	Size of noise matrix if only one to be calculated, in samples. 
 
 	Default: 0
+	
+.. _samplingRate_gennoisespec:
 
-At the current status, ``gennoisespec`` parameter structure is not integrated into the SIXTE parameter handling, so the tool input parameters are read by the C++ standard ``getopt_long`` module.
+.. option:: samplingRate=<Hz> 
+
+	Sampling rate, in hertzios. 
+
+	Default: -999.0
 
 A typical command line run of this tool would be:
 
 ::
 
 	> gennoisespec inFile=noise.fits outFile=noiseSpec.fits intervalMinSamples=pulseLength \
-    		pulse_length=pulseLength nintervals=1000 
+    		pulse_length=pulseLength nintervals=1000 samplingRate=sampling_rate
 
+If :option:`samplingRate` is provided, it is tried to read it also from the input FITS file and both values are checked (from **HISTORY** in the case of ``xifusim`` and as the inverse of **DELTAT** in the case of ``tessim``). If :option:`samplingRate` is not provided, it is tried to read it from the input FITS file. 
+    		
 .. _outNoise:
 
 The output FITS file contains three HDUs, *NOISE*, *NOISEALL* and *WEIGHTMS*.
