@@ -3803,7 +3803,7 @@ Search functions by name at :ref:`genindex`.
     
     double **LbT**
     
-        Baseline averaging length for the RS raw energy estimation (seconds), :option:`LbT`
+        Baseline averaging length (seconds), :option:`LbT`
     
     char* const **noise_file**
     
@@ -4000,7 +4000,7 @@ Search functions by name at :ref:`genindex`.
     
     .. cpp:member:: double LbT
     
-        Baseline averaging length for the RS raw energy estimation (seconds), :option:`LbT`
+        Baseline averaging length (seconds), :option:`LbT`
     
     .. cpp:member:: char* const noise_file
     
@@ -5831,7 +5831,7 @@ Search functions by name at :ref:`genindex`.
     - Register HEATOOL
     - Reading all programm parameters by using PIL
     - Read XML info (including sampling rate)
-    - Obtain the samplig rate, and the 'trig_reclength' or the DELTAT:
+    - Obtain the samplig rate and the 'trig_reclength':
         - If Rcmethod starts with '@' :math:`\Rightarrow` List of record input FITS files. For every FITS file:
             - Open FITS file
             - Check if input FITS file have been simulated with TESSIM or XIFUSIM
@@ -5840,7 +5840,7 @@ Search functions by name at :ref:`genindex`.
                 - Obtain the sampling rate from the HISTORY block and check
                 - Obtain 'trig_reclength' from the HISTORY block
             - If it is a tessim simulated file
-                - Read DELTAT keyword to obtain the sampling rate and check
+                - Check the sampling rate from the XML and from the input FITS file (inverse of DELTAT)
         - If Rcemethod doesn't start with '@' :math:`\Rightarrow` Single record input FITS file
             - Open FITS file
             - Check if input FITS file have been simulated with TESSIM or XIFUSIM
@@ -5849,7 +5849,7 @@ Search functions by name at :ref:`genindex`.
                 - Obtain the sampling rate from the HISTORY block and check
                 - Obtain 'trig_reclength' from the HISTORY block
             - If it is a tessim simulated file
-                - Read DELTAT keyword to obtain the sampling rate and check
+                - Check the sampling rate from the XML and from the input FITS file (inverse of DELTAT)
     - Sixt standard keywords structure
     - Open output FITS file
     - Initialize PP data structures needed for pulse filtering

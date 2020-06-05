@@ -101,7 +101,7 @@ The user must supply the following input parameters:
 
 .. option:: LbT=<secs> 
 
-	Baseline averaging length for the RS-filtering for raw energy estimation, in seconds. 
+	Baseline averaging length, in seconds. 
 
 	Default: 1.E-3
 	
@@ -268,7 +268,7 @@ To run SIRENA implementation, the user must supply the following input parameter
 
 .. option::  LbT=<secs>
 
-	Baseline averaging length for the RS raw energy estimation, in seconds (only used in calibration run).
+	Baseline averaging length, in seconds.
 
 	Default: 1.E-3
 
