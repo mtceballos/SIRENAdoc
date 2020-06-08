@@ -3732,7 +3732,7 @@ Search functions by name at :ref:`genindex`.
     
         This is a user supplied pointer that can be used to pass ancillary information from the driver routine to the work function. It may point to a single number, an array, or to a structure containing an arbitrary set of parameters
 
-.. cpp:function:: extern_C_void initializeReconstructionSIRENA(ReconstructInitSIRENA* reconstruct_init, char* const record_file, fitsfile *fptr, char* const library_file, char* const event_file, int pulse_length, double scaleFactor, int samplesUp, int samplesDown, double nSgms, int detectSP, int opmode, char *detectionMode, double LrsT, double LbT, char* const noise_file, char* filter_domain, char* filter_method, char* energy_method, double filtEev, char *ofnoise, int lagsornot, int nLags, int Fitting35, int ofiter, char oflib, char *ofinterp, char* oflength_strategy, int oflength, int preBuffer, double monoenergy, char hduPRECALWN, char hduPRCLOFWM, int largeFilter, int interm, char* const detectFile, char* const filterFile, int errorT, int Sum0Filt, char clobber, int maxPulsesPerRecord, double SaturationValue, char* const tstartPulse1, int tstartPulse2, int tstartPulse3, double energyPCA1, double energyPCA2, char * const XMLFile, int* const status)
+.. cpp:function:: extern_C_void initializeReconstructionSIRENA(ReconstructInitSIRENA* reconstruct_init, char* const record_file, fitsfile *fptr, char* const library_file, char* const event_file, int pulse_length, double scaleFactor, int samplesUp, int samplesDown, double nSgms, int detectSP, int opmode, char *detectionMode, double LrsT, double LbT, char* const noise_file, char* filter_domain, char* filter_method, char* energy_method, double filtEev, char *ofnoise, int lagsornot, int nLags, int Fitting35, int ofiter, char oflib, char *ofinterp, char* oflength_strategy, int oflength, int preBuffer, double monoenergy, char hduPRECALWN, char hduPRCLOFWM, int largeFilter, int interm, char* const detectFile, int errorT, int Sum0Filt, char clobber, int maxPulsesPerRecord, double SaturationValue, char* const tstartPulse1, int tstartPulse2, int tstartPulse3, double energyPCA1, double energyPCA2, char * const XMLFile, int* const status)
     
     Located in file: *integraSIRENA.cpp*
     
@@ -3889,10 +3889,6 @@ Search functions by name at :ref:`genindex`.
     char* const **detectFile**
     
         Intermediate detections file (if :option:`intermediate` = 1), :option:`detectFile`
-    
-    char* const **filterFile**
-    
-        Intermediate filters file (if :option:`intermediate` = 1), :option:`filterFile`
         
     int **errorT**
     
@@ -4086,10 +4082,6 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: char* const detectFile
     
         Intermediate detections file (if :option:`intermediate` = 1), :option:`detectFile`
-    
-    .. cpp:member:: char* const filterFile
-    
-        Intermediate filters file (if :option:`intermediate` = 1), :option:`filterFile`
         
     .. cpp:member:: int errorT
     
@@ -6062,10 +6054,6 @@ Search functions by name at :ref:`genindex`.
     
         Intermediate detections file (if intermediate*=1)
         
-    char **filterFile**
-    
-        Intermediate filters file (if intermediate=1)
-        
     int **errorT**
     
         Additional error (in samples) added to the detected time (Logically, it changes the reconstructed energies )
@@ -6278,10 +6266,6 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: char detectFile 
     
         Intermediate detections file (if intermediate*=1)
-        
-    .. cpp:member:: char filterFile
-    
-        Intermediate filters file (if intermediate=1)
         
     .. cpp:member:: int errorT
     
@@ -6631,29 +6615,21 @@ Search functions by name at :ref:`genindex`.
         GSL matrix with weight matrix
     
     
-.. cpp:function:: int writeFilterHDU(ReconstructInitSIRENA **reconstruct_init, int pulse_index, double energy, gsl_vector *optimalfilter, gsl_vector *optimalfilter_f, gsl_vector *optimalfilter_FFT, fitsfile **dtcObject)
+.. cpp:function:: int writeFilterHDU(ReconstructInitSIRENA **reconstruct_init, int pulse_index, double energy, gsl_vector *optimalfilter, fitsfile **dtcObject)
     
     Located in file: *tasksSIRENA.cpp*
     
     This function runs in RECONSTRUCTION mode and writes the optimal filter info (in the *FILTER* HDU) for each pulse
-    if :option:`intermediate` = 1.
+    if :option:`intermediate` = 1 and either :option:`OFLib` = no or :option:`OFLib` = yes, :option:`filtEeV` = 0 and the the number of energies in the library FITS file is greater than 1.
 
     - Declare variables
     - Open intermediate FITS file
-    - Create the *FILTER* HDU if it is the first pulse
-    - Write data
-    
-      - **OPTIMALF** column
-      
-      - **OFLENGTH** column
-      
-      - **FREQ** column
-      
-      - **OPTIMALFF** column
-      
-      - **ENERGY** column
-      
-    - Modify the *Primary* HDU
+    - If (:option:`OFLib` = no) or (option:`OFLib` = yes, :option:`filtEeV` = 0 and the the number of energies in the library FITS file is greater than 1):
+        - Create the *FILTER* HDU if it is the first pulse
+        - Write data:
+            - **OPTIMALF** or **OPTIMALFF** column (in time or frequency domain)
+            - **OFLENGTH** column
+    - Write **ENERGY** column in *PULSES* HDU
     - Close intermediate output FITS file if it is necessary
     - Free memory
 
@@ -6673,15 +6649,7 @@ Search functions by name at :ref:`genindex`.
         
     gsl_vector* **optimalfilter** 
     
-        Optimal filter in time domain
-        
-    gsl_vector* **optimalfilter_f**
-    
-        Frequency axis of the optimal filter spectrum
-        
-    gsl_vector* **optimalfilter_FFT**
-    
-        Optimal filter spectrum
+        Optimal filter (in time or frequency domain)
         
     fitsfile** **dtcObject** 
     
@@ -6701,15 +6669,7 @@ Search functions by name at :ref:`genindex`.
         
     .. cpp:member:: gsl_vector* optimalfilter 
     
-        Optimal filter in time domain
-        
-    .. cpp:member:: gsl_vector* optimalfilter_f
-    
-        Frequency axis of the optimal filter spectrum
-        
-    .. cpp:member:: gsl_vector* optimalfilter_FFT
-    
-        Optimal filter spectrum
+        Optimal filter (in time or frequency domain)
         
     .. cpp:member:: fitsfile** dtcObject 
     

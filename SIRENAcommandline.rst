@@ -404,12 +404,6 @@ To run SIRENA implementation, the user must supply the following input parameter
 	Intermediate detections FITS file (if :option:`intermediate` = 1).
 
 	Default: *detections.fits*
-
-.. option::  filterFile=<str> 
-
-	Intermediate filters FITS file (if :option:`intermediate` = 1).
-
-	Default: *filters.fits*
 	
 .. option::  errorT=<int> 
 
