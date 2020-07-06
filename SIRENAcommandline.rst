@@ -145,6 +145,12 @@ The user must supply the following input parameters:
 
 	Default: -999.0
 
+.. option:: rmNoiseInterval=<yes|no> 
+
+	Remove some noise intervals before calculating the noise spectrum if *yes*.
+
+	Default: *yes*
+
 A typical command line run of this tool would be:
 
 ::
@@ -230,11 +236,11 @@ To run SIRENA implementation, the user must supply the following input parameter
 
 .. option::  scaleFactor=<real> 
 	
-	Scale factor to apply to the fall time of the pulses to make possible a varying cut-off frequency of the low-pass filter (see :ref:`Low-Pass filtering <lpf>`).
+	Scale factor to apply to make possible a variable cut-off frequency of the low-pass filter. In fact, the cut-off frequency of the filter is :math:`1/(\pi \cdot sF)` and therefore, the box-car length is :math:`\pi \cdot sF \cdot samprate` (see :ref:`Low-Pass filtering <lpf>`).
 	
-	If this parameter is very small, this is equivalent to avoid filtering (cut-off frequency of the low-pass filter is too high). If the parameter is too large, the low-pass filter band is too narrow, and not only noise is rejected during the filtering, but also the signal.
-
-	Default: 0.0
+	If the :option:`scaleFactor` makes the box-car length :math:`\leq 1` is equivalent to not filter (cut-off frequency of the low-pass filter is too high). If the :option:`scaleFactor` is too large, the low-pass filter band is too narrow, and not only noise is rejected during the filtering, but also the signal.
+	
+	Default: 0
 
 .. option::  samplesUp=<int> 
 

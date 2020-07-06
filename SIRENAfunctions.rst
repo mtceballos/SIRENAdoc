@@ -3004,12 +3004,12 @@ Search functions by name at :ref:`genindex`.
         - Called iteration function: :cpp:func:`inDataIterator`
     - Close input FITS file
     - Generate CSD representation
-        - Applying :cpp:func:`medianKappaClipping_noiseSigma` in order to remove the noise intervals with a high sigma
+        - Applying :cpp:func:`medianKappaClipping_noiseSigma` in order to remove the noise intervals with a high sigma (if :option:`rmNoiseInterval` = yes)
         - FFT calculus (EventSamplesFFT)
         - Add to mean FFT samples
         - Current noise spectral density
         - Extra normalization (further than the FFT normalization factor,1/n) in order to get the apropriate noise level provided by Peille (54 pA/rHz)
-    - Load in noiseIntervals only those intervals with a proper sigma and NumMeanSamples = cnt (in order not to change excesively the code when weightMS) 
+    - Load in noiseIntervals only those intervals with a proper sigma (if :option:`rmNoiseInterval` = yes) and NumMeanSamples = cnt (in order not to change excesively the code when weightMS) 
     - Generate WEIGHT representation
     - Create output FITS File: GENNOISESPEC representation file 
     - Write extensions *NOISE*, *NOISEALL* and *WEIGHTMS* (call :cpp:func:`writeTPSreprExten`)
@@ -3083,6 +3083,10 @@ Search functions by name at :ref:`genindex`.
     double **samplingRate**
     
         Sampling rate (hertzs)
+        
+    char **rmNoiseIntervals**
+    
+        Remove some noise intervals before calculating the noise spectrum if *rmNoiseIntervals=yes*
 
 .. cpp:function:: int getB(gsl_vector *vectorin, gsl_vector *tstart, int nPulses, gsl_vector **lb, int sizepulse, gsl_vector **B, gsl_vector **rmsB)
     
@@ -4834,6 +4838,102 @@ Search functions by name at :ref:`genindex`.
 .. _P:
 
 
+.. cpp:function:: int obtainRiseFallTimes (gsl_vector *recordNOTFILTERED, double samprate, gsl_vector *tstartgsl, gsl_vector *tendgsl, gsl_vector *Bgsl, gsl_vector *Lbgsl, int numPulses, gsl_vector **tauRisegsl, gsl_vector **tauFallgsl)
+
+    Located in file: *tasksSIRENA.cpp*
+    
+    This function provides an estimation of the rise and fall time of the detected pulses in a record.
+    
+    - Find the maximum of each pulse: *amax*
+    - Baseline of each pulse: *abase*
+    - Find the first sample in the rising part above the 50% (*amax/2*): *t2*
+        - Previous and post sample to *t2*: *t1* and *t3*
+        - Line by using 3 points: *(t1,a1)*, *(t2,a2)* and *(t3,a3)*
+        - *t0 (t0,abase)*
+        - *tmax (tmax,amax)*
+        - Rise time = *tmax-t0*
+    - Find the previous sample in the decreasing part to the first sample below the 50% (*amax/2*): *t2*
+        - Previous and post sample to *t2*: *t3* and *t1*
+        - Line by using 3 points: *(t1,a1)*, *(t2,a2)* and *(t3,a3)*
+        - *t0 (t0,abase)*
+        - *tmax (tmax,amax)*
+        - Fall time = *t0-tmax*
+       
+    **Members/Variables**
+    
+    gsl_vector* **recordNOTFILTERED**
+    
+        Record neither low-pass filtered nor differentiated
+        
+    double **samprate**
+    
+        Sampling rate
+        
+    gsl_vector* **tstartgsl**
+    
+        Starting time of the detected pulses in the record (samples)
+    
+    gsl_vector* **tendgsl**
+    
+        Ending time of the detected pulses in the record (samples)
+    
+    gsl_vector* **Bgsl**
+    
+        In general, sum of the *Lb* digitized data samples of a pulse-free interval immediately before each pulse
+    
+    gsl_vector* **Lbgsl**
+    
+        Number of samples added in *Bgsl* for each pulse
+    
+    int **numPulses**
+    
+        Number of detected pulses in the record
+    
+    gsl_vector** **tauRisegsl**
+    
+        Rise time of the detected pulses in the record (seconds)
+    
+    gsl_vector** **tauFallgsl**
+    
+        Fall time of the detected pulses in the record (seconds)
+    
+    .. cpp:member:: gsl_vector* recordNOTFILTERED
+    
+        Record neither low-pass filtered nor differentiated
+    
+    .. cpp:member:: double samprate
+    
+        Sampling rate
+        
+    .. cpp:member:: gsl_vector* tstartgsl
+    
+        Starting time of the detected pulses in the record (samples)
+    
+    .. cpp:member:: gsl_vector* tendgsl
+    
+        Ending time of the detected pulses in the record (samples)
+    
+    .. cpp:member:: gsl_vector* Bgsl
+    
+        In general, sum of the *Lb* digitized data samples of a pulse-free interval immediately before each pulse
+    
+    .. cpp:member:: gsl_vector* Lbgsl
+    
+        Number of samples added in *Bgsl* for each pulse
+    
+    .. cpp:member:: int numPulses
+    
+        Number of detected pulses in the record
+    
+    .. cpp:member:: gsl_vector** tauRisegsl
+    
+        Rise time of the detected pulses in the record (seconds)
+    
+    .. cpp:member:: gsl_vector** tauFallgsl
+    
+        Fall time of the detected pulses in the record (seconds)
+    
+
 .. cpp:function:: int parabola3Pts (gsl_vector *x, gsl_vector *y, double *a, double *b, double *c)
     
     Located in file: *genutils.cpp*
@@ -5073,9 +5173,9 @@ Search functions by name at :ref:`genindex`.
     
     5) Calculate the end time of the found pulses and check if the pulse is saturated
     
-    6) Obtain the approximate rise and fall times of each pulse (to be done)
+    6) Calculate the baseline (mean and standard deviation) before a pulse (in general *before*) :math:`\Rightarrow` To be written in **BSLN** and **RMSBSLN** columns in the output FITS file
     
-    7) Calculate the baseline (mean and standard deviation) before a pulse (in general *before*) :math:`\Rightarrow` To be written in **BSLN** and **RMSBSLN** columns in the output FITS file
+    7) Obtain the approximate rise and fall times of each pulse 
     
     8) Load the found pulses data in the input/output *foundPulses* structure
     
