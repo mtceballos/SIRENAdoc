@@ -41,7 +41,7 @@ The first step is creating a photon list (not required if is already available o
 ::
 
     > tesconstpileup PixImpList=noise.piximpact XMLFile=tes.XML tstop=simulationTime energy=0 \
-    pulseDistance=1 triggersize=10000
+    pulseDistance=1 triggersize=10000 prebuffer=0
     
     
 .. _pixImpactFig:
@@ -63,9 +63,9 @@ The second step is simulating the noise stream. This can be done by choosing eit
 ::
   
     > tessim PixID=pixelNumber PixImpList=noise.piximpact Streamfile=noise.fits tstart=0. \
-    tstop=simulationTime triggertype=noise triggersize=10000 prebuffer=1000 \
-    PixType='file:newpixels[SPA]' acbias=yes  
-    
+    tstop=simulationTime triggertype=noise triggersize=10000 prebuffer=0 \
+    PixType=file:${SIXTE}/share/sixte/instruments/athena-xifu/newpix_LPA75um.fits \
+    acbias=yes  
   
 * ``xifusim`` (XIFUSIM): use option `simnoise=y`.
   
