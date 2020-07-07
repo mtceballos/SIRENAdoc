@@ -157,7 +157,7 @@ As in the noise simulation, either SIXTE (``tessim``) or XIFUSIM (``xifusim``) a
 
   > tessim PixID=pixelNumber PixImpList=calib.piximpact Streamfile=calib.fits tstart=0. \
   tstop=simulationTime triggertype='diff:3:100:supress' triggerSize=recordSize \
-  PixType=newpixels[SPA] acbias=yes
+  PixType=file:${SIXTE}/share/sixte/instruments/athena-xifu/newpix_LPA75um.fits acbias=yes
     
 where *suppress* is the time (in samples) after the triggering of an event, during which `tessim` will avoid triggering again (see figure below).
 
