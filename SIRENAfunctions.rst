@@ -1098,8 +1098,8 @@ Search functions by name at :ref:`genindex`.
         
         2) If it does not exist :math:`\Rightarrow` Create it and set *appendToLibrary = false*
 
-            - Write keyword ``EVENTCNT`` = 1 in the LIBRARY extension
-            - Write the whole list of input parameters in ``HISTORY`` in the Primary extension (by usin 'HDpar_stamp')
+            - Write keyword ``EVENTCNT`` = 1 in the *LIBRARY* extension
+            - Write the whole list of input parameters in ``HISTORY`` in the *Primary* extension (by usin 'HDpar_stamp')
             
     **Members/Variables**
             
@@ -2967,6 +2967,7 @@ Search functions by name at :ref:`genindex`.
 
         FITS type (TINT, TSHORT, TDOUBLE, etc.)
     
+    
 .. _G:
 
 .. cpp:function:: int gennoisespec_main()
@@ -2992,10 +2993,15 @@ Search functions by name at :ref:`genindex`.
     - Reading all programm parameters by using PIL
     - Open input FITS file
     - Check if input FITS file have been simulated with TESSIM or XIFUSIM
+    - To calculate *aducnv* (conversion factor between arbitrary units and A)...
+    - ...or read ``ADU_CNV``, ``I_BIAS`` and ``ADU_BIAS``
     - Read keywords to transform to resistance space
     - Read and check other input keywords
-    - Read the sampling rate from input FITS file (check its value with the samplinRate input parameter)
     - Read other necessary keywords from ANY HDU
+    - Calculate the sampling rate
+        - By using keywords in input FITS file (from ``DELTAT`` or ``TCLOCK``+``DEC_FAC`` or ``NUMROW``+``P_ROW``)
+        - If necessary read the sampling rate from input FITS file (from the ``HISTORY`` in the *Primary* HDU)
+        - If not possible, provide an error message to include DELTAT (inverse of sampling rate) in the input FITS file
     - Get structure of input FITS file columns
     - Initialize variables and transform from seconds to samples
     - Declare variables
@@ -3079,10 +3085,6 @@ Search functions by name at :ref:`genindex`.
     int **matrixSize**
     
         Size of noise matrix if only one to be created
-        
-    double **samplingRate**
-    
-        Sampling rate (hertzs)
         
     char **rmNoiseIntervals**
     
@@ -3667,6 +3669,7 @@ Search functions by name at :ref:`genindex`.
     - Processing each record
         - Information has been read by blocks (with nrows per block)
         - Just in case the last record has been filled out with 0's :math:`\Rightarrow` Last record discarded
+        - Convert to the resistance space if necessary
         - To avoid taking into account the pulse tails at the beginning of a record as part of a pulse-free interval
         - Low-pass filtering
    	- Differentiate 
@@ -5927,21 +5930,13 @@ Search functions by name at :ref:`genindex`.
         - If Rcmethod starts with '@' :math:`\Rightarrow` List of record input FITS files. For every FITS file:
             - Open FITS file
             - Check if input FITS file have been simulated with TESSIM or XIFUSIM
-            - Obtain sampling rate in order to check with the value from the XML file
             - If it is a xifusim simulated file
-                - Obtain the sampling rate from the HISTORY block and check
-                - Obtain 'trig_reclength' from the HISTORY block
-            - If it is a tessim simulated file
-                - Check the sampling rate from the XML and from the input FITS file (inverse of DELTAT)
+                - Obtain 'trig_reclength' from the ``HISTORY`` block
         - If Rcemethod doesn't start with '@' :math:`\Rightarrow` Single record input FITS file
             - Open FITS file
             - Check if input FITS file have been simulated with TESSIM or XIFUSIM
-            - Obtain sampling rate in order to check with the value from the XML file
             - If it is a xifusim simulated file
-                - Obtain the sampling rate from the HISTORY block and check
-                - Obtain 'trig_reclength' from the HISTORY block
-            - If it is a tessim simulated file
-                - Check the sampling rate from the XML and from the input FITS file (inverse of DELTAT)
+                - Obtain 'trig_reclength' from the ``HISTORY`` block
     - Sixt standard keywords structure
     - Open output FITS file
     - Initialize PP data structures needed for pulse filtering

@@ -97,7 +97,7 @@ On one hand, the tool calculates the FFT of the non-discarded pulse-free interva
 ::
     
     > gennoisespec inFile=noise.fits outFile=noiseSpec.fits intervalMinSamples=pulseLength \
-    nintervals=1000 pulse_length=pulseLength samplingRate=sampling_rate
+    nintervals=1000 pulse_length=pulseLength
                 
 .. _noiseSpec:
 
@@ -106,8 +106,6 @@ On one hand, the tool calculates the FFT of the non-discarded pulse-free interva
    :scale: 50%
    
    Noise spectrum (see noise file :ref:`description <outNoise>`)
-
-If :option:`samplingRate` is provided, it is tried to read it also from the input FITS file and both values are checked (from **HISTORY** in the case of ``xifusim`` and as the inverse of **DELTAT** in the case of ``tessim``). If :option:`samplingRate` is not provided, it is tried to read it from the input FITS file. 
 
 On the other hand, if :option:`weightMS` = *yes* the tool calculates the covariance matrix of the noise, :math:`V`, whose elements are expectation values (:math:`E[·]`) of two-point products for a pulse-free data sequence :math:`{di}` (over the unfiltered data) (:cite:`Fowler2015`)
 
@@ -128,6 +126,8 @@ The weight matrix is the inverse of the covariance matrix, :math:`V^{-1}`. The w
 :ref:`gennoisespec` also adds the ``BSLN0`` and ``NOISESTD`` keywords to the *NOISE* HDU in the *noise data* file. They store the mean and the standard deviation of the noise (by working with the long noise interval).
 
 If the noise spectrum or the weight matrixes are to be created from a data stream containing pulses, care should be taken with the parameters :ref:`scaleFactor <scaleFactor_gennoisespec>`, :ref:`samplesUp <samplesUp_gennoisespec>` and :ref:`nSgms <nSgms_gennoisespec>` responsible of the detection process.
+
+The sampling rate is calculated by using some keywords in the input FITS file. In case of ``tessim`` simulated data files, using the ``DELTAT`` keyword *samplingRate=1/deltat*. In case of ``xifusim`` simulated data files, every detector type defines a master clock-rate ``TCLOCK`` and the sampling rate is calculated either from a given decimation factor ``DEC_FAC`` (FDM and NOMUX) as *samplingRate=1/(tclock·dec_fac)*, or from the row period  ``P_ROW`` and the number of rows ``NUMROW`` (TDM) as *samplingRate=1/(tclock·numrow·p_row)*. In case of old simulated files, the sampling rate could be read from the ``HISTORY`` keyword in the *Primary* HDU. If the sampling frequency can not be get from the input file after all, a message will ask the user to include the ``DELTAT`` keyword (inverse of the sampling rate) in the input FITS file before running again.
       
 .. _library:
 
@@ -265,6 +265,8 @@ The input data (simulated) files, currently required to be in FITS format, are a
    
 .. [#]  When working with ``xifusim``, *TESRECORDS* HDU (among others HDUs such as *GEOCHANNELPARAM*, *TESPARAM*, *SQUIDPARAM*,...) instead of *RECORDS* HDU.
 
+The sampling rate is calculated by using some keywords in the input FITS file. In case of ``tessim`` simulated data files, using the ``DELTAT`` keyword *samplingRate=1/deltat*. In case of ``xifusim`` simulated data files, every detector type defines a master clock-rate ``TCLOCK`` and the sampling rate is calculated either from a given decimation factor ``DEC_FAC`` (FDM and NOMUX) as *samplingRate=1/(tclock·dec_fac)*, or from the row period  ``P_ROW`` and the number of rows ``NUMROW`` (TDM) as *samplingRate=1/(tclock·numrow·p_row)*. In case of old simulated files, the sampling rate could be read from the ``HISTORY`` keyword in the *Primary* HDU or even from the input XML file. If the sampling frequency can not be get from the input files after all, a message will ask the user to include the ``DELTAT`` keyword (inverse of the sampling rate) in the input FITS file before running again.
+
 .. _reconOutFiles:
 	
 Output Files
@@ -386,7 +388,7 @@ This is an iterative process, until no more pulses are found.
 
 .. _lpf:
 
-If the noise is large, input data can be low-pass filtered for the initial stage of the event detection. For this purpose, the input parameter :option:`scaleFactor` (:math:`\mathit{sF}`) is used. The low-pass filtering is applied as a box-car function, a temporal average window. If the cut-off frequency of the filter is :math:`fc`, the box-car length is :math:`(1/fc) \times \mathit{samprate}`, where :math:`\mathit{samprate}` is the value of the sampling rate in Hz (inverse of the input file keyword ``DELTAT``).
+If the noise is large, input data can be low-pass filtered for the initial stage of the event detection. For this purpose, the input parameter :option:`scaleFactor` (:math:`\mathit{sF}`) is used. The low-pass filtering is applied as a box-car function, a temporal average window. If the cut-off frequency of the filter is :math:`fc`, the box-car length is :math:`(1/fc) \times \mathit{samprate}`, where :math:`\mathit{samprate}` is the value of the sampling rate in Hz.
 
 .. math:: 
     
@@ -619,6 +621,18 @@ The SIRENA input parameter that controls the reconstruction method applied is :o
 	.. math::
 
 		R = \mathit{R0} - \mathit{R0}\left(\frac{abs(\mathit{IP}-\mathit{I0\_START})/\mathit{I0\_START}}{1 + abs(\mathit{IP}-\mathit{I0\_START})/\mathit{I0\_START}}\right)
+		
+    In the case of the most recent files, those already with the ``ADU_CNV``, ``I_BIAS`` and ``ADU_BIAS`` keywords:
+    
+                :math:`I =` ``I_BIAS`` + ``ADU_CNV`` * (:math:`\mathit{PXLnnnnn}` - ``ADU_BIAS``)
+    
+                :math:`\Delta I = I-` ``I_BIAS`` = ``ADU_CNV`` * (:math:`\mathit{PXLnnnnn}` - ``ADU_BIAS``)
+    
+       .. math::
+
+            R/R0 = 1 - \left(\frac{\frac{abs(\Delta I)}{I\_BIAS}}{1 + \frac{abs(\Delta I)}{I\_BIAS}}\right)
+                
+                
 			
     * **I2RFITTED** transformation
 

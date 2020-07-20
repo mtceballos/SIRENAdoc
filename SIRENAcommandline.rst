@@ -136,14 +136,6 @@ The user must supply the following input parameters:
 	Size of noise matrix if only one to be calculated, in samples. 
 
 	Default: 0
-	
-.. _samplingRate_gennoisespec:
-
-.. option:: samplingRate=<Hz> 
-
-	Sampling rate, in hertzios. 
-
-	Default: -999.0
 
 .. option:: rmNoiseInterval=<yes|no> 
 
@@ -156,10 +148,10 @@ A typical command line run of this tool would be:
 ::
 
 	> gennoisespec inFile=noise.fits outFile=noiseSpec.fits intervalMinSamples=pulseLength \
-    		pulse_length=pulseLength nintervals=1000 samplingRate=sampling_rate
+    		pulse_length=pulseLength nintervals=1000 
 
-If :option:`samplingRate` is provided, it is tried to read it also from the input FITS file and both values are checked (from **HISTORY** in the case of ``xifusim`` and as the inverse of **DELTAT** in the case of ``tessim``). If :option:`samplingRate` is not provided, it is tried to read it from the input FITS file. 
-    		
+The sampling rate is calculated by using some keywords in the input FITS file. In case of ``tessim`` simulated data files, using the ``DELTAT`` keyword *samplingRate=1/deltat*. In case of ``xifusim`` simulated data files, every detector type defines a master clock-rate ``TCLOCK`` and the sampling rate is calculated either from a given decimation factor ``DEC_FAC`` (FDM and NOMUX) as *samplingRate=1/(tclock·dec_fac)*, or from the row period  ``P_ROW`` and the number of rows ``NUMROW`` (TDM) as *samplingRate=1/(tclock·numrow·p_row)*. In case of old simulated files, the sampling rate could be read from the ``HISTORY`` keyword in the *Primary* HDU. If the sampling frequency can not be get from the input file after all, a message will ask the user to include the ``DELTAT`` keyword (inverse of the sampling rate) in the input FITS file before running again.
+
 .. _outNoise:
 
 The output FITS file contains three HDUs, *NOISE*, *NOISEALL* and *WEIGHTMS*.
@@ -471,6 +463,7 @@ To run SIRENA implementation, the user must supply the following input parameter
 
 	Default: *yes*
 
+The sampling rate is calculated by using some keywords in the input FITS file. In case of ``tessim`` simulated data files, using the ``DELTAT`` keyword *samplingRate=1/deltat*. In case of ``xifusim`` simulated data files, every detector type defines a master clock-rate ``TCLOCK`` and the sampling rate is calculated either from a given decimation factor ``DEC_FAC`` (FDM and NOMUX) as *samplingRate=1/(tclock·dec_fac)*, or from the row period  ``P_ROW`` and the number of rows ``NUMROW`` (TDM) as *samplingRate=1/(tclock·numrow·p_row)*. In case of old simulated files, the sampling rate could be read from the ``HISTORY`` keyword in the *Primary* HDU or even from the input XML file. If the sampling frequency can not be get from the input files after all, a message will ask the user to include the ``DELTAT`` keyword (inverse of the sampling rate) in the input FITS file before running again.
 
 The output file will also be a FITS file storing one event per row with the following information in the HDU named *EVENTS*:
 
