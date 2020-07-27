@@ -141,7 +141,7 @@ The user must supply the following input parameters:
 
 	Remove some noise intervals before calculating the noise spectrum if *yes*.
 
-	Default: *yes*
+	Default: *no*
 
 A typical command line run of this tool would be:
 
@@ -491,8 +491,11 @@ The output file will also be a FITS file storing one event per row with the foll
 
 * **PH_ID**: photon number identification for cross matching with the impact list
 
-* **GRADING**: Pulse grade (HighRes=1, MidRes=2, LimRes=3, LowRes=4, Rejected=-1, Pileup=-2)
+* **RISETIME**: rise time of the event (in s)
 
+* **FALLTIME**: fall time of the event (in s)
+
+* **GRADING**: Pulse grade (HighRes=1, MidRes=2, LimRes=3, LowRes=4, Rejected=-1, Pileup=-2)
 
 .. _xifusim:
 

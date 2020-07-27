@@ -560,32 +560,40 @@ The SIRENA input parameter that controls the reconstruction method applied is :o
     A new approach aimed at dealing with the non-linearity of the signals, is the transformation of the current signal before the reconstruction process to a (quasi) resistance space (:cite:`Bandler2006`, :cite:`Lee2015`). It should improve the linearity by removing the non-linearity due to the bias circuit, although the non-linearity from the R-T transition still remains. A potential additional benefit could also be a more uniform noise across the pulse. 
 
     This type of transformations are currently implemented in SIRENA and can be accessed through the :option:`EnergyMethod` command line option. Some of them, considers linearization as a linear scale in the height of the pulses with energy (*I2RALL*, *I2RNOL*, *I2R*) while the last one is also able to get a linear  gain scale when the signal is reconstructed with a simple filter (*I2RFITTED*).
+
+    Let's see first some definitions given by columns and keywords in simulated data files to make the transformation to the (quasi) resistance space possible:
 	
-    Let's see first some definitions given by columns and keywords in ``tessim`` simulated data files [#]_:
+	:ADC: Data signal in current space [ADU (arbitrary data units)] (column)
+	
+	*Group 1*:
+	
+	:``ADU_CNV``: ADU conversion factor [Amp/ADU] (keyword)
+	:``I_BIAS``: Bias current [A] (keyword)
+	:``ADU_BIAS``: Bias current [ADU] (keyword)
+	
+	*Group 2*: 
+	
+	:I0_START: Bias current [A] (column)
+	:TTR: Transformer Turns Ratio (column)
+	:LFILTER: Filter circuit inductance [H] (column)
+	:RPARA: Parasitic resistor value [Ohm] (column)
+	:``IMIN``: Current corresponding to lowest ADU value [Amp] (keyword)
+	:``IMAX``: Current corresponding to largest ADU value [Amp] (keyword)
+	:R0: Operating point resistance [Ohm] (column) 
+	
+	or
+	
+	:V0: Operating point voltage [V] (column)
+	
+* **I2RALL** transformation
 
-	:PXLnnnnn: column that stores the data signal in pixel *nnnnn* [ADC]
-	:PULSEnnnnn: column for the data signal in pixel *nnnnn* over the bias current [Amp]
-	:``ADUCNV``: ADU conversion factor [Amp/ADU]
-	:``I0_START``: Initial bias current [Amp]
-	:``IMIN``: Current corresponding to 0 ADU [Amp]
-	:I: Data signal in Current space [Amp]
-	:``R0``: Operating point resistance [Ohm]
-	:``TTR``: Transformer Turns Ratio
-	:``LFILTER``: Filter circuit inductance [H]
-	:``RPARA``: Parasitic resistor value [Ohm]
-
-	:math:`IP \equiv \mathit{PULSEnnnnn} = \mathit{PXLnnnnn} \times` ``ADUCNV`` + ``IMIN`` = ``I0_START`` - I
-
-    * **I2RALL** transformation
-
-        ``tessim`` (:cite:`Wilms2016`) is based on a generic model of the TES/absorber pixel with a first stage read-out circuit. The overall setup of this model is presented in the figure below. ``tessim`` performs the numerical solution of the differential equations for the time-dependent temperature, :math:`T(t)`, and the current, :math:`I(t)`, in the TES using :cite:`Irwin2005` :
+    ``tessim`` (:cite:`Wilms2016`) is based on a generic model of the TES/absorber pixel with a first stage read-out circuit. The overall setup of this model is presented in the figure below. ``tessim`` performs the numerical solution of the differential equations for the time-dependent temperature, :math:`T(t)`, and the current, :math:`I(t)`, in the TES using :cite:`Irwin2005` :
                 
-        .. figure:: images/Physicsmodel_equivalentcircuit.png
-            :align: center
-            :width: 60% 
+    .. figure:: images/Physicsmodel_equivalentcircuit.png
+        :align: center
+        :width: 60% 
                                         
-            Physics model coupling the thermal and electrical behaviour of the TES/absorber pixel used by ``tessim``.
-                         
+    Physics model coupling the thermal and electrical behaviour of the TES/absorber pixel used by ``tessim``.
                          
         .. math::
 
@@ -593,70 +601,162 @@ The SIRENA input parameter that controls the reconstruction method applied is :o
             
             L \frac{dI}{dt} = V_0 - IR_L - IR(T,I) + Noise
 						
-        In the electrical equation, :math:`L` is the effective inductance of the readout circuit, :math:`R_L` is the effective load resistor and :math:`V_0` is the constant voltage bias. Under AC bias conditions, 
+    In this transformation, the *Group 2* of info is needed. In this case the ADU conversion factor must be calculated taking into account the number of quantification levels (65534):  
+        
+        :math:`aducnv =` (``IMAX`` - ``IMIN``) / 65534 
+        
+        Therefore, the current data signal in Amp unit is:
+        
+        :math:`I = ADC * aducnv` + ``IMIN``
+        
+        
+    In the electrical equation, :math:`L` is the effective inductance of the readout circuit, :math:`R_L` is the effective load resistor and :math:`V_0` is the constant voltage bias (it must be calculated if it is not provided in the input FITS file but :math:`R_0`). Under AC bias conditions, 
                 
-                :math:`L =` ``LFILTER`` / ``TTR²``
-			
-                :math:`R_L =` ``RPARA`` / ``TTR²``
+        :math:`L =` ``LFILTER`` / ``TTR²``
+
+        :math:`R_L =` ``RPARA`` / ``TTR²``
                 
-                :math:`\mathit{V0} =` ``I0_START`` ( ``R0`` :math:`+ \mathit{R_L} )`
+        :math:`\mathit{V0} =` ``I0_START`` ( ``R0`` :math:`+ \mathit{R_L} )`
                 
-                and thus the transformation to resistance space is:
+    and thus the transformation to resistance space is:
+                
+        .. math::
+                
+            R = \frac{(\mathit{V0} - I \cdot R_L - L \cdot dI/dt)}{I}
 
-                :math:`R = (\mathit{V0} - I \cdot R_L - L \cdot dI/dt)/I`
 
+* **I2RNOL** transformation
 
-    * **I2RNOL** transformation
-
-	In the previous transformation *I2RALL*, the addition of a derivative term increases the noise and thus degrades the resolution. Therefore, a new transformation *I2RNOL* is done where the circuit inductance is neglected ( :cite:`Lee2015` ), thus suppressing the main source on non-linearity of the detector that comes from the first stage read-out circuit:
+    In the previous transformation *I2RALL*, the addition of a derivative term increases the noise and thus degrades the resolution. Therefore, a new transformation *I2RNOL* is done where the circuit inductance is neglected ( :cite:`Lee2015` ), thus suppressing the main source on non-linearity of the detector that comes from the first stage read-out circuit:
 		
 	.. math::
 
-		R = (\mathit{V0} - I \cdot R_L)/I
+		R = \frac{(\mathit{V0} - I \cdot R_L)}{I}
+		
+    As in the previous transformation, the *Group 2* of info is needed.
 	
-    * **I2R** transformation
+* **I2R** transformation
 
-        A different linearization (in the sense of pulse height vs. energy) has been implemented in SIRENA for developing purposes:
+    A different linearization (in the sense of pulse height vs. energy) has been implemented in SIRENA for developing purposes.
+        
+    If the *Group 1* of info is available in the input FITS file:
+		
+        :math:`\Delta I=` ``ADU_CNV`` * :math:`(\mathit{ADC}`-``ADU_BIAS``:math:`)`
+		
+        .. math::
+
+            \frac{R}{R0} = \mathit{1} - \left(\frac{abs(\Delta I)/\mathit{I0\_START}}{1 + abs(\Delta I)/\mathit{I0\_START}}\right)
+             
+    If the *Group 1* of info is not available in the input FITS file, the *Group 2* is used. The :math:`R/R0` expression is the same but:
+        
+        :math:`I = ADC * aducnv` + ``IMIN``
+        
+        :math:`\Delta I= \mathit{I}` - ``ADU_BIAS``
+        
+* **I2RFITTED** transformation
+
+    Looking for a simple transformation that would produce also a linear gain scale, a new transformation *I2RFITTED* has been proposed in :cite:`Peille2016`: 
 		
 	.. math::
-
-		R = \mathit{R0} - \mathit{R0}\left(\frac{abs(\mathit{IP}-\mathit{I0\_START})/\mathit{I0\_START}}{1 + abs(\mathit{IP}-\mathit{I0\_START})/\mathit{I0\_START}}\right)
-		
-    In the case of the most recent files, those already with the ``ADU_CNV``, ``I_BIAS`` and ``ADU_BIAS`` keywords:
-    
-                :math:`I =` ``I_BIAS`` + ``ADU_CNV`` * (:math:`\mathit{PXLnnnnn}` - ``ADU_BIAS``)
-    
-                :math:`\Delta I = I-` ``I_BIAS`` = ``ADU_CNV`` * (:math:`\mathit{PXLnnnnn}` - ``ADU_BIAS``)
-    
-       .. math::
-
-            R/R0 = 1 - \left(\frac{\frac{abs(\Delta I)}{I\_BIAS}}{1 + \frac{abs(\Delta I)}{I\_BIAS}}\right)
-                
-                
-			
-    * **I2RFITTED** transformation
-
-        Looking for a simple transformation that would produce also a linear gain scale, a new transformation *I2RFITTED* has been proposed in :cite:`Peille2016`: 
-		
-	.. math::
-		R = \mathit{V0}/(I_{fit}+I)
+	
+		R = \frac{\mathit{V0}}{(I_{fit}+I)}
                                         
-	*The optimal* :math:`I_{fit}` was found to be  :math:`45.3\mu A`.*
-		
-    .. [#] When working with ``xifusim`` simulated data files, the parameters used in the previous transformations are provided in different keywords and columns:
- 
-    * The next colums in the *TESPARAM* HDU:
+    *The optimal* :math:`I_{fit}` was found to be  :math:`45.3\mu A`.*
 
-	:V0: Initial bias voltage [V]
-        :I0_START: Initial bias current [Amp]
-        :RPARA: Parasitic resistor value [Ohm]
-        :LFILTER: Filter circuit inductance [H]
-        :TTR: Transformer Turns Ratio
+    The *Group 2* of info is used to get :math:`I` as in the **I2RALL** and **I2RNOL** cases.
 	
-    * The next keywords in the *ADCPARAM* HDU:
-	
-        :``IMIN``: Current corresponding to 0 ADU [Amp]
-        :``IMAX``: Current corresponding to maximm ADU [Amp]
+
+        .. Let's see first some definitions given by columns and keywords in ``tessim`` simulated data files [#]_:
+
+        .. :PXLnnnnn: column that stores the data signal in pixel *nnnnn* [ADC]
+        .. :PULSEnnnnn: column for the data signal in pixel *nnnnn* over the bias current [Amp]
+        .. :``ADUCNV``: ADU conversion factor [Amp/ADU]
+        .. :``I0_START``: Initial bias current [Amp]
+        .. :``IMIN``: Current corresponding to 0 ADU [Amp]
+        .. :I: Data signal in Current space [Amp]
+        .. :``R0``: Operating point resistance [Ohm]
+        .. :``TTR``: Transformer Turns Ratio
+        .. :``LFILTER``: Filter circuit inductance [H]
+        .. :``RPARA``: Parasitic resistor value [Ohm]
+
+        .. :math:`IP \equiv \mathit{PULSEnnnnn} = \mathit{PXLnnnnn} \times` ``ADUCNV`` + ``IMIN`` = ``I0_START`` - I
+
+        .. * **I2RALL** transformation
+
+           ..  ``tessim`` (:cite:`Wilms2016`) is based on a generic model of the TES/absorber pixel with a first stage read-out circuit. The overall setup of this model is presented in the figure below. ``tessim`` performs the .. numerical solution of the differential equations for the time-dependent temperature, :math:`T(t)`, and the current, :math:`I(t)`, in the TES using :cite:`Irwin2005` :
+                    
+           ..  .. figure:: images/Physicsmodel_equivalentcircuit.png
+           ..      :align: center
+           ..      :width: 60% 
+                                            
+           ..      Physics model coupling the thermal and electrical behaviour of the TES/absorber pixel used by ``tessim``.
+                            
+                            
+           ..  .. math::
+
+           ..      C \frac{dT}{dt} = -P_b + R(T,I)I^2 + P_{X-ray} + Noise
+                
+           ..      L \frac{dI}{dt} = V_0 - IR_L - IR(T,I) + Noise
+                            
+           ..  In the electrical equation, :math:`L` is the effective inductance of the readout circuit, :math:`R_L` is the effective load resistor and :math:`V_0` is the constant voltage bias. Under AC bias conditions, 
+                    
+           ..          :math:`L =` ``LFILTER`` / ``TTR²``
+                
+           ..          :math:`R_L =` ``RPARA`` / ``TTR²``
+                    
+           ..          :math:`\mathit{V0} =` ``I0_START`` ( ``R0`` :math:`+ \mathit{R_L} )`
+                    
+           ..          and thus the transformation to resistance space is:
+                    
+           ..          .. math::
+                    
+           ..              \frac{R}{R0} = \frac{(\mathit{V0} - I \cdot R_L - L \cdot dI/dt)}{I \cdot R0}
+
+
+        .. * **I2RNOL** transformation
+
+        .. In the previous transformation *I2RALL*, the addition of a derivative term increases the noise and thus degrades the resolution. Therefore, a new transformation *I2RNOL* is done where the circuit inductance is .. neglected ( :cite:`Lee2015` ), thus suppressing the main source on non-linearity of the detector that comes from the first stage read-out circuit:
+            
+       ..  .. math::
+
+       ..      \frac{R}{R0} = \frac{(\mathit{V0} - I \cdot R_L)}{I \cdot R0}
+        
+       ..  * **I2R** transformation
+
+       ..      A different linearization (in the sense of pulse height vs. energy) has been implemented in SIRENA for developing purposes:
+            
+      ..   .. math::
+
+      ..       \frac{R}{R0} = \mathit{1} - \left(\frac{abs(\mathit{IP}-\mathit{I0\_START})/\mathit{I0\_START}}{1 + abs(\mathit{IP}-\mathit{I0\_START})/\mathit{I0\_START}}\right)
+                    
+                
+     ..    * **I2RFITTED** transformation
+
+     ..        Looking for a simple transformation that would produce also a linear gain scale, a new transformation *I2RFITTED* has been proposed in :cite:`Peille2016`: 
+            
+     ..     .. math::
+        
+     ..        \frac{R}{R0} = \frac{\mathit{V0}}{(I_{fit}+I) \cdot R0}
+                                            
+     ..    *The optimal* :math:`I_{fit}` was found to be  :math:`45.3\mu A`.*
+		
+    
+        .. (.. [#]) When working with ``xifusim`` simulated data files, the parameters used in the previous transformations are provided in different keywords and columns:
+    
+                .. * The next colums in the *TESPARAM* HDU:
+
+                    :V0: Initial bias voltage [V]
+                    :I0_START: Initial bias current [Amp]
+                    :RPARA: Parasitic resistor value [Ohm]
+                    :LFILTER: Filter circuit inductance [H]
+                    :TTR: Transformer Turns Ratio
+                
+                .. * The next keywords in the *ADCPARAM* HDU:
+                
+                    .. :``IMIN``: Current corresponding to 0 ADU [Amp]
+                    .. :``IMAX``: Current corresponding to maximm ADU [Amp]
+                    
+                .. or in the 
 
 .. _preBuffer or 0-padding:
 		

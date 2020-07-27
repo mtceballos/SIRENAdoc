@@ -882,7 +882,7 @@ Search functions by name at :ref:`genindex`.
     
     - Conversion according to :option:`EnergyMethod` = **I2R**:
         
-        :math:`DeltaI = I-I_{bias}`    :math:`R = R_0 - R_0*(abs(DeltaI)/I_{bias})/(1+abs(DeltaI)/I_{bias})`
+        :math:`DeltaI = I-I_{bias}`    :math:`R/R0 = 1 - (abs(DeltaI)/I_{bias})/(1+abs(DeltaI)/I_{bias})`
         
     - Conversion according to :option:`EnergyMethod` = **I2RALL**:
     
@@ -2995,14 +2995,14 @@ Search functions by name at :ref:`genindex`.
     - Check if input FITS file have been simulated with TESSIM or XIFUSIM
     - To calculate *aducnv* (conversion factor between arbitrary units and A)...
     - ...or read ``ADU_CNV``, ``I_BIAS`` and ``ADU_BIAS``
-    - Read keywords to transform to resistance space
+    - Get structure of input FITS file columns
+    - Read info to transform to resistance space
     - Read and check other input keywords
     - Read other necessary keywords from ANY HDU
     - Calculate the sampling rate
         - By using keywords in input FITS file (from ``DELTAT`` or ``TCLOCK``+``DEC_FAC`` or ``NUMROW``+``P_ROW``)
         - If necessary read the sampling rate from input FITS file (from the ``HISTORY`` in the *Primary* HDU)
         - If not possible, provide an error message to include DELTAT (inverse of sampling rate) in the input FITS file
-    - Get structure of input FITS file columns
     - Initialize variables and transform from seconds to samples
     - Declare variables
     - Create structure to run Iteration
@@ -5925,7 +5925,8 @@ Search functions by name at :ref:`genindex`.
     
     - Register HEATOOL
     - Reading all programm parameters by using PIL
-    - Read XML info (including sampling rate)
+    - Read XML info
+    - Read the grading info from the input XML file
     - Obtain the samplig rate and the 'trig_reclength':
         - If Rcmethod starts with '@' :math:`\Rightarrow` List of record input FITS files. For every FITS file:
             - Open FITS file
