@@ -586,7 +586,7 @@ Search functions by name at :ref:`genindex`.
         Input/output intermediate parameter
 
 
-.. cpp:function:: int calculateTemplate(ReconstructInitSIRENA *reconstruct_init, PulsesCollection *pulsesAll, PulsesCollection *pulsesInRecord, double samprate, gsl_vector **pulseaverage, double *pulseaverageHeight, gsl_matrix **covariance, gsl_matrix **weight, int inputPulseLength, gsl_vector **pulseaverageMaxLengthFixedFilter)    
+.. cpp:function:: int calculateTemplate(ReconstructInitSIRENA *reconstruct_init, PulsesCollection *pulsesAll, PulsesCollection *pulsesInRecord, double samprate, gsl_vector **pulseaverage, double *pulseaverageHeight, gsl_matrix **covariance, gsl_matrix **weight, gsl_vector **pulseaverageMaxLengthFixedFilter)    
     
     Located in file: *tasksSIRENA.cpp*
     
@@ -642,10 +642,6 @@ Search functions by name at :ref:`genindex`.
     gsl_matrix** **weight**
 
         GSL matrix with weight matrix (inverse of covariance matrix) 
-        
-    int **inputPulseLength**
-
-        :option:`PulseLength` input parameter
     
     gsl_vector** **pulseaverageMaxLengthFixedFilter**
 
@@ -682,10 +678,6 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: gsl_matrix** weight
 
         GSL matrix with weight matrix (inverse of covariance matrix) 
-        
-    .. cpp:member: int inputPulseLength
-
-        :option:`PulseLength` input parameter
 	
     .. cpp:member:: gsl_vector** pulseaverageMaxLengthFixedFilter
 
@@ -868,7 +860,7 @@ Search functions by name at :ref:`genindex`.
         Optimal filter spectrum (complex values) (output)
         
         
-.. cpp:function:: int convertI2R (char* EnergyMethod, double Ibias, double Imin, double Imax, double ADU_CNV, double ADU_BIAS, double I_BIAS, double samprate, gsl_vector **invector)
+.. cpp:function:: int convertI2R (char* EnergyMethod, double Ibias, double Imin, double Imax, double ADU_CNV, double ADU_BIAS, double I_BIAS, double Ifit, double samprate, gsl_vector **invector)
     
     Located in file: *tasksSIRENA.cpp*
     
@@ -884,7 +876,9 @@ Search functions by name at :ref:`genindex`.
             
         - Conversion according to :option:`EnergyMethod` = **I2RFITTED**:
         
-            :math:`R/V0 = -1/(I_{fit}+ADC)` being :math:`I_{fit}` = ``ADU_BIAS``
+        ..    :math:`R/V0 = -1/(I_{fit}+ADC)` being :math:`I_{fit}` = ``ADU_BIAS``
+        
+            :math:`R/V0 = -1/(I_{fit}+ADC)` being :math:`I_{fit}` value an input parameter
         
     
     If the ``ADU_CNV`` keyword is NOT in the input FITS file and :cpp:member:`invector` contains the **ADC** column data from the input FITS file:
@@ -899,7 +893,9 @@ Search functions by name at :ref:`genindex`.
     
         - Conversion according to :option:`EnergyMethod` = **I2RFITTED**  
 
-            :math:`R/V0 = -1/(I_{fit}+ADC)` being :math:`I_{fit}=I0\_START(adu)=I0\_START(A)/aducnv(A/adu)`
+            .. :math:`R/V0 = -1/(I_{fit}+ADC)` being :math:`I_{fit}=I0\_START(adu)=I0\_START(A)/aducnv(A/adu)`
+            
+            :math:`R/V0 = -1/(I_{fit}+ADC)` being :math:`I_{fit}` value an input parameter
         
     **Members/Variables**
 
@@ -1084,7 +1080,7 @@ Search functions by name at :ref:`genindex`.
         GSL vector with output histogram y-axis
             
                             
-.. cpp:function:: int createLibrary(ReconstructInitSIRENA* reconstruct_init, bool *appendToLibrary, fitsfile **inLibObject, int inputPulseLength)
+.. cpp:function:: int createLibrary(ReconstructInitSIRENA* reconstruct_init, bool *appendToLibrary, fitsfile **inLibObject)
     
     Located in file: *tasksSIRENA.cpp*
 
@@ -1110,10 +1106,6 @@ Search functions by name at :ref:`genindex`.
     fitsfile** **inLibObject**
 
         Object which contains information of the library FITS file (used also by :cpp:func:`writeLibrary`)
-	
-    int **inputPulseLength**
-        
-        :option:`PulseLength` input parameter
         
     .. cpp:member:: ReconstructInitSIRENA** reconstruct_init
     
@@ -1126,10 +1118,6 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: fitsfile** inLibObject
 
         Object which contains information of the library FITS file (used also by :cpp:func:`writeLibrary`)
-	
-    .. cpp:member:: int inputPulseLength
-        
-        :option:`PulseLength` input parameter
         
 .. cpp:function:: int createTPSreprFile ()
 
@@ -3074,6 +3062,10 @@ Search functions by name at :ref:`genindex`.
     
         Transform to resistance space (I2R, I2RFITTED) or not (OPTFILT)
         
+    double **Ifit**
+    
+        Constant to apply the I2RFITTED conversion (adu)
+        
     char **clobber**
     
         Re-write output files if *clobber=yes*
@@ -3735,7 +3727,7 @@ Search functions by name at :ref:`genindex`.
     
         This is a user supplied pointer that can be used to pass ancillary information from the driver routine to the work function. It may point to a single number, an array, or to a structure containing an arbitrary set of parameters
 
-.. cpp:function:: extern_C_void initializeReconstructionSIRENA(ReconstructInitSIRENA* reconstruct_init, char* const record_file, fitsfile *fptr, char* const library_file, char* const event_file, int pulse_length, double scaleFactor, int samplesUp, int samplesDown, double nSgms, int detectSP, int opmode, char *detectionMode, double LrsT, double LbT, char* const noise_file, char* filter_domain, char* filter_method, char* energy_method, double filtEev, char *ofnoise, int lagsornot, int nLags, int Fitting35, int ofiter, char oflib, char *ofinterp, char* oflength_strategy, int oflength, int preBuffer, double monoenergy, char hduPRECALWN, char hduPRCLOFWM, int largeFilter, int interm, char* const detectFile, int errorT, int Sum0Filt, char clobber, int maxPulsesPerRecord, double SaturationValue, char* const tstartPulse1, int tstartPulse2, int tstartPulse3, double energyPCA1, double energyPCA2, char * const XMLFile, int* const status)
+.. cpp:function:: extern_C_void initializeReconstructionSIRENA(ReconstructInitSIRENA* reconstruct_init, char* const record_file, fitsfile *fptr, char* const library_file, char* const event_file, int pulse_length, double scaleFactor, int samplesUp, int samplesDown, double nSgms, int detectSP, int opmode, char *detectionMode, double LrsT, double LbT, char* const noise_file, char* filter_domain, char* filter_method, char* energy_method, double filtEev, double Ifit, char *ofnoise, int lagsornot, int nLags, int Fitting35, int ofiter, char oflib, char *ofinterp, char* oflength_strategy, int oflength, int preBuffer, double monoenergy, char hduPRECALWN, char hduPRCLOFWM, int largeFilter, int interm, char* const detectFile, int errorT, int Sum0Filt, char clobber, int maxPulsesPerRecord, double SaturationValue, char* const tstartPulse1, int tstartPulse2, int tstartPulse3, double energyPCA1, double energyPCA2, char * const XMLFile, int* const status)
     
     Located in file: *integraSIRENA.cpp*
     
@@ -3827,6 +3819,10 @@ Search functions by name at :ref:`genindex`.
     double **filtEev**
     
          Energy of the filters of the library to be used to calculate energy (only for OPTFILT, I2R and I2RFITTED), :option:`filtEeV`
+         
+    double **Ifit**
+         
+         Constant to apply the I2RFITTED conversion
 
     char* **ofnoise**
     
@@ -4020,6 +4016,10 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: double filtEev
     
          Energy of the filters of the library to be used to calculate energy (only for OPTFILT, I2R and I2RFITTED), :option:`filtEeV`
+         
+    .. cpp:member:: double Ifit
+    
+         Constant to apply the I2RFITTED conversion
 
     .. cpp:member:: char* ofnoise
     
@@ -6100,6 +6100,10 @@ Search functions by name at :ref:`genindex`.
     
         Energy of the filters of the library to be used to calculate energy (only for **OPTFILT**, **I2R** and **I2RFITTED**)
         
+    double **Ifit**
+    
+        Constant to apply the I2RFITTED conversion
+        
     char **OFNoise**
     
         Noise to use with Optimal Filtering: **NSD** or **WEIGHTM**
@@ -6312,6 +6316,10 @@ Search functions by name at :ref:`genindex`.
     .. cpp:member:: double filtEeV
     
         Energy of the filters of the library to be used to calculate energy (only for **OPTFILT**, **I2R** and **I2RFITTED**)
+        
+    .. cpp:member:: double Ifit
+    
+        Constant to apply the I2RFITTED conversion
         
     .. cpp:member:: char OFNoise
     
